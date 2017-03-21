@@ -1,28 +1,29 @@
 package app;
 
 import UI.MyWindow;
-import app.cmd.CMD;
-import app.cmd.FillPoint;
+import app.cmd.*;
 import java.util.HashMap;
+import tools.Area;
 
 public class ControlUnit implements Runnable {
+
     public final int DRAW_CMD = 1;
 
     private ColorProfile colors;
     private int currentCMD;
     private HashMap<Integer, CMD> cmds;
     private MyImage img;
-    
+
     private boolean init = false;
 
     public void init(HashMap<Integer, CMD> cmds) {
-        
+        img = new MyImage(500, 400);
         if (cmds == null || cmds.size() == 0) {
             initDefaultCommands();
         } else {
             this.cmds = cmds;
         }
-        colors = new ColorProfile();          
+        colors = new ColorProfile(img.getGraphics());        
         init = true;
     }
 
@@ -35,22 +36,23 @@ public class ControlUnit implements Runnable {
 
     @Override
     public void run() {
-        if (!init) return;
-        
-        img = new MyImage(500, 400);
-        AreaMaker.xMax = img.getImg().getWidth();
-        AreaMaker.yMax = img.getImg().getHeight();
-        
+        if (!init) {
+            return;
+        }
         MyWindow window = new MyWindow(this);
         window.repaint();
     }
 
-    public MyImage getImg() {
-        return img;
+    public void execute(Area a) {
+        cmds.get(currentCMD).execute(a);
     }
 
-    public void setImg(MyImage img) {
-        this.img = img;
+    public void resetCMD() {
+        cmds.get(currentCMD).reset();
+    }
+
+    public MyImage getImg() {
+        return img;
     }
 
     public void setActiveCMD(int key) {
@@ -59,14 +61,8 @@ public class ControlUnit implements Runnable {
         }
     }
 
-    public void execute(Area a) {
-        cmds.get(currentCMD).execute(a);
-    }
-
     public ColorProfile getColors() {
         return colors;
     }
-    
-    
-    
+
 }

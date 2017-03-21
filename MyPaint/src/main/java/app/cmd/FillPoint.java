@@ -1,37 +1,34 @@
-
 package app.cmd;
 
-import app.Area;
+import tools.Area;
 import app.ControlUnit;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.geom.Line2D;;
 
 public class FillPoint extends CMD {
-    private int prevX = -1, prevY= -1;
+
+    private final int UNINITIALIZED_VALUE = -1;
+    private int prevX = UNINITIALIZED_VALUE, prevY = UNINITIALIZED_VALUE;
+
     public FillPoint(ControlUnit controller) {
         super(controller);
-    }  
+    }
 
     @Override
     public void execute(Area area) {
-        int color = controller.getColors().getCurrentColor();
-        BufferedImage img = controller.getImg().getImg();
-        Graphics2D graphics = img.createGraphics();
-
-        graphics.setPaint(new Color(color, true));
-        
-        if (prevX == -1) {        
-            prevX = area.x;
-            prevY = area.y;
-            graphics.fillRect(area.x, area.y, area.width, area.height);
-        } else {
-            for (int i = 0; i < area.width; i++) {
-                graphics.drawLine(prevX+i, prevY, area.x+i, area.y);  
-                graphics.drawLine(prevX, prevY+i, area.x, area.y+i); 
-            }
-            prevX = area.x;
-            prevY = area.y;
+        Graphics2D g2 = controller.getImg().getGraphics();
+        if (prevX == UNINITIALIZED_VALUE) {
+            prevX = area.updateX;
+            prevY = area.updateY;
         }
+        g2.draw(new Line2D.Float(area.updateX, area.updateY, prevX, prevY));
+        prevX = area.updateX;
+        prevY = area.updateY;
+    }
+
+    @Override
+    public void reset() {
+        prevX = UNINITIALIZED_VALUE;
+        prevY = UNINITIALIZED_VALUE;
     }
 }

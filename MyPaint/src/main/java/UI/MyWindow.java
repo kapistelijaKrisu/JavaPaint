@@ -1,7 +1,6 @@
 package UI;
 
 import app.ControlUnit;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,7 +17,6 @@ public class MyWindow extends JPanel {
     private ControlUnit control;
     private int xOffSet, yOffSet;
     private float scale;
-    private BufferedImage background;
 
     public MyWindow(ControlUnit cmd, int width, int height, float scale) {
         this.scale = scale;
@@ -26,7 +24,6 @@ public class MyWindow extends JPanel {
         xOffSet = 0;
         yOffSet = 0;
         initFrame(width, height);
-        background = initBackGround();
     }
 
     public MyWindow(ControlUnit cmd) {
@@ -35,7 +32,6 @@ public class MyWindow extends JPanel {
         xOffSet = 0;
         yOffSet = 0;
         initFrame(1000, 800);
-        background = initBackGround();
     }
 
     private void initFrame(int width, int height) {
@@ -74,8 +70,9 @@ public class MyWindow extends JPanel {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.scale(scale / 1, scale / 1);
-        g.drawImage(background, 0, 0, null);
-        g.drawImage(control.getImg().getImg(), 0, 0, null);
+        
+        control.getImg().draw(g, xOffSet, yOffSet);
+        
     }
 
     @Override
@@ -96,36 +93,7 @@ public class MyWindow extends JPanel {
 
     }
 
-    private BufferedImage initBackGround() {
-        BufferedImage bg = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-        System.out.println(getWidth() + "?");
-        int area = 50;
-        Color a = new Color(123, 123, 123);
-        Color b = new Color(55, 55, 55);
-        Color active = a;
-        for (int j = 0; j < bg.getHeight(); j += area) {
-            if (bg.getWidth() / area % 2 == 1) {
-                if (active == a) {
-                    active = b;
-                } else {
-                    active = a;
-                }
-            }
-            for (int k = 0; k < bg.getWidth(); k += area) {
-                if (active == a) {
-                    active = b;
-                } else {
-                    active = a;
-                }
-                for (int l = 0; l < area && j + l < bg.getHeight(); l++) {
-                    for (int m = 0; m < area && k + m < bg.getWidth(); m++) {
-                        bg.setRGB(k + m, j + l, active.getRGB());
-                    }
-                }
-            }
-        }
-        return bg;
-    }
+    
 
     public void setScale(float scale) {
         this.scale = scale;

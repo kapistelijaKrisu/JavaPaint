@@ -2,7 +2,7 @@
 package app.cmd;
 
 import app.ControlUnit;
-import app.Area;
+import tools.Area;
 
 public abstract class CMD {
     protected ControlUnit controller;
@@ -11,5 +11,6 @@ public abstract class CMD {
         this.controller = controller;
     }
     public abstract void execute(Area area);
+    public abstract void reset();
     
 }
