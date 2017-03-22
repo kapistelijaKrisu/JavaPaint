@@ -1,4 +1,4 @@
-package tools;
+package UI;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -8,8 +8,8 @@ public class BackGroundCreator {
     public static BufferedImage create(int width, int height) {
         BufferedImage bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         int area = 50;
-        Color a = new Color(123, 123, 123);
-        Color b = new Color(55, 55, 55);
+        Color a = new Color(202, 202, 202);
+        Color b = new Color(135, 135, 135);
         Color active = a;
         for (int j = 0; j < bg.getHeight(); j += area) {
             if (bg.getWidth() / area % 2 == 0) {

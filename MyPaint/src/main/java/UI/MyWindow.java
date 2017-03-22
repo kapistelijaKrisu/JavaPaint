@@ -17,6 +17,7 @@ public class MyWindow extends JPanel {
     private ControlUnit control;
     private int xOffSet, yOffSet;
     private float scale;
+    private BufferedImage bg;
 
     public MyWindow(ControlUnit cmd, int width, int height, float scale) {
         this.scale = scale;
@@ -40,7 +41,7 @@ public class MyWindow extends JPanel {
             System.out.println("error initframe");
             return;
         }
-
+        bg = BackGroundCreator.create(width, height);
         Dimension dim = new Dimension(width, height);
         setPreferredSize(dim);
         setMinimumSize(dim);
@@ -70,7 +71,7 @@ public class MyWindow extends JPanel {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.scale(scale / 1, scale / 1);
-        
+        g.drawImage(bg, xOffSet, yOffSet, null);
         control.getImg().draw(g, xOffSet, yOffSet);
         
     }

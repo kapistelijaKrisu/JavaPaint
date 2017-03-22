@@ -1,7 +1,7 @@
 package tools;
 
 public class Area {
-    private static final int MIN_VAL = 1;
+    private static final int MIN_VAL = 0;
     private static int maxX = MIN_VAL, maxY = MIN_VAL;
     
     private int startX, startY;
@@ -14,8 +14,8 @@ public class Area {
     }
 
     public void init(int x, int y) {
-        fixToRange(x, true);
-        fixToRange(y, false);
+        x = fixToRange(x, true);
+        y = fixToRange(y, false);
         lastX = x;
         lastY = y;
         startX = x;
@@ -32,10 +32,9 @@ public class Area {
         curX = x;
         curY = y;
     }
-
+/* for later
     public Area getRectangle() {
-        return null; //later
-        /*if (startX > lastX) {
+         (startX > lastX) {
             int tmp = startX;
             startX = lastX;
             lastX = tmp;
@@ -44,11 +43,12 @@ public class Area {
             int tmp = startY;
             startY = lastY;
             lastY = tmp;
-        }*/
+        }
     }
+*/
 
     private int fixToRange(int a, boolean x) {
-        a = Math.max(1, a);
+        a = Math.max(MIN_VAL, a);
         if (x) {
             a = Math.min(a, maxX);
         } else {
