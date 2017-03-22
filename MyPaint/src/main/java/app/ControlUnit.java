@@ -1,13 +1,13 @@
 package app;
 
-import UI.MyWindow;
+import ui.MyWindow;
 import app.cmd.*;
 import java.util.HashMap;
 import tools.Area;
 
 public class ControlUnit implements Runnable {
 
-    public final int DRAW_CMD = 1;
+    public final int drawCMD = 1;
 
     private PaintBrush colors;
     private int currentCMD;
@@ -33,7 +33,7 @@ public class ControlUnit implements Runnable {
         cmds = new HashMap<>();
         DrawLine draw = new DrawLine(this);
         cmds.put(1, draw);
-        currentCMD = DRAW_CMD;
+        currentCMD = drawCMD;
     }
 
     @Override

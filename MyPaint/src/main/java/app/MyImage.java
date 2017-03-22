@@ -3,7 +3,7 @@ package app;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import UI.BackGroundCreator;
+import ui.BackGroundCreator;
 
 public class MyImage {
 

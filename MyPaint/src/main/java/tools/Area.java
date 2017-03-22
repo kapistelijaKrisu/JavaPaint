@@ -32,20 +32,6 @@ public class Area {
         curX = x;
         curY = y;
     }
-/* for later
-    public Area getRectangle() {
-         (startX > lastX) {
-            int tmp = startX;
-            startX = lastX;
-            lastX = tmp;
-        }
-        if (startY > lastY) {
-            int tmp = startY;
-            startY = lastY;
-            lastY = tmp;
-        }
-    }
-*/
 
     private int fixToRange(int a, boolean x) {
         a = Math.max(MIN_VAL, a);
@@ -87,5 +73,20 @@ public class Area {
         Area.maxX = maxX;
         Area.maxY = maxY;
     }
+    
+    /* for later and it's incomplete
+    public Area getRectangle() {
+         (startX > lastX) {
+            int tmp = startX;
+            startX = lastX;
+            lastX = tmp;
+        }
+        if (startY > lastY) {
+            int tmp = startY;
+            startY = lastY;
+            lastY = tmp;
+        }
+    }
+*/
 
 }

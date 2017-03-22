@@ -48,7 +48,7 @@ public final class PaintBrush {
         } else {
             composite = AlphaComposite.getInstance(AlphaComposite.DST_OVER, graphics.getColor().getAlpha() / 255f);
         }
-         graphics.setComposite(composite);
+        graphics.setComposite(composite);
     }
 
 }

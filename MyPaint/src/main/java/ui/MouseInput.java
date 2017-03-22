@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import tools.Area;
 import app.ControlUnit;
