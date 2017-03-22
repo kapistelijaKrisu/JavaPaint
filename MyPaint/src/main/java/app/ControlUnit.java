@@ -9,27 +9,29 @@ public class ControlUnit implements Runnable {
 
     public final int DRAW_CMD = 1;
 
-    private ColorProfile colors;
+    private PaintBrush colors;
     private int currentCMD;
     private HashMap<Integer, CMD> cmds;
     private MyImage img;
 
     private boolean init = false;
 
-    public void init(HashMap<Integer, CMD> cmds) {
-        img = new MyImage(500, 400);
+    public void init(HashMap<Integer, CMD> cmds, int width, int height) {
+        img = new MyImage(width, height);
+        Area.setBounds(width, height);
+        
         if (cmds == null || cmds.size() == 0) {
             initDefaultCommands();
         } else {
             this.cmds = cmds;
         }
-        colors = new ColorProfile(img.getGraphics());        
+        colors = new PaintBrush(img.getGraphics());
         init = true;
     }
 
     private void initDefaultCommands() {
         cmds = new HashMap<>();
-        Brush draw = new Brush(this);
+        DrawLine draw = new DrawLine(this);
         cmds.put(1, draw);
         currentCMD = DRAW_CMD;
     }
@@ -61,7 +63,7 @@ public class ControlUnit implements Runnable {
         }
     }
 
-    public ColorProfile getColors() {
+    public PaintBrush getColors() {
         return colors;
     }
 

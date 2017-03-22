@@ -4,7 +4,6 @@ import app.ControlUnit;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javafx.scene.input.KeyCode;
 
 public class KeyInput implements KeyListener {
 
@@ -36,10 +35,10 @@ public class KeyInput implements KeyListener {
                 c = new Color(1, 0, 0, 0.5f);
                 cmd.getColors().setCurrentColor(c);
                 break;
-            case KeyEvent.VK_0:
+            case KeyEvent.VK_F:
                 cmd.getColors().setOverride(false);
                 break;
-            case KeyEvent.VK_9:
+            case KeyEvent.VK_T:
                 cmd.getColors().setOverride(true);
                 break;
 

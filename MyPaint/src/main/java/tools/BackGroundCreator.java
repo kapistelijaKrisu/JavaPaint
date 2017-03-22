@@ -1,10 +1,10 @@
-
 package tools;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 public class BackGroundCreator {
+
     public static BufferedImage create(int width, int height) {
         BufferedImage bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         int area = 50;

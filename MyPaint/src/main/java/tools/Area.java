@@ -1,39 +1,91 @@
-
 package tools;
 
 public class Area {
+    private static final int MIN_VAL = 1;
+    private static int maxX = MIN_VAL, maxY = MIN_VAL;
     
-    public int x, y, width, height;
-    public int updateX, updateY;
+    private int startX, startY;
 
-    public Area(int x, int y, int x2, int y2) {
-        set(x, y, x2, y2);
-        updateX = -1;
-        updateY = -1;
+    private int curX, curY;
+    private int lastX, lastY;
+
+    public Area(int x, int y) {
+        init(x, y);
     }
-    
+
+    public void init(int x, int y) {
+        fixToRange(x, true);
+        fixToRange(y, false);
+        lastX = x;
+        lastY = y;
+        startX = x;
+        startY = y;
+        curX = startX;
+        curY = startY;
+    }
+
     public void udpate(int x, int y) {
-        updateX = x;
-        updateY = y;
+        x = fixToRange(x, true);
+        y = fixToRange(y, false);
+        lastX = curX;
+        lastY = curY;
+        curX = x;
+        curY = y;
     }
-    
-    public void set(int x1, int y1, int x2, int y2) {
-         width = Math.abs(x1-x2) + 1;       
-         height = Math.abs(y1-y2) + 1;
-        
-         x = Math.min(x1, x2);
-        x = Math.max(x,0);
-        
-         y = Math.min(y1, y2);      
-        y = Math.max(y, 0);
+
+    public Area getRectangle() {
+        return null; //later
+        /*if (startX > lastX) {
+            int tmp = startX;
+            startX = lastX;
+            lastX = tmp;
+        }
+        if (startY > lastY) {
+            int tmp = startY;
+            startY = lastY;
+            lastY = tmp;
+        }*/
     }
-    
-    public void reset() {
-        x = -1;
-        y = -1;
-        width = 0;
-        height = 0;
-        updateX = -1;
-        updateY = -1;
+
+    private int fixToRange(int a, boolean x) {
+        a = Math.max(1, a);
+        if (x) {
+            a = Math.min(a, maxX);
+        } else {
+            a = Math.min(a, maxY);
+        }
+        return a;
     }
+
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public int getCurX() {
+        return curX;
+    }
+
+    public int getCurY() {
+        return curY;
+    }
+
+    public int getLastX() {
+        return lastX;
+    }
+
+    public int getLastY() {
+        return lastY;
+    }
+
+    public static void setBounds(int maxX, int maxY) {
+        maxX = Math.max(MIN_VAL, maxX);
+        maxY = Math.max(maxY, MIN_VAL);
+        Area.maxX = maxX;
+        Area.maxY = maxY;
+    }
+
 }
