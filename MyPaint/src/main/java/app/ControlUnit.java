@@ -29,7 +29,7 @@ public class ControlUnit implements Runnable {
 
     private void initDefaultCommands() {
         cmds = new HashMap<>();
-        FillPoint draw = new FillPoint(this);
+        Brush draw = new Brush(this);
         cmds.put(1, draw);
         currentCMD = DRAW_CMD;
     }

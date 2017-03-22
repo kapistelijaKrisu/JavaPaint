@@ -33,8 +33,14 @@ public class KeyInput implements KeyListener {
                 cmd.getColors().setCurrentColor(c);
                 break;
             case KeyEvent.VK_4:
-                c = new Color(1, 0, 0, 0.4f);
+                c = new Color(1, 0, 0, 0.5f);
                 cmd.getColors().setCurrentColor(c);
+                break;
+            case KeyEvent.VK_0:
+                cmd.getColors().setOverride(false);
+                break;
+            case KeyEvent.VK_9:
+                cmd.getColors().setOverride(true);
                 break;
 
         }

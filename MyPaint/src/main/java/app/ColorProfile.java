@@ -9,15 +9,23 @@ public final class ColorProfile {
 
     private static final int MAX_WIDTH = 30;
     private Graphics2D graphics;
+    private int alphaComposite;
 
     public ColorProfile(Graphics2D g) {
-        this.graphics = g;
-        setCurrentColor(Color.black);
+        this.graphics = g;   
         setWidth(10);
+        alphaComposite = AlphaComposite.SRC;
+        setCurrentColor(Color.black);
+    }
+    public ColorProfile(Graphics2D g, int width, boolean override) {
+        this.graphics = g;    
+        setWidth(width);
+        setOverride(override);
+        setCurrentColor(Color.black);
     }
 
     public void setCurrentColor(Color color) {
-        AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC, color.getAlpha() / 255f);
+        AlphaComposite composite = AlphaComposite.getInstance(alphaComposite, color.getAlpha() / 255f);
         graphics.setComposite(composite);
         graphics.setPaint(color);
     }
@@ -32,6 +40,12 @@ public final class ColorProfile {
         this.graphics = graphics;
     }
     
-    
+    public void setOverride(boolean override) {
+        if (override) {
+            alphaComposite = AlphaComposite.SRC;
+        } else {
+            alphaComposite = AlphaComposite.SRC_OVER;
+        }
+    }
 
 }

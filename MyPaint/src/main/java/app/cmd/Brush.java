@@ -5,12 +5,12 @@ import app.ControlUnit;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;;
 
-public class FillPoint extends CMD {
+public class Brush extends CMD {
 
     private final int UNINITIALIZED_VALUE = -1;
     private int prevX = UNINITIALIZED_VALUE, prevY = UNINITIALIZED_VALUE;
 
-    public FillPoint(ControlUnit controller) {
+    public Brush(ControlUnit controller) {
         super(controller);
     }
 
