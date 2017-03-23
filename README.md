@@ -10,4 +10,4 @@ Familiar paint from with transparency and possible other picture modification to
 
 [Pit-Report](https://htmlpreview.github.io/?https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/pit/201703231850/index.html)
 
-[CheckStyle-Report-Folder](https://github.com/kapistelijaKrisu/JavaPaint/tree/master/Documentation/checkstyle)
+[CheckStyle-Report](https://htmlpreview.github.io/?https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/checkstyle/checkstyle.html)
