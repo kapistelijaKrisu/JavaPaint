@@ -3,17 +3,19 @@ package app;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import ui.BackGroundCreator;
 
 public class MyImage {
 
     //  private ArrayDeque<BufferedImage> rewind;//later
     //  private ArrayDeque<BufferedImage> fastForward;//later
-    BufferedImage img;
+    private BufferedImage img;
     //BufferedImage toolLayer;
-    Graphics2D graphics;
+    private Graphics2D graphics;
 
     public MyImage(int width, int height) {
+        if (width < 1 || height < 1) {
+            throw new IllegalArgumentException();
+        }
         //     rewind = new ArrayDeque<>();
         //    fastForward = new ArrayDeque<>();
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -28,11 +30,6 @@ public class MyImage {
 
     public Graphics2D getGraphics() {
         return graphics;
-    }
-
-    public void draw(Graphics g, int xOffSet, int yOffSet) {
-        g.drawImage(img, xOffSet, yOffSet, null);
-        //    g.drawImage(toolLayer, 0, 0, null);
     }
 
     /* completed on later date 

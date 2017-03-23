@@ -49,9 +49,11 @@
                 <configuration>
                     <targetClasses>
                         <param>tools.*</param>
+                        <param>app.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>tools.*</param>       
+                        <param>tools.*</param> 
+                        <param>app.*</param>      
                     </targetTests>
                 </configuration>
             </plugin>

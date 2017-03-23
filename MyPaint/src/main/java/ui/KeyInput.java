@@ -22,24 +22,24 @@ public class KeyInput implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_1:
-                cmd.getColors().setCurrentColor(Color.black);
+                cmd.getPaintBrush().setCurrentColor(Color.black);
                 break;
             case KeyEvent.VK_2:
-                cmd.getColors().setCurrentColor(Color.white);
+                cmd.getPaintBrush().setCurrentColor(Color.white);
                 break;
             case KeyEvent.VK_3:
                 Color c = new Color(1, 0, 0, 0f);
-                cmd.getColors().setCurrentColor(c);
+                cmd.getPaintBrush().setCurrentColor(c);
                 break;
             case KeyEvent.VK_4:
                 c = new Color(1, 0, 0, 0.5f);
-                cmd.getColors().setCurrentColor(c);
+                cmd.getPaintBrush().setCurrentColor(c);
                 break;
             case KeyEvent.VK_F:
-                cmd.getColors().setOverride(false);
+                cmd.getPaintBrush().setOverride(false);
                 break;
             case KeyEvent.VK_T:
-                cmd.getColors().setOverride(true);
+                cmd.getPaintBrush().setOverride(true);
                 break;
 
         }

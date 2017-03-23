@@ -4,6 +4,10 @@ public final class FileUtils {
 
     private static String fileLocation = "Untitled";
 
+    private FileUtils() {
+        throw new UnsupportedOperationException(("don't instantiate this class!"));
+    }
+
     public static void setFileLocation(String fileLocation) {
         if (fileLocation == null || fileLocation.isEmpty()) {
             return;

@@ -41,7 +41,9 @@ public class MyWindow extends JPanel {
             System.out.println("error initframe");
             return;
         }
-        bg = BackGroundCreator.create(width, height);
+        int imgWidth = control.getImg().getImg().getWidth();
+        int imgHeight = control.getImg().getImg().getHeight();
+        bg = BackGroundCreator.create(imgWidth, imgHeight);
         Dimension dim = new Dimension(width, height);
         setPreferredSize(dim);
         setMinimumSize(dim);
@@ -72,7 +74,7 @@ public class MyWindow extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.scale(scale / 1, scale / 1);
         g.drawImage(bg, xOffSet, yOffSet, null);
-        control.getImg().draw(g, xOffSet, yOffSet);
+        g.drawImage(control.getImg().getImg(), xOffSet, yOffSet, null);
         
     }
 

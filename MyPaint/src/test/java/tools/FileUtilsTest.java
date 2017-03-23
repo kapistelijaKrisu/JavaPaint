@@ -1,7 +1,12 @@
 
 package tools;
 
-import org.junit.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import org.junit.After;
+import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class FileUtilsTest {
@@ -39,5 +44,19 @@ public class FileUtilsTest {
         FileUtils.setFileLocation(name);
         Assert.assertTrue(name.equals(FileUtils.getFileLocation())); 
         
+    }
+    
+    @Test
+    public void testConstructorIsPrivate() throws Exception {
+      Constructor constructor = FileUtils.class.getDeclaredConstructor();
+      assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+      constructor.setAccessible(true);
+      
+      try {
+        constructor.newInstance();
+        assertTrue(false); //should throw error
+      } catch (UnsupportedOperationException | InvocationTargetException e) {
+          assertTrue(true);
+      }
     }
 }

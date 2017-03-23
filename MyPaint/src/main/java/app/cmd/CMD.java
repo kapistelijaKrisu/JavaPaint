@@ -5,7 +5,7 @@ import tools.Area;
 
 public abstract class CMD {
 
-    protected ControlUnit controller;
+    public ControlUnit controller;
 
     public CMD(ControlUnit controller) {
         this.controller = controller;
@@ -15,5 +15,9 @@ public abstract class CMD {
 
     protected boolean areaOrControllerIsNull(Area area) {
         return controller == null || area == null;
+    }
+
+    public Object getControlUnit() {
+        return controller;
     }
 }

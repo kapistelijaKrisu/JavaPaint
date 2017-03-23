@@ -77,8 +77,8 @@ public class AreaTest {
             int prevY = a.getCurY();
             a.udpate(testVal[i * 2], testVal[i * 2 + 1]);
 
-            Assert.assertEquals(a.getStartX(), initX);
-            Assert.assertEquals(a.getStartY(), initY);
+            Assert.assertEquals(initX, a.getStartX());
+            Assert.assertEquals(initY, a.getStartY());
 
             Assert.assertEquals(prevX, a.getLastX());
             Assert.assertEquals(prevY, a.getLastY());
