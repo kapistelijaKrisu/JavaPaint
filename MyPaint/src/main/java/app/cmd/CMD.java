@@ -13,6 +13,7 @@ public abstract class CMD {
 
     public abstract void execute(Area area);
 
-    public abstract void reset();
-
+    protected boolean areaOrControllerIsNull(Area area) {
+        return controller == null || area == null;
+    }
 }

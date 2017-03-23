@@ -1,21 +1,27 @@
 package tools;
 
-import app.ControlUnit;
-import java.awt.image.BufferedImage;
+public final class FileUtils {
 
-public class FileUtils {
+    private static String fileLocation = "Untitled";
 
-    private String fileLocation = "Untitled";
+    public static void setFileLocation(String fileLocation) {
+        if (fileLocation == null || fileLocation.isEmpty()) {
+            return;
+        }
+        FileUtils.fileLocation = fileLocation;
+    }
+/* later date
+    public static void saveFile(BufferedImage img) {
 
-    public void setFileLocation(String fileLocation) {
-        this.fileLocation = fileLocation;
     }
 
-    public void saveFile(BufferedImage img) {
+    public static void loadFile(String path, ControlUnit app) {
 
+    }*/
+
+    public static String getFileLocation() {
+        return fileLocation;
     }
-
-    public void loadFile(String path, ControlUnit app) {
-
-    }
+    
+    
 }

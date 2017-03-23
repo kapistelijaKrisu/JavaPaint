@@ -13,12 +13,10 @@ public class DrawLine extends CMD {
 
     @Override
     public void execute(Area area) {
+        if (areaOrControllerIsNull(area)) return;
+        
         Graphics2D g2 = controller.getImg().getGraphics();
         g2.draw(new Line2D.Float(area.getLastX(), area.getLastY(),
                  area.getCurX(), area.getCurY()));
-    }
-
-    @Override
-    public void reset() {
     }
 }

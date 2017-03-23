@@ -49,10 +49,6 @@ public class ControlUnit implements Runnable {
         cmds.get(currentCMD).execute(a);
     }
 
-    public void resetCMD() {
-        cmds.get(currentCMD).reset();
-    }
-
     public MyImage getImg() {
         return img;
     }

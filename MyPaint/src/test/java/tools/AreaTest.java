@@ -8,9 +8,13 @@ public class AreaTest {
 
     Area a;
     private int initX, initY;
+    private int maxX, maxY;
 
     @Before
     public void setUp() {
+
+        maxX = 50;
+        maxY = 40;
         Area.setBounds(50, 40);
 
         initX = 10;
@@ -40,7 +44,7 @@ public class AreaTest {
     @Test
     public void initTest() {
         int[] testVal = new int[]{-10, -20, 0, 0, 2, 3, 500, 600, 5, 555};
-        int[] results = new int[]{0, 0, 0, 0, 2, 3, 50, 40, 5, 40};
+        int[] results = new int[]{0, 0, 0, 0, 2, 3, maxX, maxY, 5, 40};
 
         for (int i = 0; i < results.length / 2; i += 2) {
             a.init(testVal[i * 2], testVal[i * 2 + 1]);
@@ -65,8 +69,8 @@ public class AreaTest {
 
     @Test
     public void updateTest() {
-        int[] results = new int[]{0, 0, 1, 1, 0, 0, 50, 40,50,5, 6,40};
-        int[] testVal = new int[]{0, 0, 1, 1, -3, -6, 50,40,55,5,6,55};
+        int[] results = new int[]{0, 0, 1, 1, 0, 0, maxX, maxY, maxX, 5, 6, maxY};
+        int[] testVal = new int[]{0, 0, 1, 1, -3, -6, 50, 40, 55, 5, 6, 55};
 
         for (int i = 0; i < results.length / 2; i += 2) {
             int prevX = a.getCurX();
