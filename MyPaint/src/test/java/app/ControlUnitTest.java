@@ -77,9 +77,12 @@ public class ControlUnitTest {
     public void testExecute() {
         cu.init(1, 1);
         cu.setActiveCMD(CommandMap.DRAWLINE);
+        cu.setBrushColor(Color.black);
+        cu.activateSettings(true, true, true);
         cu.execute(new Area(0, 0));
         Assert.assertTrue(cu.getImg().getImg().getRGB(0, 0) == Color.black.getRGB());
-        cu.getPaintBrush().setCurrentColor(Color.yellow);
+        cu.setBrushColor(Color.yellow);
+        cu.activateSettings(true, true, true);
         cu.execute(new Area(0, 0));
         Assert.assertTrue(cu.getImg().getImg().getRGB(0, 0) == Color.yellow.getRGB());
     }

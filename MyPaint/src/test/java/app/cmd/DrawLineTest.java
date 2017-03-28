@@ -1,6 +1,7 @@
 package app.cmd;
 
 import app.ControlUnit;
+import app.MyImage;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import org.junit.Assert;
@@ -11,10 +12,13 @@ import tools.Area;
 public class DrawLineTest {
 
     DrawLine cmd;
-    ControlUnit cu;
+    MyImage img;
+   
 
     @Before
     public void setUp() {
+        img = new MyImage(10, 10);
+        
         cmd = new DrawLine();
     }
 
@@ -23,7 +27,7 @@ public class DrawLineTest {
         int length = 10;
         int testPixel = 5;
 
-        cu.init(length, length);
+    /*    cu.init(length, length);
         cu.getPaintBrush().setWidth(1);
         cu.getPaintBrush().setCurrentColor(c);
         cu.execute(new Area(5, 5));
@@ -38,7 +42,7 @@ public class DrawLineTest {
                 }
 
             }
-        }
+        }*/
     }
 
     @Test

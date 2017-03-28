@@ -1,6 +1,5 @@
 package app;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -11,17 +10,19 @@ public class MyImage {
     private BufferedImage img;
     //BufferedImage toolLayer;
     private Graphics2D graphics;
+    
 
     public MyImage(int width, int height) {
         if (width < 1 || height < 1) {
             throw new IllegalArgumentException();
         }
+        
         //     rewind = new ArrayDeque<>();
         //    fastForward = new ArrayDeque<>();
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         //  toolLayer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         graphics = img.createGraphics();
-
+      
     }
 
     public BufferedImage getImg() {
@@ -31,7 +32,6 @@ public class MyImage {
     public Graphics2D getGraphics() {
         return graphics;
     }
-
     /* completed on later date 
     
     public void saveProcess() {

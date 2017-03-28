@@ -1,10 +1,13 @@
 package app.cmd;
 
-import java.awt.image.BufferedImage;
+
+import app.MyImage;
 import tools.Area;
 
 public interface CMD {
 
-    public void execute(BufferedImage img, Area area);
+
+    public abstract void execute(MyImage img, Area area);
+
 
 }

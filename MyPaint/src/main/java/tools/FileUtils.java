@@ -1,8 +1,16 @@
 package tools;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+
 public final class FileUtils {
 
-    private static String fileLocation = "Untitled";
+    private static String fileName = "Untitled";
+    private static String format = "png";
 
     private FileUtils() {
         throw new UnsupportedOperationException(("don't instantiate this class!"));
@@ -12,20 +20,37 @@ public final class FileUtils {
         if (fileLocation == null || fileLocation.isEmpty()) {
             return;
         }
-        FileUtils.fileLocation = fileLocation;
+        FileUtils.fileName = fileLocation;
     }
-/* later date
+
     public static void saveFile(BufferedImage img) {
 
+        File outputfile = new File(fileName + "." + format);
+        try {
+            ImageIO.write(img, format, outputfile);
+
+        } catch (IOException ex) {
+            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    /*
     public static void loadFile(String path, ControlUnit app) {
 
     }*/
 
-    public static String getFileLocation() {
-        return fileLocation;
+    public static String getFileName() {
+        return fileName;
     }
-    
-    
+
+    public static void setFormat(String format) {
+        if (format.equals("png")) {
+            FileUtils.format = format;
+        }
+    }
+
+    public static String getFormat() {
+        return format;
+    }
+
 }

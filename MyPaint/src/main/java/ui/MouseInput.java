@@ -32,7 +32,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
         if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
             cmd.execute(area);
             window.drawToolTip = false;
-        } else if (cmd.getCurrentCMD() > CommandMap.DRAWLINE) {
+        } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
             window.drawToolTip = true;
         }
         window.repaint();
@@ -43,7 +43,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
         if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
             cmd.execute(area);
-        } else if (cmd.getCurrentCMD() >= CommandMap.DRAWRECT) {
+        } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
             cmd.execute(area.getRectangle());
         }
         window.drawToolTip = false;

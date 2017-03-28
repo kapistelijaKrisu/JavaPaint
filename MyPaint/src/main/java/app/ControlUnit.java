@@ -1,13 +1,12 @@
 package app;
 
-import app.cmd.*;
+import app.cmd.CommandMap;
+import app.cmd.CMD;
+import java.awt.Color;
 import java.util.HashMap;
 import tools.Area;
 
 public class ControlUnit implements Runnable {
-
-    
-
     private PaintBrush brush;
     private int currentCMD;
     private HashMap<Integer, CMD> cmds;
@@ -18,9 +17,11 @@ public class ControlUnit implements Runnable {
     public void init(int width, int height) {
         img = new MyImage(width, height);
         Area.setBounds(width, height);
-        brush = new PaintBrush(img.getGraphics(), 5, true);
-        cmds = CommandMap.createCommandMap();
+        
         currentCMD = CommandMap.DRAWLINE;
+        brush = new PaintBrush(5, true);
+        cmds = CommandMap.createCommandMap(brush);
+        brush.installSetting(img.getGraphics(), true, true, true);
         init = true;
     }
 
@@ -32,11 +33,7 @@ public class ControlUnit implements Runnable {
     }
 
     public void execute(Area a) {
-        cmds.get(currentCMD).execute(img.getImg(), a);
-    }
-
-    public MyImage getImg() {
-        return img;
+        cmds.get(currentCMD).execute(img, a);
     }
 
     public void setActiveCMD(int key) {
@@ -45,11 +42,6 @@ public class ControlUnit implements Runnable {
         }
     }
 
-    public PaintBrush getPaintBrush() {
-        return brush;
-    }
-
-    //test
     public boolean getInit() {
         return init;
     }
@@ -57,4 +49,23 @@ public class ControlUnit implements Runnable {
     public int getCurrentCMD() {
         return currentCMD;
     }
+    
+    public void setBrushColor(Color color) {
+        brush.setCurrentColor(color);
+    }
+    public void setBrushWidth(int width) {
+        brush.setWidth(width);
+    }
+    public void setBrushOverride(boolean override) {
+        brush.setOverride(override);
+    }
+    public void activateSettings(boolean setColor, boolean setComposite, boolean setWidth) {
+        brush.installSetting(img.getGraphics(), setColor, setComposite, setWidth);
+    }
+
+    public MyImage getImg() {
+        return img;
+    }
+    
+    
 }

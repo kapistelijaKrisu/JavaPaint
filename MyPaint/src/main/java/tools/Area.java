@@ -1,6 +1,6 @@
 package tools;
 
-public class Area {
+public final class Area {
     private static final int MIN_VAL = 0;
     private static int maxX = MIN_VAL, maxY = MIN_VAL;
     
@@ -17,13 +17,12 @@ public class Area {
         startX = Math.min(x, x2);
         startY = Math.min(y, y2);
         
-        curX = fixToRange(Math.abs(x - x2), true);
-        curY = fixToRange(Math.abs(y - y2), false);
+        curX = fixToRange(Math.abs(x - x2) + 1, true);
+        curY = fixToRange(Math.abs(y - y2) + 1, false);
         
         lastX = curX;
         lastY = curY;
         
-        System.out.println("x:" + startX + " y:" + startY+ " x2:" + curX + " y2:" +curY);
     }
 
     public void init(int x, int y) {
@@ -90,7 +89,6 @@ public class Area {
     
    
     public Area getRectangle() {
-        System.out.println("x:" + startX + " y:" + startY+ " x2:" + curX + " y2:" +curY);
         return new Area(startX, startY, curX, curY);    
         
     }
