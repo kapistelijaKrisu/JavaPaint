@@ -1,23 +1,10 @@
 package app.cmd;
 
-import app.ControlUnit;
+import java.awt.image.BufferedImage;
 import tools.Area;
 
-public abstract class CMD {
+public interface CMD {
 
-    public ControlUnit controller;
+    public void execute(BufferedImage img, Area area);
 
-    public CMD(ControlUnit controller) {
-        this.controller = controller;
-    }
-
-    public abstract void execute(Area area);
-
-    protected boolean areaOrControllerIsNull(Area area) {
-        return controller == null || area == null;
-    }
-
-    public Object getControlUnit() {
-        return controller;
-    }
 }

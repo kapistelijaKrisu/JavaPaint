@@ -15,14 +15,9 @@ public class DrawLineTest {
 
     @Before
     public void setUp() {
-        cu = new ControlUnit();
-        cmd = new DrawLine(cu);
+        cmd = new DrawLine();
     }
 
-    @Test
-    public void testConstructor() {
-        Assert.assertTrue(cu.equals(cmd.getControlUnit()));
-    }
     
     public void testColors(Color c) {
         int length = 10;
@@ -31,7 +26,7 @@ public class DrawLineTest {
         cu.init(length, length);
         cu.getPaintBrush().setWidth(1);
         cu.getPaintBrush().setCurrentColor(c);
-        cmd.execute(new Area(5, 5));
+        cu.execute(new Area(5, 5));
 
         BufferedImage img = cu.getImg().getImg();
         Assert.assertEquals(c.getRGB(), img.getRGB(testPixel, testPixel));

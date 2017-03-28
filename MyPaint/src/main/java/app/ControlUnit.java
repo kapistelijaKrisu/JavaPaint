@@ -1,14 +1,12 @@
 package app;
 
-import ui.MyWindow;
 import app.cmd.*;
 import java.util.HashMap;
 import tools.Area;
 
 public class ControlUnit implements Runnable {
 
-    public static final int defaultDrawCMD = 1;
-    public static final int defaultRectCMD = 2;
+    
 
     private PaintBrush brush;
     private int currentCMD;
@@ -20,20 +18,10 @@ public class ControlUnit implements Runnable {
     public void init(int width, int height) {
         img = new MyImage(width, height);
         Area.setBounds(width, height);
-
-        initDefaultCommands();
-
         brush = new PaintBrush(img.getGraphics(), 5, true);
-
+        cmds = CommandMap.createCommandMap();
+        currentCMD = CommandMap.DRAWLINE;
         init = true;
-    }
-
-    private void initDefaultCommands() {
-        cmds = new HashMap<>();
-        DrawLine draw = new DrawLine(this);
-        cmds.put(defaultDrawCMD, draw);
-        cmds.put(defaultRectCMD, new FillRect(this));
-        currentCMD = defaultDrawCMD;
     }
 
     @Override
@@ -44,7 +32,7 @@ public class ControlUnit implements Runnable {
     }
 
     public void execute(Area a) {
-        cmds.get(currentCMD).execute(a);
+        cmds.get(currentCMD).execute(img.getImg(), a);
     }
 
     public MyImage getImg() {

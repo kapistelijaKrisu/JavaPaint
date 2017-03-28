@@ -1,5 +1,6 @@
 package app;
 
+import app.cmd.CommandMap;
 import java.awt.Color;
 import org.junit.Assert;
 import org.junit.Before;
@@ -75,7 +76,7 @@ public class ControlUnitTest {
     @Test
     public void testExecute() {
         cu.init(1, 1);
-        cu.setActiveCMD(ControlUnit.defaultDrawCMD);
+        cu.setActiveCMD(CommandMap.DRAWLINE);
         cu.execute(new Area(0, 0));
         Assert.assertTrue(cu.getImg().getImg().getRGB(0, 0) == Color.black.getRGB());
         cu.getPaintBrush().setCurrentColor(Color.yellow);

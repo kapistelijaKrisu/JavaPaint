@@ -1,6 +1,7 @@
 package ui;
 
 import app.ControlUnit;
+import app.cmd.CommandMap;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -45,12 +46,16 @@ public class KeyInput implements KeyListener {
                 break;
 
             case KeyEvent.VK_Q:
-                cmd.setActiveCMD(ControlUnit.defaultDrawCMD);
+                cmd.setActiveCMD(CommandMap.DRAWLINE);
                 w.drawToolTip = false;
                 break;
 
             case KeyEvent.VK_W:
-                cmd.setActiveCMD(ControlUnit.defaultRectCMD);
+                cmd.setActiveCMD(CommandMap.DRAWRECT);
+                w.drawToolTip = true;
+                break;
+            case KeyEvent.VK_E:
+                cmd.setActiveCMD(CommandMap.FILLRECT);
                 w.drawToolTip = true;
                 break;
 

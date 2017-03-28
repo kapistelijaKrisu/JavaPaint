@@ -2,6 +2,7 @@ package ui;
 
 import tools.Area;
 import app.ControlUnit;
+import app.cmd.CommandMap;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -28,10 +29,10 @@ public class MouseInput implements MouseListener, MouseMotionListener {
         int x = (int) (e.getX() / window.getScale());
         int y = (int) (e.getY() / window.getScale());
         area.init(x, y);
-        if (cmd.getCurrentCMD() == ControlUnit.defaultDrawCMD) {
+        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
             cmd.execute(area);
             window.drawToolTip = false;
-        } else if (cmd.getCurrentCMD() == ControlUnit.defaultRectCMD) {
+        } else if (cmd.getCurrentCMD() > CommandMap.DRAWLINE) {
             window.drawToolTip = true;
         }
         window.repaint();
@@ -40,9 +41,9 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     @Override
     public void mouseReleased(MouseEvent e) {
 
-        if (cmd.getCurrentCMD() == ControlUnit.defaultDrawCMD) {
+        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
             cmd.execute(area);
-        } else if (cmd.getCurrentCMD() == ControlUnit.defaultRectCMD) {
+        } else if (cmd.getCurrentCMD() >= CommandMap.DRAWRECT) {
             cmd.execute(area.getRectangle());
         }
         window.drawToolTip = false;
@@ -63,7 +64,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         area.udpate(e.getX(), e.getY());
-        if (cmd.getCurrentCMD() == ControlUnit.defaultDrawCMD) {
+        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
             cmd.execute(area);
         }
         window.repaint();
