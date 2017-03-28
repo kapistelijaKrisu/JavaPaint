@@ -8,6 +8,7 @@ import tools.Area;
 public class ControlUnit implements Runnable {
 
     public static final int defaultDrawCMD = 1;
+    public static final int defaultRectCMD = 2;
 
     private PaintBrush brush;
     private int currentCMD;
@@ -30,7 +31,8 @@ public class ControlUnit implements Runnable {
     private void initDefaultCommands() {
         cmds = new HashMap<>();
         DrawLine draw = new DrawLine(this);
-        cmds.put(1, draw);
+        cmds.put(defaultDrawCMD, draw);
+        cmds.put(defaultRectCMD, new FillRect(this));
         currentCMD = defaultDrawCMD;
     }
 
@@ -67,5 +69,4 @@ public class ControlUnit implements Runnable {
     public int getCurrentCMD() {
         return currentCMD;
     }
-
 }

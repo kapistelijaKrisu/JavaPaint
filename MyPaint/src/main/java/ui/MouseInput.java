@@ -28,13 +28,24 @@ public class MouseInput implements MouseListener, MouseMotionListener {
         int x = (int) (e.getX() / window.getScale());
         int y = (int) (e.getY() / window.getScale());
         area.init(x, y);
-        cmd.execute(area);
+        if (cmd.getCurrentCMD() == ControlUnit.defaultDrawCMD) {
+            cmd.execute(area);
+            window.drawToolTip = false;
+        } else if (cmd.getCurrentCMD() == ControlUnit.defaultRectCMD) {
+            window.drawToolTip = true;
+        }
         window.repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        cmd.execute(area);
+
+        if (cmd.getCurrentCMD() == ControlUnit.defaultDrawCMD) {
+            cmd.execute(area);
+        } else if (cmd.getCurrentCMD() == ControlUnit.defaultRectCMD) {
+            cmd.execute(area.getRectangle());
+        }
+        window.drawToolTip = false;
         window.repaint();
 
     }
@@ -52,13 +63,22 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         area.udpate(e.getX(), e.getY());
-        cmd.execute(area);
+        if (cmd.getCurrentCMD() == ControlUnit.defaultDrawCMD) {
+            cmd.execute(area);
+        }
         window.repaint();
+        
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
 
     }
+
+    public Area getArea() {
+        return area;
+    }
+    
+    
 
 }

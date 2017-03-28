@@ -8,30 +8,31 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import tools.Area;
 
 public class MyWindow extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    public  boolean drawToolTip;
+    public Area toolTip;
 
     private JFrame frame;
     private ControlUnit control;
     private int xOffSet, yOffSet;
     private float scale;
     private BufferedImage bg;
+    
+    
 
     public MyWindow(ControlUnit cmd, int width, int height, float scale) {
         this.scale = scale;
         this.control = cmd;
-        xOffSet = 0;
-        yOffSet = 0;
         initFrame(width, height);
     }
 
     public MyWindow(ControlUnit cmd) {
         this.scale = 1;
-        this.control = cmd;
-        xOffSet = 0;
-        yOffSet = 0;
+        this.control = cmd;       
         initFrame(1000, 800);
     }
 
@@ -41,6 +42,10 @@ public class MyWindow extends JPanel {
             System.out.println("error initframe");
             return;
         }
+        xOffSet = 0;
+        yOffSet = 0;
+        drawToolTip = false;
+        
         int imgWidth = control.getImg().getImg().getWidth();
         int imgHeight = control.getImg().getImg().getHeight();
         bg = BackGroundCreator.create(imgWidth, imgHeight);
@@ -52,8 +57,9 @@ public class MyWindow extends JPanel {
         frame = new JFrame("asd");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        KeyInput kInput = new KeyInput(control);
+        KeyInput kInput = new KeyInput(control, this);      
         MouseInput mInput = new MouseInput(control, this);
+        toolTip = mInput.getArea();
         frame.add(this);
 
         frame.setResizable(false);
@@ -75,6 +81,12 @@ public class MyWindow extends JPanel {
         g2.scale(scale / 1, scale / 1);
         g.drawImage(bg, xOffSet, yOffSet, null);
         g.drawImage(control.getImg().getImg(), xOffSet, yOffSet, null);
+        
+        if (drawToolTip) {
+            Area r = toolTip.getRectangle();
+        g.drawRect(r.getStartX(), r.getStartY(), r.getCurX(), r.getCurY());
+        }
+        
         
     }
 
@@ -105,5 +117,5 @@ public class MyWindow extends JPanel {
     public float getScale() {
         return scale;
     }
-
+    
 }

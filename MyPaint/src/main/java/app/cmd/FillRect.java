@@ -1,23 +1,23 @@
+
 package app.cmd;
 
-import tools.Area;
 import app.ControlUnit;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
+import java.awt.Rectangle;
+import tools.Area;
 
-public class DrawLine extends CMD {
+public class FillRect extends CMD {
 
-    public DrawLine(ControlUnit controller) {
+    public FillRect(ControlUnit controller) {
         super(controller);
     }
 
     @Override
     public void execute(Area area) {
         if (areaOrControllerIsNull(area)) return;
-       
-        
         Graphics2D g2 = controller.getImg().getGraphics();
-        g2.draw(new Line2D.Float(area.getLastX(), area.getLastY(),
+        g2.draw(new Rectangle.Float(area.getStartX(), area.getStartY(),
                  area.getCurX(), area.getCurY()));
     }
+    
 }

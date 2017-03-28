@@ -12,6 +12,19 @@ public class Area {
     public Area(int x, int y) {
         init(x, y);
     }
+    
+    private Area(int x, int y, int x2, int y2) {
+        startX = Math.min(x, x2);
+        startY = Math.min(y, y2);
+        
+        curX = fixToRange(Math.abs(x - x2), true);
+        curY = fixToRange(Math.abs(y - y2), false);
+        
+        lastX = curX;
+        lastY = curY;
+        
+        System.out.println("x:" + startX + " y:" + startY+ " x2:" + curX + " y2:" +curY);
+    }
 
     public void init(int x, int y) {
         x = fixToRange(x, true);
@@ -73,20 +86,14 @@ public class Area {
         Area.maxX = maxX;
         Area.maxY = maxY;
     }
+
     
-    /* for later and it's incomplete
+   
     public Area getRectangle() {
-         (startX > lastX) {
-            int tmp = startX;
-            startX = lastX;
-            lastX = tmp;
-        }
-        if (startY > lastY) {
-            int tmp = startY;
-            startY = lastY;
-            lastY = tmp;
-        }
+        System.out.println("x:" + startX + " y:" + startY+ " x2:" + curX + " y2:" +curY);
+        return new Area(startX, startY, curX, curY);    
+        
     }
-*/
+
 
 }

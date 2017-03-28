@@ -1,9 +1,6 @@
 package app;
 
-import app.cmd.CMD;
-import app.cmd.DrawLine;
 import java.awt.Color;
-import java.util.HashMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

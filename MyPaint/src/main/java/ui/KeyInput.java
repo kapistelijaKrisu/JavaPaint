@@ -8,9 +8,11 @@ import java.awt.event.KeyListener;
 public class KeyInput implements KeyListener {
 
     private ControlUnit cmd;
+    private MyWindow w;
 
-    public KeyInput(ControlUnit cmd) {
+    public KeyInput(ControlUnit cmd, MyWindow w) {
         this.cmd = cmd;
+        this.w = w;
     }
 
     @Override
@@ -40,6 +42,16 @@ public class KeyInput implements KeyListener {
                 break;
             case KeyEvent.VK_T:
                 cmd.getPaintBrush().setOverride(true);
+                break;
+
+            case KeyEvent.VK_Q:
+                cmd.setActiveCMD(ControlUnit.defaultDrawCMD);
+                w.drawToolTip = false;
+                break;
+
+            case KeyEvent.VK_W:
+                cmd.setActiveCMD(ControlUnit.defaultRectCMD);
+                w.drawToolTip = true;
                 break;
 
         }
