@@ -1,6 +1,7 @@
 package app;
 
 import app.cmd.CommandMap;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,9 +46,9 @@ public class ControlUnitTest {
         }
 
         cu.init(1, 1);
-        Area a = new Area(2, 2);
-        Assert.assertTrue(a.getCurX() == 1);
-        Assert.assertTrue(a.getCurY() == 1);
+        Area a = new Area(1, 1);
+        Assert.assertTrue(a.getCurX() == 0);
+        Assert.assertTrue(a.getCurY() == 0);
 
         Assert.assertTrue(cu.getImg().getImg().getHeight() == 1);
         Assert.assertTrue(cu.getImg().getImg().getWidth() == 1);
@@ -56,32 +57,41 @@ public class ControlUnitTest {
 
         cu.init(10, 5);
         a = new Area(20, 20);
-        Assert.assertTrue(a.getCurX() == 10);
-        Assert.assertTrue(a.getCurY() == 5);
+        Assert.assertTrue(a.getCurX() == 9);
+        Assert.assertTrue(a.getCurY() == 4);
 
         Assert.assertTrue(cu.getImg().getImg().getHeight() == 5);
         Assert.assertTrue(cu.getImg().getImg().getWidth() == 10);
         Assert.assertTrue(cu.getInit());
     }
-
+    
     @Test
-    public void setActiveCMDWorks() {
+    public void brushTest() {
+        PaintBrush p = new PaintBrush(10, true);
+        cu.setBrush(p);
+        cu.init(1, 1);        
+        Assert.assertFalse(cu.getBrush().equals(p));      
+        cu.setBrush(p);
+        Assert.assertTrue(cu.getBrush().equals(p));
         cu.init(1, 1);
         Assert.assertTrue(cu.getCurrentCMD() == 1);
 
         cu.setActiveCMD(5);
         Assert.assertTrue(cu.getCurrentCMD() == 1);
+        
+        cu.init(1, 1);
+        Assert.assertTrue(cu.getImg().getGraphics().getColor() == Color.black);
     }
 
     @Test
     public void testExecute() {
         cu.init(1, 1);
         cu.setActiveCMD(CommandMap.DRAWLINE);
-        cu.setBrushColor(Color.black);
+        cu.getBrush().setColor(Color.black);
         cu.activateSettings(true, true, true);
         cu.execute(new Area(0, 0));
         Assert.assertTrue(cu.getImg().getImg().getRGB(0, 0) == Color.black.getRGB());
-        cu.setBrushColor(Color.yellow);
+        cu.getBrush().setColor(Color.yellow);
         cu.activateSettings(true, true, true);
         cu.execute(new Area(0, 0));
         Assert.assertTrue(cu.getImg().getImg().getRGB(0, 0) == Color.yellow.getRGB());

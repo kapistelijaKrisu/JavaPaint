@@ -30,7 +30,7 @@ public final class FileUtils {
             ImageIO.write(img, format, outputfile);
 
         } catch (IOException ex) {
-            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+            //nothing should happen if exception occurs
         }
     }
 
@@ -44,7 +44,8 @@ public final class FileUtils {
     }
 
     public static void setFormat(String format) {
-        if (format.equals("png")) {
+        if (format == null) return;
+        if (format.equals("png") || format.equals("jpg")) {
             FileUtils.format = format;
         }
     }

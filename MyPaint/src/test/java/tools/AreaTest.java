@@ -88,4 +88,35 @@ public class AreaTest {
 
         }
     }
+    
+    @Test
+    public void getRectTest() {
+
+        Area r = a.getRectangle();
+        Assert.assertEquals(initX, r.getStartX());
+        Assert.assertEquals(initY, r.getStartY());
+        Assert.assertEquals(0, r.getCurX());
+        Assert.assertEquals(0, r.getCurY());
+        Assert.assertEquals(0, r.getLastX());
+        Assert.assertEquals(0, r.getLastY());
+        
+        a.udpate(5, 1);
+        r = a.getRectangle();
+        Assert.assertEquals(5, r.getStartX());
+        Assert.assertEquals(1, r.getStartY());
+        Assert.assertEquals(5, r.getCurX());
+        Assert.assertEquals(4, r.getCurY());
+        Assert.assertEquals(5, r.getLastX());
+        Assert.assertEquals(4, r.getLastY());
+        
+        a.udpate(20, 10);
+        r = a.getRectangle();
+        Assert.assertEquals(10, r.getStartX());
+        Assert.assertEquals(5, r.getStartY());
+        Assert.assertEquals(10, r.getCurX());
+        Assert.assertEquals(5, r.getCurY());
+        Assert.assertEquals(10, r.getLastX());
+        Assert.assertEquals(5, r.getLastY());
+        
+    }
 }

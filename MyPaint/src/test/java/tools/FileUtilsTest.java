@@ -1,4 +1,3 @@
-
 package tools;
 
 import java.awt.image.BufferedImage;
@@ -18,68 +17,86 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class FileUtilsTest {
-    
+
     File output;
 
     @After
-    public void setDefaultName() {
+    public void setDefaults() {
         FileUtils.setFileLocation("Untitiled");
+        FileUtils.setFormat("png");
     }
 
-    
     @Test
     public void nameIsNotNull() {
         Assert.assertFalse(FileUtils.getFileName() == null);
     }
-    
+
+    @Test
+    public void formatIsValid() {
+        Assert.assertFalse(FileUtils.getFormat()== null);
+        FileUtils.setFormat("jpg");
+        Assert.assertTrue(FileUtils.getFormat().equals("jpg"));
+        FileUtils.setFormat("asd");
+        Assert.assertTrue(FileUtils.getFormat().equals("jpg"));
+        FileUtils.setFormat(null);
+        Assert.assertTrue(FileUtils.getFormat().equals("jpg"));
+        FileUtils.setFormat("png");
+        Assert.assertTrue(FileUtils.getFormat().equals("png"));
+    }
+
     @Test
     public void locationNameNotInvalid() {
         String name = FileUtils.getFileName();
-        
+
         FileUtils.setFileLocation(null);
         Assert.assertTrue(name.equals(FileUtils.getFileName()));
 
         FileUtils.setFileLocation("");
-        Assert.assertTrue(name.equals(FileUtils.getFileName()));        
-        
+        Assert.assertTrue(name.equals(FileUtils.getFileName()));
+
     }
-    
+
     @Test
     public void setNameCahngesName() {
         String name = "asd";
         FileUtils.setFileLocation(name);
-        Assert.assertTrue(name.equals(FileUtils.getFileName()));  
-        
+        Assert.assertTrue(name.equals(FileUtils.getFileName()));
+
         name = "dsa";
         FileUtils.setFileLocation(name);
-        Assert.assertTrue(name.equals(FileUtils.getFileName())); 
-        
+        Assert.assertTrue(name.equals(FileUtils.getFileName()));
+
     }
-    
+
     @Test
     public void savesRight() {
- 
-        
-            FileUtils.setFileLocation("asd");
-            FileUtils.setFormat("asd");
-            FileUtils.saveFile(new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB));
-            output = new File(FileUtils.getFileName()+"."+FileUtils.getFormat());
-            Assert.assertEquals("asd.png", output.getPath());    
-            output.delete();
-        
+
+        FileUtils.setFileLocation("asd");
+        FileUtils.setFormat("asd");
+        FileUtils.saveFile(new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB));
+        output = new File(FileUtils.getFileName() + "." + FileUtils.getFormat());
+        Assert.assertEquals("asd.png", output.getPath());
+
+        FileUtils.setFileLocation("dsa");
+
+        FileUtils.saveFile(new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB));
+        output = new File(FileUtils.getFileName() + "." + FileUtils.getFormat());
+        Assert.assertEquals("dsa.png", output.getPath());
+        output.delete();
+
     }
-    
+
     @Test
     public void testConstructorIsPrivate() throws Exception {
-      Constructor constructor = FileUtils.class.getDeclaredConstructor();
-      assertTrue(Modifier.isPrivate(constructor.getModifiers()));
-      constructor.setAccessible(true);
-      
-      try {
-        constructor.newInstance();
-        assertTrue(false); //should throw error
-      } catch (UnsupportedOperationException | InvocationTargetException e) {
-          assertTrue(true);
-      }
+        Constructor constructor = FileUtils.class.getDeclaredConstructor();
+        assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+        constructor.setAccessible(true);
+
+        try {
+            constructor.newInstance();
+            assertTrue(false); //should throw error
+        } catch (UnsupportedOperationException | InvocationTargetException e) {
+            assertTrue(true);
+        }
     }
 }

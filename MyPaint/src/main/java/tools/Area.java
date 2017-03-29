@@ -17,8 +17,8 @@ public final class Area {
         startX = Math.min(x, x2);
         startY = Math.min(y, y2);
         
-        curX = fixToRange(Math.abs(x - x2) + 1, true);
-        curY = fixToRange(Math.abs(y - y2) + 1, false);
+        curX = fixToRange(Math.abs(x - x2), true);
+        curY = fixToRange(Math.abs(y - y2), false);
         
         lastX = curX;
         lastY = curY;

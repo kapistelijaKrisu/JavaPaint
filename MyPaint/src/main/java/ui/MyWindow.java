@@ -31,7 +31,7 @@ public class MyWindow extends JPanel {
     }
 
     public MyWindow(ControlUnit cmd) {
-        this.scale = 1;
+        this.scale = 10f;
         this.control = cmd;       
         initFrame(1000, 800);
     }
@@ -108,7 +108,11 @@ public class MyWindow extends JPanel {
 
     }
 
-    
+    public void moveOffSet(int xAmount, int yAmount) {
+        this.xOffSet += xAmount;
+        this.yOffSet += yAmount;
+        
+    }
 
     public void setScale(float scale) {
         this.scale = scale;
@@ -117,5 +121,15 @@ public class MyWindow extends JPanel {
     public float getScale() {
         return scale;
     }
+
+    public int getxOffSet() {
+        return xOffSet;
+    }
+
+    public int getyOffSet() {
+        return yOffSet;
+    }
+    
+    
     
 }

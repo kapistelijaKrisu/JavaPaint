@@ -10,12 +10,12 @@ import java.awt.event.MouseMotionListener;
 public class MouseInput implements MouseListener, MouseMotionListener {
 
     private final ControlUnit cmd;
-    MyWindow window;
+    MyWindow w;
     Area area;
 
     public MouseInput(ControlUnit cmd, MyWindow window) {
         this.cmd = cmd;
-        this.window = window;
+        this.w = window;
         area = new Area(0, 0);
     }
 
@@ -26,16 +26,16 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        int x = (int) (e.getX() / window.getScale());
-        int y = (int) (e.getY() / window.getScale());
+        int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
+        int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
         area.init(x, y);
         if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
             cmd.execute(area);
-            window.drawToolTip = false;
+            w.drawToolTip = false;
         } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
-            window.drawToolTip = true;
+            w.drawToolTip = true;
         }
-        window.repaint();
+        w.repaint();
     }
 
     @Override
@@ -46,8 +46,8 @@ public class MouseInput implements MouseListener, MouseMotionListener {
         } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
             cmd.execute(area.getRectangle());
         }
-        window.drawToolTip = false;
-        window.repaint();
+        w.drawToolTip = false;
+        w.repaint();
 
     }
 
@@ -63,11 +63,14 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        area.udpate(e.getX(), e.getY());
+        int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
+        int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
+        
+        area.udpate(x, y);
         if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
             cmd.execute(area);
         }
-        window.repaint();
+        w.repaint();
         
     }
 

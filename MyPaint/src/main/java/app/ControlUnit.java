@@ -2,7 +2,6 @@ package app;
 
 import app.cmd.CommandMap;
 import app.cmd.CMD;
-import java.awt.Color;
 import java.util.HashMap;
 import tools.Area;
 
@@ -16,7 +15,7 @@ public class ControlUnit implements Runnable {
 
     public void init(int width, int height) {
         img = new MyImage(width, height);
-        Area.setBounds(width, height);
+        Area.setBounds(width-1, height-1);
         
         currentCMD = CommandMap.DRAWLINE;
         brush = new PaintBrush(5, true);
@@ -49,16 +48,7 @@ public class ControlUnit implements Runnable {
     public int getCurrentCMD() {
         return currentCMD;
     }
-    
-    public void setBrushColor(Color color) {
-        brush.setCurrentColor(color);
-    }
-    public void setBrushWidth(int width) {
-        brush.setWidth(width);
-    }
-    public void setBrushOverride(boolean override) {
-        brush.setOverride(override);
-    }
+
     public void activateSettings(boolean setColor, boolean setComposite, boolean setWidth) {
         brush.installSetting(img.getGraphics(), setColor, setComposite, setWidth);
     }
@@ -66,6 +56,18 @@ public class ControlUnit implements Runnable {
     public MyImage getImg() {
         return img;
     }
+    
+    //test
+
+    public void setBrush(PaintBrush brush) {
+        if (brush != null) this.brush = brush;
+    }
+
+    public PaintBrush getBrush() {
+        return brush;
+    }
+    
+    
     
     
 }

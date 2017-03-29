@@ -16,7 +16,7 @@ public final class PaintBrush {
         if (!setWidth(width)) {
             throw new IllegalArgumentException();
         }
-        setCurrentColor(Color.black);
+        setColor(Color.black);
         setOverride(override);
     }
 
@@ -33,7 +33,7 @@ public final class PaintBrush {
 
     }
 
-    public void setCurrentColor(Color color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -53,9 +53,25 @@ public final class PaintBrush {
         }
     }
 
+    
+    //tests need these
     public static int getMAX_WIDTH() {
         return MAX_WIDTH;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public int getComposite() {
+        return composite;
+    }
+    
+    
 
 
 }
