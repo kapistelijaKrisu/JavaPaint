@@ -79,6 +79,7 @@ public class MyWindow extends JPanel {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.scale(scale / 1, scale / 1);
+        
         g.drawImage(bg, xOffSet, yOffSet, null);
         g.drawImage(control.getImg().getImg(), xOffSet, yOffSet, null);
         

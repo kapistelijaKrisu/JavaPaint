@@ -6,5 +6,8 @@ Date | Hours | Description
 21.03.2017 | 5.0h | working on code structure and almost finished
 22.03.2017 | 5.0h | structure completed and started testing
 23.03.2017 | 6.0h | Completed tests and documentation
+28.03.2017 | 7.0h | refactoring and expanding
+29.03.2017 | 8.0h | refactoring tests...
+30.03.2017 | 2.0h | documenting and planning further
 ... | ... | ...
 

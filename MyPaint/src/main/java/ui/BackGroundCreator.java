@@ -7,7 +7,7 @@ public class BackGroundCreator {
 
     public static BufferedImage create(int width, int height) {
         BufferedImage bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        int area = 50;
+        int area = width / 50;
         Color a = new Color(202, 202, 202);
         Color b = new Color(135, 135, 135);
         Color active = a;

@@ -8,6 +8,6 @@ Familiar paint from with transparency and possible other picture modification to
 
 [Hour Accounting](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/hour-accounting.md)
 
-[Pit-Report](https://htmlpreview.github.io/?https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/pit/201703231850/index.html)
+[Pit-Report](https://htmlpreview.github.io/?https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/pit/201703301747/index.html)
 
 [CheckStyle-Report](https://htmlpreview.github.io/?https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/checkstyle/checkstyle.html)
