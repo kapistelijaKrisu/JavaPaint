@@ -9,7 +9,7 @@ import tools.Area;
 
 public class FillRectTest {
 
-    FillRect cmd;
+    
     ControlUnit cu;
     Area a;
 
@@ -21,21 +21,21 @@ public class FillRectTest {
         cu.getBrush().setOverride(true);
         cu.getBrush().setColor(Color.yellow);
         cu.activateSettings(true, true, true);
-        cmd = new FillRect();
+        cu.setActiveCMD(CommandMap.FILLRECT);
         a = new Area(2, 2);
     }
     
     @Test
     public void testRect() {
         a.udpate(5, 5);
-        cmd.execute(cu.getImg(), a.getRectangle());
+        cu.execute(a.getRectangle());
 
-        for (int i = 0; i < cu.getImg().getImg().getHeight(); i++) {
-            for (int j = 0; j < cu.getImg().getImg().getWidth(); j++) {
+        for (int i = 0; i < cu.getImg().getHeight(); i++) {
+            for (int j = 0; j < cu.getImg().getWidth(); j++) {
                 if ((i >= 2 && i <=5) && (j >= 2 && j <= 5)) {
-                    Assert.assertEquals(Color.yellow.getRGB(), cu.getImg().getImg().getRGB(i, j));
+                    Assert.assertEquals(Color.yellow.getRGB(), cu.getImg().getRGB(i, j));
                 } else {
-                    Assert.assertNotEquals(Color.yellow.getRGB(), cu.getImg().getImg().getRGB(i, j));
+                    Assert.assertNotEquals(Color.yellow.getRGB(), cu.getImg().getRGB(i, j));
                 }
             }
         }
@@ -44,31 +44,20 @@ public class FillRectTest {
     
     @Test
     public void testArguments() {
+        FillRect cmd = new FillRect();
         try {
             cmd.execute(null, a.getRectangle());
             Assert.assertFalse(true);
         } catch (IllegalArgumentException e) {
             
         }
-        
-        try {
-            cmd.execute(cu.getImg(), null);
-            Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
-            
-        }
-        
+      
         try {
             cmd.execute(null, null);
             Assert.assertFalse(true);
         } catch (IllegalArgumentException e) {
             
         }
-        
-        try {
-            cmd.execute(cu.getImg(), a);        
-        } catch (IllegalArgumentException e) {
-            Assert.assertFalse(true);
-        }
+   
     }
 }

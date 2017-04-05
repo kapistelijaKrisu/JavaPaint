@@ -41,7 +41,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     @Override
     public void mouseReleased(MouseEvent e) {
 
-        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
+        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE || cmd.getCurrentCMD() == CommandMap.FILLCOLOR) {
             cmd.execute(area);
         } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
             cmd.execute(area.getRectangle());

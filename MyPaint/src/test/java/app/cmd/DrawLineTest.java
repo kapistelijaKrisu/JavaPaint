@@ -18,7 +18,7 @@ public class DrawLineTest {
         cu.init(10, 10);
         cu.getBrush().setWidth(1);
         cu.activateSettings(false, false, true);
-        cmd = new DrawLine();
+        cu.setActiveCMD(CommandMap.DRAWLINE);
     }
 
     public boolean testColors(Color c) {
@@ -28,14 +28,14 @@ public class DrawLineTest {
         cu.getBrush().setColor(c);
         
         cu.activateSettings(true, false, false);
-        cmd.execute(cu.getImg(), new Area(testPixel, testPixel));
-        if (c.getRGB() != cu.getImg().getImg().getRGB(testPixel, testPixel)) {
+        cu.execute(new Area(testPixel, testPixel));
+        if (c.getRGB() != cu.getImg().getRGB(testPixel, testPixel)) {
             return false;
         }
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
                 if (i != 5 && j != 5) {
-                    if (c.getRGB() != cu.getImg().getImg().getRGB(testPixel, testPixel)) {
+                    if (c.getRGB() != cu.getImg().getRGB(testPixel, testPixel)) {
                         return false;
                     }
                 }

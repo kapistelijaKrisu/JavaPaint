@@ -21,20 +21,20 @@ public class DrawRectTest {
         cu.getBrush().setOverride(true);
         cu.getBrush().setColor(Color.yellow);
         cu.activateSettings(true, true, true);
-        cmd = new DrawRect();
+        cu.setActiveCMD(CommandMap.DRAWRECT);
         a = new Area(2, 2);
     }
     
     @Test
     public void testRect() {
         a.udpate(4, 4);
-        cmd.execute(cu.getImg(), a.getRectangle());
+        cu.execute(a.getRectangle());
         for (int i = 2; i <= 4; i++) {
             for (int j = 2; j <= 4; j++) {
                 if (i == 2 || j == 2 || i == 4 || j == 4) {
-                    Assert.assertEquals(Color.yellow.getRGB(), cu.getImg().getImg().getRGB(i, j));
+                    Assert.assertEquals(Color.yellow.getRGB(), cu.getImg().getRGB(i, j));
                 } else {
-                    Assert.assertNotEquals(Color.yellow.getRGB(), cu.getImg().getImg().getRGB(i, j));
+                    Assert.assertNotEquals(Color.yellow.getRGB(), cu.getImg().getRGB(i, j));
                 }
             }
         }
@@ -43,19 +43,13 @@ public class DrawRectTest {
     
     @Test
     public void testArguments() {
+        DrawRect cmd = new DrawRect();
         try {
             cmd.execute(null, a.getRectangle());
             Assert.assertFalse(true);
         } catch (IllegalArgumentException e) {
             
-        }
-        
-        try {
-            cmd.execute(cu.getImg(), null);
-            Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
-            
-        }
+        }        
         
         try {
             cmd.execute(null, null);
@@ -63,11 +57,6 @@ public class DrawRectTest {
         } catch (IllegalArgumentException e) {
             
         }
-        
-        try {
-            cmd.execute(cu.getImg(), a);        
-        } catch (IllegalArgumentException e) {
-            Assert.assertFalse(true);
-        }
+           
     }
 }

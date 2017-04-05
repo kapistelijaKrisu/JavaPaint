@@ -4,7 +4,7 @@ import app.PaintBrush;
 import java.util.HashMap;
 
 public class CommandMap {
-
+    public static final int FILLCOLOR = -1;
     public static final int PICKCOLOR = 0;
     public static final int DRAWLINE = 1;
     public static final int DRAWRECT = 2;
@@ -17,6 +17,7 @@ public class CommandMap {
         cmds.put(DRAWRECT, new DrawRect());
         cmds.put(FILLRECT, new FillRect());
         cmds.put(PICKCOLOR, new SetAvgColor(brush));
+        cmds.put(FILLCOLOR, new FillColor());
 
         return cmds;
     }

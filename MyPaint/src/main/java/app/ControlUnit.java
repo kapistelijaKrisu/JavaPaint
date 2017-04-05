@@ -2,6 +2,8 @@ package app;
 
 import app.cmd.CommandMap;
 import app.cmd.CMD;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import tools.Area;
 
@@ -53,15 +55,14 @@ public class ControlUnit implements Runnable {
         brush.installSetting(img.getGraphics(), setColor, setComposite, setWidth);
     }
 
-    public MyImage getImg() {
-        return img;
+    public BufferedImage getImg() {
+        return img.getImg();
+    }
+    public Graphics2D getGraphics() {
+        return img.getGraphics();
     }
     
     //test
-
-    public void setBrush(PaintBrush brush) {
-        if (brush != null) this.brush = brush;
-    }
 
     public PaintBrush getBrush() {
         return brush;

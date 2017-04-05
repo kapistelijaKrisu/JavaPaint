@@ -86,7 +86,7 @@ public class KeyInput implements KeyListener {
                 cmd.getBrush().setOverride(false);
                 cmd.activateSettings(false, true, false);
                 break;
-            case KeyEvent.VK_T:
+            case KeyEvent.VK_G:
                 cmd.getBrush().setOverride(true);
                 cmd.activateSettings(false, true, false);
                 break;
@@ -107,6 +107,10 @@ public class KeyInput implements KeyListener {
             case KeyEvent.VK_R:
                 cmd.setActiveCMD(CommandMap.PICKCOLOR);
                 w.drawToolTip = true;
+                break;
+                case KeyEvent.VK_T:
+                cmd.setActiveCMD(CommandMap.FILLCOLOR);
+                w.drawToolTip = false;
                 break;
 
         }

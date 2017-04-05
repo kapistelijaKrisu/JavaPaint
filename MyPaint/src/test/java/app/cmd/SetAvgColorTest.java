@@ -13,7 +13,7 @@ import tools.Area;
 public class SetAvgColorTest {
 
     FillRect cmd;
-    SetAvgColor avgSetter;
+    
     ControlUnit cu;
     Area a;
 
@@ -24,9 +24,9 @@ public class SetAvgColorTest {
         cu.getBrush().setWidth(1);
         cu.getBrush().setOverride(true);
         cu.activateSettings(true, true, true);
+        
         cmd = new FillRect();
         a = new Area(0, 0);
-        avgSetter = new SetAvgColor(cu.getBrush());
     }
 
     @Test
@@ -41,9 +41,12 @@ public class SetAvgColorTest {
             cu.getBrush().setColor(ct[i]);
         cu.activateSettings(true, false, false);
         a.init(1, i);
-        cmd.execute(cu.getImg(), a.getRectangle());
+        cu.setActiveCMD(CommandMap.FILLRECT);
+        cu.execute(a.getRectangle());
+        
+        cu.setActiveCMD(CommandMap.PICKCOLOR);
+        cu.execute(a.getRectangle());
 
-        avgSetter.execute(cu.getImg(), a.getRectangle());
         Assert.assertEquals(ct[i].getRGB(), cu.getBrush().getColor().getRGB());
 
             
@@ -51,36 +54,30 @@ public class SetAvgColorTest {
  
         a.init(1, 1);
         a.udpate(1, 3);
-        avgSetter.execute(cu.getImg(), a.getRectangle());
+        cu.execute(a.getRectangle());
 
-         int a = 0;
+        int aa = 0;
         int r = 0;
         int g = 0;
         int b = 0;
         for (int i = 1; i < ct.length; i++) {
            int val = ct[i].getRGB();
-           a += (0xff000000 & val) >>> 24;
+           aa += (0xff000000 & val) >>> 24;
         r += (0x00ff0000 & val) >> 16;
         g += (0x0000ff00 & val) >> 8;
         b += (0x000000ff & val);
             
         }
         
-        Color test = new Color(r / 3, g / 3, b / 3, a / 3);
-        Assert.assertEquals(test.getRGB(), cu.getImg().getGraphics().getColor().getRGB());
+        Color test = new Color(r / 3, g / 3, b / 3, aa / 3);
+        Assert.assertEquals(test.getRGB(), cu.getGraphics().getColor().getRGB());
     }
 
     @Test
     public void testArguments() {
+        SetAvgColor avgSetter = new SetAvgColor(cu.getBrush());
         try {
             avgSetter.execute(null, a.getRectangle());
-            Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
-
-        }
-
-        try {
-            avgSetter.execute(cu.getImg(), null);
             Assert.assertFalse(true);
         } catch (IllegalArgumentException e) {
 
@@ -93,11 +90,6 @@ public class SetAvgColorTest {
 
         }
 
-        try {
-            avgSetter.execute(cu.getImg(), a);
-        } catch (IllegalArgumentException e) {
-            Assert.assertFalse(true);
-        }
 
         try {
             avgSetter = new SetAvgColor(null);
