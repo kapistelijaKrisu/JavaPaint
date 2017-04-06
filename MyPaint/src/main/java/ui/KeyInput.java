@@ -26,12 +26,10 @@ public class KeyInput implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_SUBTRACT:
-                cmd.getBrush().setWidth(cmd.getBrush().getWidth() - 1);
-                cmd.activateSettings(false, false, true);
+                cmd.getImg().thin();
                 break;
             case KeyEvent.VK_ADD:
-                cmd.getBrush().setWidth(cmd.getBrush().getWidth() + 1);
-                cmd.activateSettings(false, false, true);
+                cmd.getImg().thicken();
                 break;
 
             case KeyEvent.VK_F1:
@@ -59,36 +57,29 @@ public class KeyInput implements KeyListener {
                 w.repaint();
                 break;
             case KeyEvent.VK_1:
-                cmd.getBrush().setColor(Color.black);
-                cmd.activateSettings(true, false, false);
+                cmd.getImg().setColor(Color.black);
                 break;
             case KeyEvent.VK_2:
-                cmd.getBrush().setColor(Color.white);
-                cmd.activateSettings(true, false, false);
+                cmd.getImg().setColor(Color.white);
                 break;
             case KeyEvent.VK_3:
                 Color c = new Color(1, 0, 0, 0f);
-                cmd.activateSettings(true, false, false);
-                cmd.getBrush().setColor(c);
+                cmd.getImg().setColor(c);
                 break;
             case KeyEvent.VK_4:
                 c = new Color(1, 0, 0, 0.5f);
-                cmd.activateSettings(true, false, false);
-                cmd.getBrush().setColor(c);
+                cmd.getImg().setColor(c);
                 break;
             case KeyEvent.VK_5:
                 Random r = new Random();
                 c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), Math.min(1f, r.nextFloat() * 3));
-                cmd.activateSettings(true, false, false);
-                cmd.getBrush().setColor(c);
+                cmd.getImg().setColor(c);
                 break;
             case KeyEvent.VK_F:
-                cmd.getBrush().setOverride(false);
-                cmd.activateSettings(false, true, false);
+                cmd.getImg().setOverride(false);
                 break;
             case KeyEvent.VK_G:
-                cmd.getBrush().setOverride(true);
-                cmd.activateSettings(false, true, false);
+                cmd.getImg().setOverride(true);
                 break;
 
             case KeyEvent.VK_Q:

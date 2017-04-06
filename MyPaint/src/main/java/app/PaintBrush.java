@@ -1,9 +1,7 @@
 package app;
 
 import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics2D;
 
 public final class PaintBrush {
 
@@ -17,20 +15,8 @@ public final class PaintBrush {
             throw new IllegalArgumentException();
         }
         setColor(Color.black);
+        setWidth(width);
         setOverride(override);
-    }
-
-    public void installSetting(Graphics2D target, boolean setColor, boolean setComposite, boolean setWidth) {
-        if (setColor) {
-            target.setColor(color);
-        }
-        if (setWidth) {
-            target.setStroke(new BasicStroke(width));
-        }
-        if (setComposite) {
-            target.setComposite(AlphaComposite.getInstance(composite, color.getAlpha() / 255f));
-        }
-
     }
 
     public void setColor(Color color) {
@@ -53,8 +39,6 @@ public final class PaintBrush {
         }
     }
 
-    
-    //tests need these
     public static int getMAX_WIDTH() {
         return MAX_WIDTH;
     }
@@ -70,8 +54,5 @@ public final class PaintBrush {
     public int getComposite() {
         return composite;
     }
-    
-    
-
 
 }

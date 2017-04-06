@@ -17,10 +17,9 @@ public class DrawRectTest {
     public void setUp() {
         cu = new ControlUnit();
         cu.init(10, 10);
-        cu.getBrush().setWidth(1);
-        cu.getBrush().setOverride(true);
-        cu.getBrush().setColor(Color.yellow);
-        cu.activateSettings(true, true, true);
+        cu.getImg().setWidth(1);
+        cu.getImg().setOverride(true);
+        cu.getImg().setColor(Color.yellow);
         cu.setActiveCMD(CommandMap.DRAWRECT);
         a = new Area(2, 2);
     }
@@ -32,9 +31,9 @@ public class DrawRectTest {
         for (int i = 2; i <= 4; i++) {
             for (int j = 2; j <= 4; j++) {
                 if (i == 2 || j == 2 || i == 4 || j == 4) {
-                    Assert.assertEquals(Color.yellow.getRGB(), cu.getImg().getRGB(i, j));
+                    Assert.assertEquals(Color.yellow.getRGB(), cu.getImg().getImg().getRGB(i, j));
                 } else {
-                    Assert.assertNotEquals(Color.yellow.getRGB(), cu.getImg().getRGB(i, j));
+                    Assert.assertNotEquals(Color.yellow.getRGB(), cu.getImg().getImg().getRGB(i, j));
                 }
             }
         }

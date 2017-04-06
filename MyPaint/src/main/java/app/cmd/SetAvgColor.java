@@ -1,19 +1,18 @@
 package app.cmd;
 
 import app.MyImage;
-import app.PaintBrush;
 import java.awt.Color;
 import tools.Area;
 
 public class SetAvgColor implements CMD {
 
-    private PaintBrush brush;
+    private MyImage img;
 
-    public SetAvgColor(PaintBrush brush) {
-        if (brush == null) {
+    public SetAvgColor(MyImage img) {
+        if (img == null) {
             throw new IllegalArgumentException();
         }
-        this.brush = brush;
+        this.img = img;
     }
 
     @Override
@@ -43,10 +42,8 @@ public class SetAvgColor implements CMD {
         r /= divider;
         g /= divider;
         b /= divider;
-
-        // System.out.println(a + " " + r + " " + g + " " + a);
-        brush.setColor(new Color(r, g, b, a));
-        brush.installSetting(img.getGraphics(), true, false, false);
+        
+        img.setColor(new Color(r, g, b, a));
 
     }
 

@@ -17,10 +17,9 @@ public class FillRectTest {
     public void setUp() {
         cu = new ControlUnit();
         cu.init(10, 10);
-        cu.getBrush().setWidth(1);
-        cu.getBrush().setOverride(true);
-        cu.getBrush().setColor(Color.yellow);
-        cu.activateSettings(true, true, true);
+        cu.getImg().setWidth(1);
+        cu.getImg().setOverride(true);
+        cu.getImg().setColor(Color.yellow);
         cu.setActiveCMD(CommandMap.FILLRECT);
         a = new Area(2, 2);
     }
@@ -30,12 +29,12 @@ public class FillRectTest {
         a.udpate(5, 5);
         cu.execute(a.getRectangle());
 
-        for (int i = 0; i < cu.getImg().getHeight(); i++) {
-            for (int j = 0; j < cu.getImg().getWidth(); j++) {
+        for (int i = 0; i < cu.getImg().getImg().getHeight(); i++) {
+            for (int j = 0; j < cu.getImg().getImg().getWidth(); j++) {
                 if ((i >= 2 && i <=5) && (j >= 2 && j <= 5)) {
-                    Assert.assertEquals(Color.yellow.getRGB(), cu.getImg().getRGB(i, j));
+                    Assert.assertEquals(Color.yellow.getRGB(), cu.getImg().getImg().getRGB(i, j));
                 } else {
-                    Assert.assertNotEquals(Color.yellow.getRGB(), cu.getImg().getRGB(i, j));
+                    Assert.assertNotEquals(Color.yellow.getRGB(), cu.getImg().getImg().getRGB(i, j));
                 }
             }
         }

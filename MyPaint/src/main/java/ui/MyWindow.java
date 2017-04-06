@@ -46,8 +46,8 @@ public class MyWindow extends JPanel {
         yOffSet = 0;
         drawToolTip = false;
         
-        int imgWidth = control.getImg().getWidth();
-        int imgHeight = control.getImg().getHeight();
+        int imgWidth = control.getImg().getImg().getWidth();
+        int imgHeight = control.getImg().getImg().getHeight();
         bg = BackGroundCreator.create(imgWidth, imgHeight);
         Dimension dim = new Dimension(width, height);
         setPreferredSize(dim);
@@ -81,7 +81,7 @@ public class MyWindow extends JPanel {
         g2.scale(scale / 1, scale / 1);
         
         g.drawImage(bg, xOffSet, yOffSet, null);
-        g.drawImage(control.getImg(), xOffSet, yOffSet, null);
+        g.drawImage(control.getImg().getImg(), xOffSet, yOffSet, null);
         
         if (drawToolTip) {
             Area r = toolTip.getRectangle();

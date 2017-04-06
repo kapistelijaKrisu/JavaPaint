@@ -16,8 +16,7 @@ public class DrawLineTest {
     public void setUp() {
         cu = new ControlUnit();
         cu.init(10, 10);
-        cu.getBrush().setWidth(1);
-        cu.activateSettings(false, false, true);
+        cu.getImg().setWidth(1);
         cu.setActiveCMD(CommandMap.DRAWLINE);
     }
 
@@ -25,17 +24,15 @@ public class DrawLineTest {
         int length = 9;
         int testPixel = 5;
 
-        cu.getBrush().setColor(c);
-        
-        cu.activateSettings(true, false, false);
+        cu.getImg().setColor(c);
         cu.execute(new Area(testPixel, testPixel));
-        if (c.getRGB() != cu.getImg().getRGB(testPixel, testPixel)) {
+        if (c.getRGB() != cu.getImg().getImg().getRGB(testPixel, testPixel)) {
             return false;
         }
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
                 if (i != 5 && j != 5) {
-                    if (c.getRGB() != cu.getImg().getRGB(testPixel, testPixel)) {
+                    if (c.getRGB() != cu.getImg().getImg().getRGB(testPixel, testPixel)) {
                         return false;
                     }
                 }
