@@ -1,10 +1,7 @@
 package app;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import org.junit.Assert;
 import org.junit.Before;

@@ -9,5 +9,7 @@ Date | Hours | Description
 28.03.2017 | 7.0h | refactoring and expanding
 29.03.2017 | 8.0h | refactoring tests...
 30.03.2017 | 2.0h | documenting and planning further
+05.04.2017 | 3.0h | slight expansion
+30.03.2017 | 6.0h | expanding, refactoring but mostly documenting
 ... | ... | ...
 

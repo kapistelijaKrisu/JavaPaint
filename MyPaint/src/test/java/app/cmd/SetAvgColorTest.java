@@ -1,11 +1,8 @@
 package app.cmd;
 
 import app.ControlUnit;
-import app.MyImage;
-import app.PaintBrush;
 import java.awt.Color;
 import org.junit.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 import tools.Area;
@@ -73,7 +70,7 @@ public class SetAvgColorTest {
 
     @Test
     public void testArguments() {
-        SetAvgColor avgSetter = new SetAvgColor(cu.getImg());
+        SetAvgColor avgSetter = new SetAvgColor();
         try {
             avgSetter.execute(null, a.getRectangle());
             Assert.assertFalse(true);
@@ -86,19 +83,6 @@ public class SetAvgColorTest {
             Assert.assertFalse(true);
         } catch (IllegalArgumentException e) {
 
-        }
-
-
-        try {
-            avgSetter = new SetAvgColor(null);
-            Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
-
-        }
-        try {
-            avgSetter = new SetAvgColor(cu.getImg());
-        } catch (IllegalArgumentException e) {
-            Assert.assertFalse(true);
         }
     }
 }

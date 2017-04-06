@@ -3,10 +3,15 @@ package tools;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+/**
+ * 
+ * <p>Utility class that only is used to save and load files.</p>
+ * 
+ * <p>format - May be png or jpg.<br>
+ * filename - Name of the saved file and must not be empty.</p>
+ */
 public final class FileUtils {
 
     private static String fileName = "Untitled";

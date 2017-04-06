@@ -4,16 +4,14 @@ import app.MyImage;
 import java.awt.Color;
 import tools.Area;
 
+/** 
+ * 
+ * <p>An implementation of CMD which picks the average color of an area and sets the value to MyImage.</p>
+ * 
+ */
+
 public class SetAvgColor implements CMD {
 
-    private MyImage img;
-
-    public SetAvgColor(MyImage img) {
-        if (img == null) {
-            throw new IllegalArgumentException();
-        }
-        this.img = img;
-    }
 
     @Override
     public void execute(MyImage img, Area rect) {

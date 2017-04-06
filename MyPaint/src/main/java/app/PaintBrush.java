@@ -2,7 +2,11 @@ package app;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
-
+/**
+ * 
+ * <p>A container of information for MyImage.</p>
+ * <p>Holds width, composite, color values and assures their values are valid</p> 
+ */
 public final class PaintBrush {
 
     private static final int MAX_WIDTH = 30;

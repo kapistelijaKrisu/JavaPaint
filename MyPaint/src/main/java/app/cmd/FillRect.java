@@ -5,6 +5,11 @@ import app.MyImage;
 import java.awt.Rectangle;
 import tools.Area;
 
+/**
+ * 
+ * <p>An implementation of CMD which fills a rectangular area to MyImage.</p>
+ * 
+ */
 public class FillRect implements CMD {
 
     @Override

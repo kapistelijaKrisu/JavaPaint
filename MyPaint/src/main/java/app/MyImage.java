@@ -6,6 +6,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+/**
+ * 
+ * <p>Basically a BufferedImage with added information and methods for easier use</p>
+ */
 public class MyImage {
 
     //  private ArrayDeque<BufferedImage> rewind;//later

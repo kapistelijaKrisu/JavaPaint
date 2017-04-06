@@ -1,5 +1,11 @@
 package tools;
 
+/**
+ * 
+ * <p>Class used to format data that implements CMD.</p>
+ * <p>Contains starting pixel, previous pixel, current pixel as int x,y</p>
+ * 
+ */
 public final class Area {
     private static final int MIN_VAL = 0;
     private static int maxX = MIN_VAL, maxY = MIN_VAL;

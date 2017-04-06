@@ -1,9 +1,6 @@
 package app;
 
 import app.cmd.CommandMap;
-import app.cmd.DrawRect;
-import java.awt.AlphaComposite;
-import java.awt.Color;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -10,6 +10,12 @@ import java.util.HashSet;
 import tools.Area;
 import ui.Coordinate;
 
+/**
+ * 
+ * <p>An implementation of CMD which replaces a color of MyImage using breadth search.</p>
+ * 
+ */
+
 public class FillColor implements CMD {
 
     @Override

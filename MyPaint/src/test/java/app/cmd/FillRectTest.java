@@ -8,7 +8,6 @@ import org.junit.Test;
 import tools.Area;
 
 public class FillRectTest {
-
     
     ControlUnit cu;
     Area a;

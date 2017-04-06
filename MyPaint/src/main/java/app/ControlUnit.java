@@ -5,6 +5,10 @@ import app.cmd.CMD;
 import java.util.HashMap;
 import tools.Area;
 
+/**
+ * 
+ * <p>The core of the application which by itself does nothing and only works upon user calling it to manipulate MyImage.</p>
+ */
 public class ControlUnit implements Runnable {
     
     private int currentCMD;
@@ -16,7 +20,7 @@ public class ControlUnit implements Runnable {
     public void init(int width, int height) {
         img = new MyImage(width, height);
         Area.setBounds(width-1, height-1);
-        cmds = CommandMap.createCommandMap(img);
+        cmds = CommandMap.createCommandMap();
         currentCMD = CommandMap.DRAWLINE;
         init = true;
     }

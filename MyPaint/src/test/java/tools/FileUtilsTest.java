@@ -7,13 +7,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import static org.junit.Assert.assertTrue;
-import org.junit.Before;
 import org.junit.Test;
 
 public class FileUtilsTest {
@@ -24,6 +20,11 @@ public class FileUtilsTest {
     public void setDefaults() {
         FileUtils.setFileLocation("Untitiled");
         FileUtils.setFormat("png");
+        File f = new File("asd.png");
+        try {
+            Files.delete(f.toPath());
+        } catch (IOException ex) {
+        }
     }
 
     @Test
@@ -33,7 +34,7 @@ public class FileUtilsTest {
 
     @Test
     public void formatIsValid() {
-        Assert.assertFalse(FileUtils.getFormat()== null);
+        Assert.assertFalse(FileUtils.getFormat() == null);
         FileUtils.setFormat("jpg");
         Assert.assertTrue(FileUtils.getFormat().equals("jpg"));
         FileUtils.setFormat("asd");
