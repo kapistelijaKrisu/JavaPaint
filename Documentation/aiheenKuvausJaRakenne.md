@@ -1,7 +1,7 @@
 ## My Paint
 
 ##Subject
-Simplified version*Difference with windows paint is that it will contain alpha channel and usable on linux**Difference with windows paint is that it will contain alpha channel and usable on linux*
+Simplified version*Difference with windows paint is that it will contain alpha channel and usable on linux**Difference with windows paint is that it will contain alpha channel and usable on linux**
 
 ###Users
 The artist
