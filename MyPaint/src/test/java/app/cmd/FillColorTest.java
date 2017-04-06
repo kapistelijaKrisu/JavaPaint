@@ -79,36 +79,7 @@ public class FillColorTest {
 
         }
     }
-/*
-    public boolean testLoopPart(Area a, int size) {
 
-        cu.execute(a);
-        for (int i = 0; i < img.getHeight(); i++) {
-            for (int j = 0; j < img.getWidth(); j++) {
-
-                if (cu.getBrush().getColor().getRGB() != cu.getImg().getRGB(i, j)) {
-                    return false;
-                }
-
-            }
-
-        }
-        return true;
-    }
-
-    @Test
-    public void test4() {
-        int size = 5;
-        for (int i = 0; i < size; i+= size-1) {
-            for (int j = 0; j < size; j+= size-1) {
-                a.init(i, j);
-                testLoopPart(a, size);
-            }
-
-        }
-
-    }
-*/
     @Test
     public void test3() {
         a.init(2, 0);
