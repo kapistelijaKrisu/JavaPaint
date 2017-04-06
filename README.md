@@ -4,7 +4,7 @@ Familiar paint from with transparency and possible other picture modification to
 ##Documentation
 [User Guide] to be made...
 
-[Subject Description](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/aiheenKuvausJaRakenne.md.save)
+[Subject Description](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/aiheenKuvausJaRakenne.md)
 
 [Hour Accounting](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/hour-accounting.md)
 
