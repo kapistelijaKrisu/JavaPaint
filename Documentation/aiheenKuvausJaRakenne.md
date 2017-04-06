@@ -1,7 +1,7 @@
 ## My Paint
 
 ### Subject
-Simplified version*Difference with windows paint is that it will contain alpha channel and usable on linux
+Simple application for image manipulation.
 <br />**Difference with windows paint is that it will contain alpha channel and will run on anything that has java 1.8 or above.**
 
 ### Users
