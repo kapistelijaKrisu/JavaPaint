@@ -79,7 +79,7 @@ public class FillColorTest {
 
         }
     }
-
+/*
     public boolean testLoopPart(Area a, int size) {
 
         cu.execute(a);
@@ -108,7 +108,7 @@ public class FillColorTest {
         }
 
     }
-
+*/
     @Test
     public void test3() {
         a.init(2, 0);
