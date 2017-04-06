@@ -2,16 +2,13 @@
 
 ### Subject
 Simplified version*Difference with windows paint is that it will contain alpha channel and usable on linux
-<br />**Difference with windows paint is that it will contain alpha channel and usable on linux**
+<br />**Difference with windows paint is that it will contain alpha channel and will run on anything that has java 1.8 or above.**
 
 ### Users
 The artist
 
 ### Actions
-Create, modify and save images as bitmap and/or png
-*Difference with windows paint is that it will contain alpha channel and usable on linux*
-
-
+Create, modify and save images as png or jpg.
 
 
 ### Class Diagram
