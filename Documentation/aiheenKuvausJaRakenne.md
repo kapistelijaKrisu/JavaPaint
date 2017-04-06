@@ -8,7 +8,7 @@ Simplified version*Difference with windows paint is that it will contain alpha c
 The artist
 
 ### Actions
-Create, modify and save images as png or jpg.
+Create, modify and save images as png or jpg.*(if saved as jpg-file alpha channel disappears)*
 
 
 ### Class Diagram
