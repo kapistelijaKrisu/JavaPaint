@@ -50,8 +50,8 @@ public class FillColor implements CMD {
 
         Coordinate coord;
 
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
                     coord = new Coordinate(at.x + j, at.y + i);
                     if (isLegal(coord, img.getWidth(), img.getHeight())) {
                         c.add(coord);

@@ -7,15 +7,15 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
- * 
- * <p>Basically a BufferedImage with added information and methods for easier use</p>
+ *
+ * <p>
+ * Basically a BufferedImage with added information and methods for easier
+ * use</p>
  */
 public class MyImage {
 
-    //  private ArrayDeque<BufferedImage> rewind;//later
-    //  private ArrayDeque<BufferedImage> fastForward;//later
+    private Log log;
     private BufferedImage img;
-    //BufferedImage toolLayer;
     private Graphics2D graphics;
     private PaintBrush brush;
 
@@ -23,10 +23,8 @@ public class MyImage {
         if (width < 1 || height < 1) {
             throw new IllegalArgumentException();
         }
-        //     rewind = new ArrayDeque<>();
-        //    fastForward = new ArrayDeque<>();
+        log = new Log();
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        //  toolLayer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         graphics = img.createGraphics();
         setBrush(new PaintBrush(1, true));
     }
@@ -68,33 +66,6 @@ public class MyImage {
         return brush.getColor();
     }
 
-    /* completed on later date 
-    
-    public void saveProcess() {
-        rewind.add(copyImage(img));
-    }
-
-    public void rewind() {
-        if (!rewind.isEmpty()) {
-            fastForward.add(img);
-            img = rewind.pop();
-        }
-    }
-
-    public void fastForward() {
-        if (!fastForward.isEmpty()) {
-            rewind.add(img);
-            img = rewind.poll();
-        }
-    }
-
-    private BufferedImage copyImage(BufferedImage source) {
-        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
-        Graphics2D g = b.createGraphics();
-        g.drawImage(source, 0, 0, null);
-        g.dispose();
-        return b;
-    }*/
     public void setBrush(PaintBrush brush) {
         this.brush = brush;
         graphics.setColor(brush.getColor());
@@ -102,4 +73,36 @@ public class MyImage {
         graphics.setComposite(AlphaComposite.getInstance(brush.getComposite(), brush.getColor().getAlpha() / 255f));
     }
 
+    public void updateHistory() {
+        log.addStep(img);
+    }
+
+    public void undo() {
+        BufferedImage prev = log.getPrevious(img);
+        if (prev != null) {
+            img = prev;
+            refreshGraphics();
+        }
+    }
+
+    public void redo() {
+        BufferedImage next = log.getNext(img);
+        if (next != null) {
+            img = next;
+            refreshGraphics();
+        }
+    }
+
+    private void refreshGraphics() {
+        graphics = img.createGraphics();
+        graphics.setColor(brush.getColor());
+        graphics.setStroke(new BasicStroke(brush.getWidth()));
+        graphics.setComposite(AlphaComposite.getInstance(brush.getComposite(), brush.getColor().getAlpha() / 255f));
+    }
+
+    public Log getLog() {
+        return log;
+    }
+
+    
 }

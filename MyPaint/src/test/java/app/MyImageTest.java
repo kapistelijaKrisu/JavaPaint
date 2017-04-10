@@ -1,6 +1,8 @@
 package app;
 
 import java.awt.Color;
+import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -137,6 +139,86 @@ public class MyImageTest {
             }
 
         }*/
+    }
+    
+    @Test
+    public void resetGraphicsTestUndo() {
+        PaintBrush brush = new PaintBrush(3, false);
+        brush.setColor(Color.yellow);        
+        img.setBrush(brush);
+        
+        img.getGraphics().draw(new Line2D.Float(0, 0,
+                 1, 1));
+        
+        img.updateHistory();
+        
+        img.setColor(Color.red);
+        img.setWidth(3);
+        img.setOverride(true);
+        
+        img.undo();
+        
+       img.getGraphics().draw(new Line2D.Float(0, 0,
+                 0, 0));
+        
+        Assert.assertEquals(Color.red.getRGB(), img.getImg().getRGB(0, 0));
+        Assert.assertEquals(Color.red.getRGB(), img.getImg().getRGB(1, 0));
+        Assert.assertEquals(Color.red.getRGB(), img.getImg().getRGB(0, 1));
+        Assert.assertEquals(Color.red.getRGB(), img.getImg().getRGB(1, 1));
+        
+    }
+    
+    @Test
+    public void resetGraphicsTestRedo() {
+        PaintBrush brush = new PaintBrush(1, false);
+        brush.setColor(Color.yellow);        
+        img.setBrush(brush);
+        
+        img.getGraphics().draw(new Rectangle.Float(0, 0,
+                 1, 1));
+        
+        img.updateHistory();
+        
+        img.setColor(Color.red);
+        img.setWidth(3);
+        img.setOverride(true);
+        img.undo();
+        img.redo();
+        
+       img.getGraphics().draw(new Line2D.Float(0, 0,
+                 0, 0));
+        
+        Assert.assertEquals(Color.red.getRGB(), img.getImg().getRGB(0, 0));
+        Assert.assertEquals(Color.red.getRGB(), img.getImg().getRGB(1, 0));
+        Assert.assertEquals(Color.red.getRGB(), img.getImg().getRGB(0, 1));
+        Assert.assertEquals(Color.red.getRGB(), img.getImg().getRGB(1, 1));
+        
+    }
+    
+    @Test
+    public void fuckthis() {
+        PaintBrush brush = new PaintBrush(1, true);
+        brush.setColor(Color.yellow);        
+        img.setBrush(brush);
+        
+        img.getGraphics().draw(new Rectangle.Float(0, 0,
+                 1, 1));
+        
+        img.updateHistory();
+        
+        img.setColor(Color.red);
+        img.setWidth(3);
+        img.setOverride(false);
+        
+        img.undo();
+        
+       img.getGraphics().draw(new Line2D.Float(0, 0,
+                 0, 0));
+        
+        Assert.assertNotEquals(Color.red.getRGB(), img.getImg().getRGB(0, 0));
+        Assert.assertNotEquals(Color.red.getRGB(), img.getImg().getRGB(1, 0));
+        Assert.assertNotEquals(Color.red.getRGB(), img.getImg().getRGB(0, 1));
+        Assert.assertNotEquals(Color.red.getRGB(), img.getImg().getRGB(1, 1));
     }
 
 }

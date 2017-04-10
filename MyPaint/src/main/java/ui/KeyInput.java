@@ -25,6 +25,16 @@ public class KeyInput implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_Z:
+                cmd.getImg().undo();
+                w.repaint();
+                break;
+            case KeyEvent.VK_X:
+                cmd.getImg().redo();
+                w.repaint();
+                break;
+                
+                
             case KeyEvent.VK_SUBTRACT:
                 cmd.getImg().thin();
                 break;
@@ -99,8 +109,12 @@ public class KeyInput implements KeyListener {
                 cmd.setActiveCMD(CommandMap.PICKCOLOR);
                 w.drawToolTip = true;
                 break;
-                case KeyEvent.VK_T:
+            case KeyEvent.VK_T:
                 cmd.setActiveCMD(CommandMap.FILLCOLOR);
+                w.drawToolTip = false;
+                break;
+            case KeyEvent.VK_Y:
+                cmd.setActiveCMD(CommandMap.REPLACECOLOR);
                 w.drawToolTip = false;
                 break;
 

@@ -29,8 +29,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
         int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
         int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
         area.init(x, y);
-        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
-            cmd.execute(area);
+        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE || cmd.getCurrentCMD() == CommandMap.REPLACECOLOR) {
             w.drawToolTip = false;
         } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
             w.drawToolTip = true;
@@ -40,8 +39,11 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
+            return;
+        }
 
-        if (cmd.getCurrentCMD() == CommandMap.DRAWLINE || cmd.getCurrentCMD() == CommandMap.FILLCOLOR) {
+        if (cmd.getCurrentCMD() == CommandMap.FILLCOLOR) {
             cmd.execute(area);
         } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
             cmd.execute(area.getRectangle());
@@ -68,6 +70,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
         
         area.udpate(x, y);
         if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
+            if (area.getCurX() != area.getLastX() || area.getCurY() != area.getLastY())
             cmd.execute(area);
         }
         w.repaint();
