@@ -11,5 +11,7 @@ Date | Hours | Description
 30.03.2017 | 2.0h | documenting and planning further
 05.04.2017 | 3.0h | slight expansion
 30.03.2017 | 6.0h | expanding, refactoring but mostly documenting
+10.04.2017 | 6.0h | expanding, testing
+11.04.2017 | 6.0h | testing, javadoc, diagrams
 ... | ... | ...
 
