@@ -8,7 +8,7 @@ import ui.OneLineException;
 
 /**
  * 
- * Holds the copied images in 2 stacks for undo and redo easy managment
+ * Holds the history and redo steps in 2stacks and manages them
  */
 
 public class Log {
@@ -21,7 +21,12 @@ public class Log {
         redo = new ArrayDeque<>();
     }
 
-    public BufferedImage getPrevious(BufferedImage current) {
+    /**
+     * 
+     * @param current - puts the current image to redo stack
+     * @return - return popped image from history stack 
+     */
+    public BufferedImage popPrevious(BufferedImage current) {
         OneLineException.nullTest(current);
         if (!history.isEmpty()) {
             BufferedImage prev = history.pop();
@@ -31,7 +36,12 @@ public class Log {
         return null;
     }
 
-    public BufferedImage getNext(BufferedImage current) {
+    /**
+     * 
+     * @param current - puts the current image to history stack
+     * @return - returns popped image from redo stack 
+     */
+    public BufferedImage popNext(BufferedImage current) {
         OneLineException.nullTest(current);
         if (!redo.isEmpty()) {
             BufferedImage next = redo.pop();
@@ -42,11 +52,20 @@ public class Log {
 
     }
 
-    public void addStep(BufferedImage img) {
+    /**
+     * 
+     * @param img - image is added to history stack
+     */
+    public void archieveImage(BufferedImage img) {
         history.push(clone(img));
         redo.clear();
     }
 
+    /**
+     * 
+     * @param bi image to be cloned
+     * @return a deep copy of bi
+     */
     private static BufferedImage clone(BufferedImage bi) {
         ColorModel cm = bi.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();

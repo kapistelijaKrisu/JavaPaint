@@ -5,16 +5,15 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import tools.Area;
 
 /**
  *
  * <p>
- * Basically a BufferedImage with added information and methods for easier
- * use</p>
+ * Basically a BufferedImage with consistent graphics setting. PaintBrush object contains graphical settings</p>
  */
 public class MyImage {
 
-    private Log log;
     private BufferedImage img;
     private Graphics2D graphics;
     private PaintBrush brush;
@@ -23,7 +22,7 @@ public class MyImage {
         if (width < 1 || height < 1) {
             throw new IllegalArgumentException();
         }
-        log = new Log();
+
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         graphics = img.createGraphics();
         setBrush(new PaintBrush(1, true));
@@ -73,26 +72,6 @@ public class MyImage {
         graphics.setComposite(AlphaComposite.getInstance(brush.getComposite(), brush.getColor().getAlpha() / 255f));
     }
 
-    public void updateHistory() {
-        log.addStep(img);
-    }
-
-    public void undo() {
-        BufferedImage prev = log.getPrevious(img);
-        if (prev != null) {
-            img = prev;
-            refreshGraphics();
-        }
-    }
-
-    public void redo() {
-        BufferedImage next = log.getNext(img);
-        if (next != null) {
-            img = next;
-            refreshGraphics();
-        }
-    }
-
     private void refreshGraphics() {
         graphics = img.createGraphics();
         graphics.setColor(brush.getColor());
@@ -100,9 +79,9 @@ public class MyImage {
         graphics.setComposite(AlphaComposite.getInstance(brush.getComposite(), brush.getColor().getAlpha() / 255f));
     }
 
-    public Log getLog() {
-        return log;
+    public void setImg(BufferedImage img) {
+        this.img = img;
+        refreshGraphics();
+        Area.setBounds(img.getHeight() - 1, img.getWidth() - 1);
     }
-
-    
 }

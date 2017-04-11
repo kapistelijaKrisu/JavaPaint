@@ -11,11 +11,12 @@ import tools.Area;
 import ui.Coordinate;
 
 /**
- * 
- * <p>An implementation of CMD which replaces a color of MyImage using breadth search.</p>
- * 
+ *
+ * <p>
+ * An implementation of CMD which replaces a color of MyImage using breadth
+ * search.</p>
+ *
  */
-
 public class FillColor implements CMD {
 
     @Override
@@ -45,37 +46,36 @@ public class FillColor implements CMD {
     }
 
     private Collection getNeighbours(Coordinate at, int paintOn, HashSet visited, BufferedImage img) {
-        Collection<Coordinate> c = new ArrayList();
         Collection<Coordinate> toReturn = new ArrayList();
 
-        Coordinate coord;
+        ArrayDeque<Coordinate> allNeighbours = new ArrayDeque<>();
+        allNeighbours.add(new Coordinate(at.x, at.y + 1));
+        allNeighbours.add(new Coordinate(at.x, at.y - 1));
+        allNeighbours.add(new Coordinate(at.x + 1, at.y));
+        allNeighbours.add(new Coordinate(at.x - 1, at.y));
 
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                    coord = new Coordinate(at.x + j, at.y + i);
-                    if (isLegal(coord, img.getWidth(), img.getHeight())) {
-                        c.add(coord);
-                    }
-
-                }
-
+        while (!allNeighbours.isEmpty()) {
+            Coordinate c = allNeighbours.poll();
+            if (canAdd(c, visited, paintOn, img)) {
+                toReturn.add(c);
+                visited.add(c);
             }
-
-        for (Coordinate coo : c) {
-            if (!visited.contains(coo)) {
-
-                if (img.getRGB(coo.x, coo.y) == paintOn) {
-                    toReturn.add(coo);
-
-                }
-            }
-            visited.add(coo);
         }
         return toReturn;
     }
 
-    private boolean isLegal(Coordinate c, int maxX, int maxY) {
+    private boolean isInBounds(Coordinate c, int maxX, int maxY) {
         return c.x >= 0 && c.x < maxX && c.y >= 0 && c.y < maxY;
+    }
+
+    private boolean canAdd(Coordinate coord, HashSet visited, int paintOn, BufferedImage img) {
+
+        if (isInBounds(coord, img.getWidth(), img.getHeight())) {
+            if (!visited.contains(coord) && img.getRGB(coord.x, coord.y) == paintOn) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

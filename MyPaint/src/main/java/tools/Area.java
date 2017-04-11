@@ -1,15 +1,18 @@
 package tools;
 
 /**
- * 
- * <p>Class used to format data that implements CMD.</p>
- * <p>Contains starting pixel, previous pixel, current pixel as int x,y</p>
- * 
+ *
+ * <p>
+ * Class used to format data that implements CMD.</p>
+ * <p>
+ * Contains starting pixel, previous pixel, current pixel as int x,y</p>
+ *
  */
 public final class Area {
+
     private static final int MIN_VAL = 0;
     private static int maxX = MIN_VAL, maxY = MIN_VAL;
-    
+
     private int startX, startY;
 
     private int curX, curY;
@@ -18,17 +21,17 @@ public final class Area {
     public Area(int x, int y) {
         init(x, y);
     }
-    
+
     private Area(int x, int y, int x2, int y2) {
         startX = Math.min(x, x2);
         startY = Math.min(y, y2);
-        
+
         curX = fixToRange(Math.abs(x - x2), true);
         curY = fixToRange(Math.abs(y - y2), false);
-        
+
         lastX = curX;
         lastY = curY;
-        
+
     }
 
     public void init(int x, int y) {
@@ -92,12 +95,9 @@ public final class Area {
         Area.maxY = maxY;
     }
 
-    
-   
     public Area getRectangle() {
-        return new Area(startX, startY, curX, curY);    
-        
-    }
+        return new Area(startX, startY, curX, curY);
 
+    }
 
 }

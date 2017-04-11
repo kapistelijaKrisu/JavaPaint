@@ -26,7 +26,7 @@ public class LogTest {
         int initial = img.getRGB(0, 0);
         a.udpate(0, 4);
         cu.execute(a);
-        cu.getImg().undo();
+        cu.undo();
         img = cu.getImg().getImg();
         for (int i = 0; i < img.getHeight(); i++) {
             for (int j = 0; j < img.getWidth(); j++) {
@@ -34,7 +34,7 @@ public class LogTest {
             }
 
         }
-        cu.getImg().redo();
+        cu.redo();
         img = cu.getImg().getImg();
         for (int i = 1; i < img.getHeight(); i++) {
             for (int j = 0; j < img.getWidth(); j++) {
@@ -50,63 +50,64 @@ public class LogTest {
 
     @Test
     public void nullTest() {
-        MyImage img = new MyImage(5, 5);
-        Log log = img.getLog();
-        
+        ControlUnit cu = new ControlUnit();
+        cu.init(5, 5);
+        MyImage img = cu.getImg();
+        Log log = cu.getLog();
+
         try {
-            log.addStep(null);
+            log.archieveImage(null);
             Assert.assertTrue(false);
         } catch (NullPointerException e) {
             //hurray
         }
-        
+
         try {
-            log.getNext(null);
+            log.popNext(null);
             Assert.assertTrue(false);
         } catch (NullPointerException e) {
             //hurray
         }
-        
+
         try {
-            log.getPrevious(null);
+            log.popPrevious(null);
             Assert.assertTrue(false);
         } catch (NullPointerException e) {
             //hurray
         }
-        
+
     }
-    
+
     @Test
     public void newCommandUpdates() {
         ControlUnit cu = new ControlUnit();
         cu.init(5, 5);
         cu.setActiveCMD(CommandMap.DRAWLINE);
         cu.getImg().setColor(Color.black);
-        
+
         MyImage img = cu.getImg();
-        Log log = img.getLog();
+        Log log = cu.getLog();
         Area a = new Area(0, 0);
-        
-        
+
         cu.execute(a);
         cu.execute(a);
         cu.execute(a);
-        img.undo();
-        img.undo();
+        cu.undo();
+        cu.undo();
         cu.execute(a);
         BufferedImage current = img.getImg();
-        img.redo();
+        cu.redo();
         BufferedImage shouldBeSame = img.getImg();
         Assert.assertEquals(current, shouldBeSame);
-        Assert.assertEquals(null, log.getNext(current));
-        
+        Assert.assertEquals(null, log.popNext(current));
+
         for (int i = 0; i < 11; i++) {
-            img.undo();
-            
+            cu.undo();
+
         }
-        Assert.assertEquals(null, log.getPrevious(current));
-        
-        log.getNext(current);
-        Assert.assertNotEquals(null, log.getPrevious(current));
+        Assert.assertEquals(null, log.popPrevious(current));
+
+        log.popNext(current);
+        Assert.assertNotEquals(null, log.popPrevious(current));
     }
 }

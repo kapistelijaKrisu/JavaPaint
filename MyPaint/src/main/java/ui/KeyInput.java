@@ -26,11 +26,11 @@ public class KeyInput implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_Z:
-                cmd.getImg().undo();
+                cmd.undo();
                 w.repaint();
                 break;
             case KeyEvent.VK_X:
-                cmd.getImg().redo();
+                cmd.redo();
                 w.repaint();
                 break;
                 
