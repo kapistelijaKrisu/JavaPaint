@@ -10,7 +10,8 @@ import tools.Area;
 /**
  *
  * <p>
- * Basically a BufferedImage with consistent graphics setting. PaintBrush object contains graphical settings</p>
+ * Basically a BufferedImage with consistent graphics setting. PaintBrush object
+ * contains graphical settings</p>
  */
 public class MyImage {
 
@@ -18,21 +19,41 @@ public class MyImage {
     private Graphics2D graphics;
     private PaintBrush brush;
 
+    /**
+     * <p>
+     * creates BufferedImage and creates graphics object of it <br>
+     * Sets Area.class limits accordingly.<br>
+     * creates PaintBrush object which default settings are width = 1, override
+     * = SRC, Color = black </p>
+     * sets settings from brush to graphics
+     * <p>
+     * @param width - width of image <br>
+     * @param height - height of image<br>
+     *
+     * throws exception if below 1</p>
+     */
     public MyImage(int width, int height) {
         if (width < 1 || height < 1) {
             throw new IllegalArgumentException();
         }
-
+        Area.setBounds(width - 1, height - 1);
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         graphics = img.createGraphics();
         setBrush(new PaintBrush(1, true));
     }
 
+    /**
+     * reduces graphics draw stroke width by 1. <br>Will not go below 1.
+     */
     public void thin() {
         brush.setWidth(brush.getWidth() - 1);
         graphics.setStroke(new BasicStroke(brush.getWidth()));
     }
 
+    /**
+     * increases graphics draw stroke width by 1.<br> Will not go above of max width
+     * set in brush.
+     */
     public void thicken() {
         brush.setWidth(brush.getWidth() + 1);
         graphics.setStroke(new BasicStroke(brush.getWidth()));
@@ -43,11 +64,20 @@ public class MyImage {
         graphics.setColor(brush.getColor());
     }
 
+    /**
+     *
+     * @param override true = composite will be SRC. <br>false = composite will be
+     * DST_OVER
+     */
     public void setOverride(boolean override) {
         brush.setOverride(override);
         graphics.setComposite(AlphaComposite.getInstance(brush.getComposite(), brush.getColor().getAlpha() / 255f));
     }
 
+    /**
+     *
+     * @param width - will not break limits from brush
+     */
     public void setWidth(int width) {
         brush.setWidth(width);
         graphics.setStroke(new BasicStroke(brush.getWidth()));
@@ -65,6 +95,11 @@ public class MyImage {
         return brush.getColor();
     }
 
+    /**
+     *
+     * @param brush sets brush to be current setting container and will also
+     * install said settings to graphics.
+     */
     public void setBrush(PaintBrush brush) {
         this.brush = brush;
         graphics.setColor(brush.getColor());
@@ -72,16 +107,24 @@ public class MyImage {
         graphics.setComposite(AlphaComposite.getInstance(brush.getComposite(), brush.getColor().getAlpha() / 255f));
     }
 
-    private void refreshGraphics() {
+    /**
+     * sets all settings from brush onto graphics
+     */
+    private void refreshSettings() {
         graphics = img.createGraphics();
         graphics.setColor(brush.getColor());
         graphics.setStroke(new BasicStroke(brush.getWidth()));
         graphics.setComposite(AlphaComposite.getInstance(brush.getComposite(), brush.getColor().getAlpha() / 255f));
     }
 
+    /**
+     *
+     * @param img sets image to this. Updates Area.class max values. calls
+     * refreshSettings().
+     */
     public void setImg(BufferedImage img) {
         this.img = img;
-        refreshGraphics();
+        refreshSettings();
         Area.setBounds(img.getHeight() - 1, img.getWidth() - 1);
     }
 }

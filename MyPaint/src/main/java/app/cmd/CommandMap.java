@@ -3,8 +3,9 @@ package app.cmd;
 import java.util.HashMap;
 
 /**
- * 
- * <p>Defines codenames of each key and may create a hashmap of commands according to the keys.</p>
+ * <p>Contains each type of CMD implementation in hashmap hidden form misuse.
+ * default accessible CMD is DrawLine.</p>
+ * <p>Defines codenames of each key.</p>
  * 
  */
 public class CommandMap {
@@ -35,7 +36,11 @@ public class CommandMap {
     public CMD getCurrentCMD() {
         return cmds.get(currentCMD);
     }
-    
+    /**
+     * 
+     * @param key - If key exists sets accessible CMD retrieved by key.
+     * Does nothing if key doesnt exist
+     */
     public void setCMD(int key) {
         if (cmds.containsKey(key)) {
             currentCMD = key;

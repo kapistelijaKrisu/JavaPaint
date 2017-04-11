@@ -14,6 +14,11 @@ public final class PaintBrush {
     private int width, composite;
     private Color color;
 
+    /**
+     * 
+     * @param width - minimum of 1 and maximum of 30 else throws IllegalArgumentException <br>
+     * @param override  - see setOverride
+     */
     public PaintBrush(int width, boolean override) {
         if (!setWidth(width)) {
             throw new IllegalArgumentException();
@@ -27,6 +32,11 @@ public final class PaintBrush {
         this.color = color;
     }
 
+    /**
+     * 
+     * @param width - value to be evaluated<br>
+     * @return true if width is legal
+     */
     public boolean setWidth(int width) {
         if (width > 0 && width <= MAX_WIDTH) {
             this.width = width;

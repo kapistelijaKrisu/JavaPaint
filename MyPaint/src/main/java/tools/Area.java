@@ -22,18 +22,34 @@ public final class Area {
         init(x, y);
     }
 
-    private Area(int x, int y, int x2, int y2) {
-        startX = Math.min(x, x2);
-        startY = Math.min(y, y2);
+    /**
+     * 
+     * <p>private constructor made for setting parameters into x,y,width,height format by finding smallest x,y and taking the absolute difference of bigger x,y as width,height.</p>
+     * <p>
+     * @param x will be startX
+     * @param y will be startY
+     * @param width will be currentX and lastX
+     * @param height y will be currentY and lastY
+     */
+    private Area(int x, int y, int width, int height) {
+        startX = Math.min(x, width);
+        startY = Math.min(y, height);
 
-        curX = fixToRange(Math.abs(x - x2), true);
-        curY = fixToRange(Math.abs(y - y2), false);
+        curX = fixToRange(Math.abs(x - width), true);
+        curY = fixToRange(Math.abs(y - height), false);
 
         lastX = curX;
         lastY = curY;
 
     }
 
+    /**
+     * 
+     * @param x - sets all x's
+     * @param y  sets all y's
+     * 
+     * checks values legality and fixes them with fixToRange()
+     */
     public void init(int x, int y) {
         x = fixToRange(x, true);
         y = fixToRange(y, false);
@@ -45,6 +61,15 @@ public final class Area {
         curY = startY;
     }
 
+    /**
+     * <p>parameters are checked and fixed with fixToRange()
+     * 
+     * @param x - new curX
+     * @param y - new curY</p>
+     * <p>
+     * prevX will be previous curX <br>
+     * prevY will be previous curX </p>
+     */
     public void udpate(int x, int y) {
         x = fixToRange(x, true);
         y = fixToRange(y, false);
@@ -54,14 +79,20 @@ public final class Area {
         curY = y;
     }
 
-    private int fixToRange(int a, boolean x) {
-        a = Math.max(MIN_VAL, a);
+    /**
+     * 
+     * @param value value to be fixed.
+     * @param x - true = value is fixed according to x-axis, else value is fixed according to y-axis
+     * @return returns legal value of value. No changes will be made if value is legal. 
+     */
+    private int fixToRange(int value, boolean x) {
+        value = Math.max(MIN_VAL, value);
         if (x) {
-            a = Math.min(a, maxX);
+            value = Math.min(value, maxX);
         } else {
-            a = Math.min(a, maxY);
+            value = Math.min(value, maxY);
         }
-        return a;
+        return value;
     }
 
     public int getStartX() {
@@ -88,6 +119,11 @@ public final class Area {
         return lastY;
     }
 
+    /**
+     * 
+     * @param maxX maximum value that x's can have <br>
+     * @param maxY maximum value that y's can have
+     */
     public static void setBounds(int maxX, int maxY) {
         maxX = Math.max(MIN_VAL, maxX);
         maxY = Math.max(maxY, MIN_VAL);
@@ -95,6 +131,10 @@ public final class Area {
         Area.maxY = maxY;
     }
 
+    /**
+     * 
+     * @return return itself in x,y,width, height format. See private constructor.
+     */
     public Area getRectangle() {
         return new Area(startX, startY, curX, curY);
 

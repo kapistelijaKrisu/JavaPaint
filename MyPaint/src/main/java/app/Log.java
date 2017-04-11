@@ -23,8 +23,8 @@ public class Log {
 
     /**
      * 
-     * @param current - puts the current image to redo stack
-     * @return - return popped image from history stack 
+     * @param current puts the current image to redo stack
+     * @return return popped image from history stack 
      */
     public BufferedImage popPrevious(BufferedImage current) {
         OneLineException.nullTest(current);
@@ -38,8 +38,8 @@ public class Log {
 
     /**
      * 
-     * @param current - puts the current image to history stack
-     * @return - returns popped image from redo stack 
+     * @param current puts the current image to history stack
+     * @return returns popped image from redo stack 
      */
     public BufferedImage popNext(BufferedImage current) {
         OneLineException.nullTest(current);
@@ -54,7 +54,7 @@ public class Log {
 
     /**
      * 
-     * @param img - image is added to history stack
+     * @param img image is added to history stack
      */
     public void archieveImage(BufferedImage img) {
         history.push(clone(img));
