@@ -61,7 +61,7 @@ public class MyImage {
 
     public void setColor(Color c) {
         brush.setColor(c);
-        graphics.setColor(brush.getColor());
+        graphics.setColor(c);
     }
 
     /**

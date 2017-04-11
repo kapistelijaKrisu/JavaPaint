@@ -13,4 +13,8 @@ Create, modify and save images as png or jpg.*(if saved as jpg-file alpha channe
 
 ### Class Diagram
 
-![Class Diagram](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/Class-Diagram.png)
+![Class Diagram](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/diagrams/Class-Diagram.png)
+
+![Sequence Diagram drawline](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/diagrams/sequence-diagram-draw.png)
+
+![Sequence Diagram change color](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/diagrams/sequence-diagram-change-color.png)
