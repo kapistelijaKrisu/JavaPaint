@@ -16,8 +16,7 @@ public class LogTest {
         Area a;
         BufferedImage img;
 
-        cu = new ControlUnit();
-        cu.init(5, 5);
+        cu = new ControlUnit(5, 5);
         cu.setActiveCMD(CommandMap.DRAWLINE);
         cu.getImg().setColor(Color.black);
         img = cu.getImg().getImg();
@@ -50,8 +49,7 @@ public class LogTest {
 
     @Test
     public void nullTest() {
-        ControlUnit cu = new ControlUnit();
-        cu.init(5, 5);
+        ControlUnit cu = new ControlUnit(5, 5);
         MyImage img = cu.getImg();
         Log log = cu.getLog();
 
@@ -80,8 +78,7 @@ public class LogTest {
 
     @Test
     public void newCommandUpdates() {
-        ControlUnit cu = new ControlUnit();
-        cu.init(5, 5);
+        ControlUnit cu = new ControlUnit(5, 5);
         cu.setActiveCMD(CommandMap.DRAWLINE);
         cu.getImg().setColor(Color.black);
 

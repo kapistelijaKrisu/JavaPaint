@@ -16,8 +16,7 @@ public class ReplaceColorTest {
 
     @Before
     public void setUp() {
-        cu = new ControlUnit();
-        cu.init(5, 5);
+        cu = new ControlUnit(5, 5);
         cu.setActiveCMD(CommandMap.REPLACECOLOR);
         cu.getImg().setColor(Color.red);
         img = cu.getImg().getImg();
@@ -69,14 +68,14 @@ public class ReplaceColorTest {
         try {
             cmd.execute(null, a.getRectangle());
             Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
 
         }
 
         try {
             cmd.execute(null, null);
             Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
 
         }
 

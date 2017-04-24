@@ -47,6 +47,16 @@ public class PaintBrushTest {
         Assert.assertTrue(brush.getWidth() == 5);
 
     }
+    
+    @Test
+    public void setColorWorks() {
+        try {
+            brush.setColor(null);
+            Assert.assertTrue(false);
+        } catch (NullPointerException e) {
+            
+        }
+    }
 
     @Test
     public void setOverrideWorks() {

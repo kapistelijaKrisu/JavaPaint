@@ -1,6 +1,7 @@
 package app;
 
 import app.cmd.CommandMap;
+import java.awt.image.BufferedImage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,41 +10,61 @@ import tools.Area;
 public class ControlUnitTest {
 
     ControlUnit cu;
+    MyImage tImg;
 
     @Before
     public void SetUp() {
         cu = new ControlUnit();
+
     }
 
     @Test
-    public void initWorks1() {
-        Assert.assertFalse(cu.getInit());
+    public void testNull() {
         try {
-            cu.run();
+            cu.setImage(null);
+            Assert.assertTrue(false);
+        } catch (NullPointerException e) {
+
+        }
+
+    }
+
+    @Test
+    public void testSetImg() {
+        int oldWidth = cu.getImg().getImg().getWidth();
+        BufferedImage ttImg = new BufferedImage(10, 10, BufferedImage.TYPE_4BYTE_ABGR);
+        cu.setImage(ttImg);
+        Assert.assertNotEquals(ttImg, tImg);
+        Assert.assertEquals(ttImg, cu.getImg().getImg());
+        cu.undo();
+        Assert.assertEquals(oldWidth, cu.getImg().getImg().getWidth());
+    }
+
+    @Test
+    public void testParams() {
+        Assert.assertTrue(cu.getImg().getImg().getWidth() == 256);
+        Assert.assertTrue(cu.getImg().getImg().getHeight() == 256);
+
+        try {
+            cu = new ControlUnit(0, 0);
             Assert.assertFalse(true);
         } catch (IllegalStateException | IllegalArgumentException e) {
             Assert.assertTrue(true);
         }
         try {
-            cu.init(0, 0);
+            cu = new ControlUnit(1, 0);
             Assert.assertFalse(true);
         } catch (IllegalStateException | IllegalArgumentException e) {
             Assert.assertTrue(true);
         }
         try {
-            cu.init(1, 0);
-            Assert.assertFalse(true);
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            Assert.assertTrue(true);
-        }
-        try {
-            cu.init(0, 1);
+            cu = new ControlUnit(0, 1);
             Assert.assertFalse(true);
         } catch (IllegalStateException | IllegalArgumentException e) {
             Assert.assertTrue(true);
         }
 
-        cu.init(1, 1);
+        cu = new ControlUnit(1, 1);
         Area a = new Area(1, 1);
         Assert.assertTrue(a.getCurX() == 0);
         Assert.assertTrue(a.getCurY() == 0);
@@ -51,27 +72,24 @@ public class ControlUnitTest {
         Assert.assertTrue(cu.getImg().getImg().getHeight() == 1);
         Assert.assertTrue(cu.getImg().getImg().getWidth() == 1);
 
-        Assert.assertTrue(cu.getInit());
-
-        cu.init(10, 5);
+        cu = new ControlUnit(10, 5);
         a = new Area(20, 20);
         Assert.assertTrue(a.getCurX() == 9);
         Assert.assertTrue(a.getCurY() == 4);
 
         Assert.assertTrue(cu.getImg().getImg().getHeight() == 5);
         Assert.assertTrue(cu.getImg().getImg().getWidth() == 10);
-        Assert.assertTrue(cu.getInit());
     }
-    
+
     @Test
     public void keysWork() {
-        cu.init(12, 10);
+        cu = new ControlUnit(12, 10);
         cu.setActiveCMD(CommandMap.DRAWRECT);
         Assert.assertEquals(CommandMap.DRAWRECT, cu.getCurrentCMD());
-        
+
         cu.setActiveCMD(15);
         Assert.assertEquals(CommandMap.DRAWRECT, cu.getCurrentCMD());
-        
+
         cu.setActiveCMD(CommandMap.FILLCOLOR);
         Assert.assertEquals(CommandMap.FILLCOLOR, cu.getCurrentCMD());
     }

@@ -43,9 +43,9 @@ public class MouseInput implements MouseListener, MouseMotionListener {
             return;
         }
 
-        if (cmd.getCurrentCMD() == CommandMap.FILLCOLOR) {
+        if (cmd.getCurrentCMD() == CommandMap.FILLCOLOR || cmd.getCurrentCMD() == CommandMap.REPLACECOLOR) {
             cmd.execute(area);
-        } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
+        } else {
             cmd.execute(area.getRectangle());
         }
         w.drawToolTip = false;

@@ -20,8 +20,7 @@ public class FillColorTest {
 
     @Before
     public void setUp() {
-        cu = new ControlUnit();
-        cu.init(3, 3);
+        cu = new ControlUnit(3, 3);
         cu.getImg().setWidth(1);
         cu.getImg().setOverride(true);
         cu.getImg().setColor(Color.yellow);
@@ -68,7 +67,7 @@ public class FillColorTest {
     public void test2() {
         a.init(5, 5);
         cu.execute(a);
-        cu.init(3, 3);
+        cu = new ControlUnit(3, 3);
         for (int i = 0; i < img.getHeight(); i++) {
             for (int j = 0; j < img.getWidth(); j++) {
 
@@ -107,14 +106,14 @@ public class FillColorTest {
         try {
             cmd.execute(null, a.getRectangle());
             Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
 
         }
 
         try {
             cmd.execute(null, null);
             Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
 
         }
 

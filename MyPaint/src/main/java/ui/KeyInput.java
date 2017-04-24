@@ -43,11 +43,11 @@ public class KeyInput implements KeyListener {
                 break;
 
             case KeyEvent.VK_F1:
-                w.setScale(w.getScale() - 0.5f);
+                w.setScale(w.getScale() * 0.5f);
                 w.repaint();
                 break;
             case KeyEvent.VK_F2:
-                w.setScale(w.getScale() + 0.5f);
+                w.setScale(w.getScale() * 2f);
                 w.repaint();
                 break;
             case KeyEvent.VK_LEFT:

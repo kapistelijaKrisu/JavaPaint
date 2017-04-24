@@ -3,6 +3,7 @@ package app.cmd;
 import app.MyImage;
 import java.awt.Color;
 import tools.Area;
+import ui.OneLineException;
 
 /** 
  * 
@@ -15,9 +16,6 @@ public class SetAvgColor implements CMD {
 
     @Override
     public void execute(MyImage img, Area rect) {
-        if (rect == null || img == null) {
-            throw new IllegalArgumentException();
-        }
         int a = 0;
         int r = 0;
         int g = 0;

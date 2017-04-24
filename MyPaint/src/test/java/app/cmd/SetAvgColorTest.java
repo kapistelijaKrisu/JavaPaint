@@ -16,8 +16,7 @@ public class SetAvgColorTest {
 
     @Before
     public void setUp() {
-        cu = new ControlUnit();
-        cu.init(2, 4);
+        cu = new ControlUnit(2, 4);
         cu.getImg().setWidth(1);
         cu.getImg().setOverride(true);
         
@@ -74,14 +73,14 @@ public class SetAvgColorTest {
         try {
             avgSetter.execute(null, a.getRectangle());
             Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
 
         }
 
         try {
             avgSetter.execute(null, null);
             Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
 
         }
     }

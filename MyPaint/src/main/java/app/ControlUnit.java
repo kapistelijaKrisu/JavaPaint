@@ -3,6 +3,7 @@ package app;
 import app.cmd.CommandMap;
 import java.awt.image.BufferedImage;
 import tools.Area;
+import ui.OneLineException;
 
 /**
  *
@@ -14,39 +15,38 @@ public class ControlUnit implements Runnable {
 
     private final CommandMap cmds;
     private MyImage img;
-    private final Log log;
-    private boolean init = false;
+    private Log log;
 
     public ControlUnit() {
         cmds = new CommandMap();
         log = new Log();
+        img = new MyImage(256, 256);
     }
-
-    /**
-     * <p>
-     * Sets initial MyImage width and height.
-     * Allows usage of run after the call has been completed</p>
-     *
-     * @param width height of initial MyImage 
-     * @param height width of initial MyImage
-     */
-    public void init(int width, int height) {
+    
+    public ControlUnit(int width, int height) {
+        if (width < 1 || height < 1) {
+            throw new IllegalArgumentException();
+        }
+        cmds = new CommandMap();
+        log = new Log();
         img = new MyImage(width, height);
- 
-
-        init = true;
     }
 
     /**
-     * does nothing but checks whether this object has been initialized and
-     * throws exception if not. <br>
+     * 
+     * @param image sets the working image as image and adds previous image to log history
+     */
+    public void setImage(BufferedImage image) {
+        updateHistory();
+        img.setImg(image);
+    }
+
+    /**
+     * does nothing <br>
      * all the commands are given externally.
      */
     @Override
     public void run() {
-        if (!init) {
-            throw new IllegalStateException();
-        }
     }
 
     /**
@@ -57,7 +57,9 @@ public class ControlUnit implements Runnable {
      * @param a coordinate information for CMD implementations to use</p>
      */
     public void execute(Area a) {
-        updateHistory();
+        if (cmds.getCurrentKey() != CommandMap.PICKCOLOR) {
+            updateHistory();
+        }
         cmds.getCurrentCMD().execute(img, a);
     }
 
@@ -99,11 +101,6 @@ public class ControlUnit implements Runnable {
             img.setImg(next);
         }
     }
-
-    public boolean getInit() {
-        return init;
-    }
-
     public int getCurrentCMD() {
         return cmds.getCurrentKey();
     }

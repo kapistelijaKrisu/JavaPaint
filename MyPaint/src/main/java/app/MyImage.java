@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import tools.Area;
+import ui.OneLineException;
 
 /**
  *
@@ -121,6 +122,7 @@ public class MyImage {
      *
      * @param img sets image to this. Updates Area.class max values. calls
      * refreshSettings().
+     * <br> throws exception if null
      */
     public void setImg(BufferedImage img) {
         this.img = img;

@@ -2,6 +2,7 @@ package app;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import ui.OneLineException;
 /**
  * 
  * <p>A container of information for MyImage.</p>
@@ -28,7 +29,13 @@ public final class PaintBrush {
         setOverride(override);
     }
 
+    /**
+     * 
+     * @param color if null exception is thrown else a normal setter
+     */
+    
     public void setColor(Color color) {
+        OneLineException.throwIfIsNull(color);
         this.color = color;
     }
 
@@ -45,6 +52,10 @@ public final class PaintBrush {
         return false;
     }
 
+    /**
+     * 
+     * @param override if true = src. false = dst_over see more at alphacomposite
+     */
     public void setOverride(boolean override) {
         if (override) {
             this.composite = AlphaComposite.SRC;

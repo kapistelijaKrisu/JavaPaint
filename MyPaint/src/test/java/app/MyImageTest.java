@@ -83,8 +83,7 @@ public class MyImageTest {
 
     @Test
     public void graphicsTest() {
-        ControlUnit cu = new ControlUnit();
-        cu.init(5, 5);
+        ControlUnit cu = new ControlUnit(5, 5);
         PaintBrush p = new PaintBrush(1, true);
         p.setColor(Color.yellow);
         cu.getImg().setBrush(p);

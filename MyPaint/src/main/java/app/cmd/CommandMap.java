@@ -3,9 +3,9 @@ package app.cmd;
 import java.util.HashMap;
 
 /**
- * <p>Contains each type of CMD implementation in hashmap hidden form misuse.
+ * <p>Contains each type of CMD implementation in hashmap capsuled from misuse.
  * default accessible CMD is DrawLine.</p>
- * <p>Defines codenames of each key.</p>
+ * <p>Each command codekey is found from public static final variables.</p>
  * 
  */
 public class CommandMap {

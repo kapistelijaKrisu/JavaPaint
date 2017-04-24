@@ -14,8 +14,7 @@ public class FillRectTest {
 
     @Before
     public void setUp() {
-        cu = new ControlUnit();
-        cu.init(10, 10);
+        cu = new ControlUnit(10, 10);
         cu.getImg().setWidth(1);
         cu.getImg().setOverride(true);
         cu.getImg().setColor(Color.yellow);
@@ -46,14 +45,14 @@ public class FillRectTest {
         try {
             cmd.execute(null, a.getRectangle());
             Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             
         }
       
         try {
             cmd.execute(null, null);
             Assert.assertFalse(true);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             
         }
    

@@ -23,11 +23,12 @@ public class Log {
 
     /**
      * 
-     * @param current puts the current image to redo stack
-     * @return return popped image from history stack 
+     * @param current puts the current image to redo stack.
+     * throws exception if null.
+     * @return return popped image from history stack.
      */
     public BufferedImage popPrevious(BufferedImage current) {
-        OneLineException.nullTest(current);
+        OneLineException.throwIfIsNull(current);
         if (!history.isEmpty()) {
             BufferedImage prev = history.pop();
             redo.addFirst(current);
@@ -38,11 +39,12 @@ public class Log {
 
     /**
      * 
-     * @param current puts the current image to history stack
-     * @return returns popped image from redo stack 
+     * @param current puts the current image to history stack.
+     * throws exception if null.
+     * @return returns popped image from redo stack.
      */
     public BufferedImage popNext(BufferedImage current) {
-        OneLineException.nullTest(current);
+        OneLineException.throwIfIsNull(current);
         if (!redo.isEmpty()) {
             BufferedImage next = redo.pop();
             history.addFirst(current);
@@ -54,18 +56,13 @@ public class Log {
 
     /**
      * 
-     * @param img image is added to history stack
+     * @param img image is added to history stack.
      */
     public void archieveImage(BufferedImage img) {
         history.push(clone(img));
         redo.clear();
     }
 
-    /**
-     * 
-     * @param bi image to be cloned
-     * @return a deep copy of bi
-     */
     private static BufferedImage clone(BufferedImage bi) {
         ColorModel cm = bi.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();

@@ -14,8 +14,7 @@ public class DrawLineTest {
 
     @Before
     public void setUp() {
-        cu = new ControlUnit();
-        cu.init(10, 10);
+        cu = new ControlUnit(10, 10);
         cu.getImg().setWidth(1);
         cu.setActiveCMD(CommandMap.DRAWLINE);
     }
@@ -49,4 +48,5 @@ public class DrawLineTest {
         Assert.assertTrue(testColors(Color.black));
 
     }
+   
 }

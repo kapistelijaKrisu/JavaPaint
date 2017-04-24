@@ -31,7 +31,7 @@ public class MyWindow extends JPanel {
     }
 
     public MyWindow(ControlUnit cmd) {
-        this.scale = 10f;
+        this.scale = 2f;
         this.control = cmd;       
         initFrame(1000, 800);
     }
@@ -78,6 +78,8 @@ public class MyWindow extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
+        
+        g.drawImage(bg, xOffSet, yOffSet, null);
         g2.scale(scale / 1, scale / 1);
         
         g.drawImage(bg, xOffSet, yOffSet, null);
@@ -116,7 +118,15 @@ public class MyWindow extends JPanel {
     }
 
     public void setScale(float scale) {
-        this.scale = scale;
+        if (scale >= 8) {
+            this.scale = 8;
+        } else if (scale <= 0.125) {
+            this.scale = scale;
+                 this.scale = 0.125f;
+        } else {
+            this.scale = scale;
+       
+        }
     }
 
     public float getScale() {

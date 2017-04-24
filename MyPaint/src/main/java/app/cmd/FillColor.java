@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import tools.Area;
 import ui.Coordinate;
+import ui.OneLineException;
 
 /**
  *
@@ -21,9 +22,6 @@ public class FillColor implements CMD {
 
     @Override
     public void execute(MyImage img, Area area) {
-        if (area == null || img == null) {
-            throw new IllegalArgumentException();
-        }
 
         Graphics2D g = img.getGraphics();
         int paintOn = img.getImg().getRGB(area.getCurX(), area.getCurY());
