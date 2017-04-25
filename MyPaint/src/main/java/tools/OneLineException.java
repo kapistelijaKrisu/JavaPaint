@@ -1,4 +1,4 @@
-package ui;
+package tools;
 
 public class OneLineException {
 

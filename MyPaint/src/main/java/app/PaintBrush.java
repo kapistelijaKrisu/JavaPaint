@@ -2,7 +2,7 @@ package app;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import ui.OneLineException;
+import tools.OneLineException;
 /**
  * 
  * <p>A container of information for MyImage.</p>

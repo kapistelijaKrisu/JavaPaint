@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import tools.Area;
-import ui.OneLineException;
+import tools.OneLineException;
 
 /**
  *

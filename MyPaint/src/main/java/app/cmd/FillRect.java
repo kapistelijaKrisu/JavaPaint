@@ -4,7 +4,7 @@ package app.cmd;
 import app.MyImage;
 import java.awt.Rectangle;
 import tools.Area;
-import ui.OneLineException;
+import tools.OneLineException;
 
 /**
  * 

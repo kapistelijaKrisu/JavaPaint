@@ -3,7 +3,7 @@ package app;
 import app.cmd.CommandMap;
 import java.awt.image.BufferedImage;
 import tools.Area;
-import ui.OneLineException;
+import tools.OneLineException;
 
 /**
  *

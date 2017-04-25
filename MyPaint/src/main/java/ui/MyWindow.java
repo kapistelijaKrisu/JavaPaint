@@ -60,6 +60,11 @@ public class MyWindow extends JPanel {
         KeyInput kInput = new KeyInput(control, this);      
         MouseInput mInput = new MouseInput(control, this);
         toolTip = mInput.getArea();
+        
+        
+        
+        
+        
         frame.add(this);
 
         frame.setResizable(false);

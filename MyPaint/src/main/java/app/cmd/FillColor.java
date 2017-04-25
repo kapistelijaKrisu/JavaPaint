@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import tools.Area;
 import ui.Coordinate;
-import ui.OneLineException;
+import tools.OneLineException;
 
 /**
  *

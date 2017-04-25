@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.util.ArrayDeque;
-import ui.OneLineException;
+import tools.OneLineException;
 
 /**
  * 

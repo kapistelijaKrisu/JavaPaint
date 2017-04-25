@@ -3,7 +3,7 @@ package app.cmd;
 
 import app.MyImage;
 import tools.Area;
-import ui.OneLineException;
+import tools.OneLineException;
 
 /**
  * 
