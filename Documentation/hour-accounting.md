@@ -13,5 +13,8 @@ Date | Hours | Description
 30.03.2017 | 6.0h | expanding, refactoring but mostly documenting
 10.04.2017 | 6.0h | expanding, testing
 11.04.2017 | 6.0h | testing, javadoc, diagrams
+25.04.2017 | 2.0h | started ui
+26.04.2017 | 3.0h | google searching on how to use swing
+27.04.2017 | 3.0h | clean up & documenting
 ... | ... | ...
 
