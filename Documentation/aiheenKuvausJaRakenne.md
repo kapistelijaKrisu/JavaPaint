@@ -15,7 +15,7 @@ Look at buttons and choose what do you want to do with the image. Use mouse butt
 Mouse shortcuts not listed but exist: <br>
 right click mouse sets a random color. <br><br>
 Key shortcuts not listed in buttons <br>
-Z-go undo, X-go redo. <br>
+Z - undo, X - redo. <br>
 "+" thicken brush, "-" thin brush<br>
 
 ### Program design
