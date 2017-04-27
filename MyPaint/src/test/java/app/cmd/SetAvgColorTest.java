@@ -34,7 +34,7 @@ public class SetAvgColorTest {
         Color[] ct = new Color[] { c1,c2,c3,c4};
         for (int i = 0; i < ct.length; i++) {
             cu.getImg().setColor(ct[i]);
-        a.init(1, i);
+        a.set(1, i);
         cu.setActiveCMD(CommandMap.FILLRECT);
         cu.execute(a.getRectangle());
         
@@ -46,7 +46,7 @@ public class SetAvgColorTest {
             
         }
  
-        a.init(1, 1);
+        a.set(1, 1);
         a.udpate(1, 3);
         cu.execute(a.getRectangle());
 

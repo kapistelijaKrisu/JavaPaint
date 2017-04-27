@@ -5,7 +5,7 @@ package tools;
  * <p>
  * Class used to format data that implements CMD.</p>
  * <p>
- * Contains starting pixel, previous pixel, current pixel as int x,y</p>
+ * Contains starting pixel, current pixel as int x,y</p>
  *
  */
 public final class Area {
@@ -16,10 +16,9 @@ public final class Area {
     private int startX, startY;
 
     private int curX, curY;
-    private int lastX, lastY;
 
     public Area(int x, int y) {
-        init(x, y);
+        set(x, y);
     }
 
     /**
@@ -28,8 +27,8 @@ public final class Area {
      * <p>
      * @param x will be startX
      * @param y will be startY
-     * @param width will be currentX and lastX
-     * @param height y will be currentY and lastY
+     * @param width will be currentX
+     * @param height y will be currentY
      */
     private Area(int x, int y, int width, int height) {
         startX = Math.min(x, width);
@@ -37,9 +36,6 @@ public final class Area {
 
         curX = fixToRange(Math.abs(x - width), true);
         curY = fixToRange(Math.abs(y - height), false);
-
-        lastX = curX;
-        lastY = curY;
 
     }
 
@@ -50,11 +46,9 @@ public final class Area {
      * 
      * checks values legality and fixes them with fixToRange()
      */
-    public void init(int x, int y) {
+    public void set(int x, int y) {
         x = fixToRange(x, true);
         y = fixToRange(y, false);
-        lastX = x;
-        lastY = y;
         startX = x;
         startY = y;
         curX = startX;
@@ -73,8 +67,15 @@ public final class Area {
     public void udpate(int x, int y) {
         x = fixToRange(x, true);
         y = fixToRange(y, false);
-        lastX = curX;
-        lastY = curY;
+        startX = curX;
+        startY = curY;
+        curX = x;
+        curY = y;
+    }
+    
+    public void udpateCurrents(int x, int y) {
+        x = fixToRange(x, true);
+        y = fixToRange(y, false);
         curX = x;
         curY = y;
     }
@@ -109,14 +110,6 @@ public final class Area {
 
     public int getCurY() {
         return curY;
-    }
-
-    public int getLastX() {
-        return lastX;
-    }
-
-    public int getLastY() {
-        return lastY;
     }
 
     /**

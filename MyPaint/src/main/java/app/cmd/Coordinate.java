@@ -1,5 +1,6 @@
 
-package ui;
+package app.cmd;
+
 public class Coordinate {
 
         public final int x, y;

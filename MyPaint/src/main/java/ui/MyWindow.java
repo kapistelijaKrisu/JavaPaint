@@ -87,7 +87,6 @@ public class MyWindow extends JPanel {
         g.drawImage(bg, xOffSet, yOffSet, null);
         g2.scale(scale / 1, scale / 1);
         
-        g.drawImage(bg, xOffSet, yOffSet, null);
         g.drawImage(control.getImg().getImg(), xOffSet, yOffSet, null);
         
         if (drawToolTip) {

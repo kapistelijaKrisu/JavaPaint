@@ -65,7 +65,7 @@ public class FillColorTest {
 
     @Test
     public void test2() {
-        a.init(5, 5);
+        a.set(5, 5);
         cu.execute(a);
         cu = new ControlUnit(3, 3);
         for (int i = 0; i < img.getHeight(); i++) {
@@ -80,7 +80,7 @@ public class FillColorTest {
 
     @Test
     public void test3() {
-        a.init(2, 0);
+        a.set(2, 0);
         testBits.get(2).add(0);
         testBits.get(2).add(1);
         testBits.get(2).add(2);

@@ -107,4 +107,21 @@ public class LogTest {
         log.popNext(current);
         Assert.assertNotEquals(null, log.popPrevious(current));
     }
+    
+    @Test
+    public void sizeTest() {
+        ControlUnit cu = new ControlUnit(5, 5);
+        cu.setActiveCMD(CommandMap.DRAWLINE);
+        cu.getImg().setColor(Color.black);
+
+        MyImage img = cu.getImg();
+        Log log = cu.getLog();
+        log.setLogMaxSize(10);
+        Area a = new Area(0, 0);
+        
+        for (int i = 0; i < 15; i++) {
+            Assert.assertEquals(Math.min(i, 10), log.getHistorySize());
+            cu.execute(a);
+        }
+    }
 }

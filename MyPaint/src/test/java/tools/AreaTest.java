@@ -24,21 +24,13 @@ public class AreaTest {
 
     @Test
     public void constructorValues() {
-        if (a.getCurX() == a.getLastX()) {
-            if (a.getCurX() == a.getStartX()) {
-                Assert.assertEquals(initX, a.getCurX());
-            }
-        } else {
-            Assert.assertFalse(true);
+        if (a.getCurX() == a.getStartX()) {
+            Assert.assertEquals(initX, a.getCurX());
+        }
+        if (a.getCurY() == a.getStartY()) {
+            Assert.assertEquals(initY, a.getCurY());
         }
 
-        if (a.getCurY() == a.getLastY()) {
-            if (a.getCurY() == a.getStartY()) {
-                Assert.assertEquals(initY, a.getCurY());
-            }
-        } else {
-            Assert.assertFalse(true);
-        }
     }
 
     @Test
@@ -47,22 +39,14 @@ public class AreaTest {
         int[] results = new int[]{0, 0, 0, 0, 2, 3, maxX, maxY, 5, 40};
 
         for (int i = 0; i < results.length / 2; i += 2) {
-            a.init(testVal[i * 2], testVal[i * 2 + 1]);
+            a.set(testVal[i * 2], testVal[i * 2 + 1]);
 
-            if (a.getCurX() == a.getLastX()) {
-                if (a.getCurX() == a.getStartX()) {
-                    Assert.assertEquals(results[i * 2], a.getCurX());
-                }
-            } else {
-                Assert.assertFalse(true);
+            if (a.getCurX() == a.getStartX()) {
+                Assert.assertEquals(results[i * 2], a.getCurX());
             }
 
-            if (a.getCurY() == a.getLastY()) {
-                if (a.getCurY() == a.getStartY()) {
-                    Assert.assertEquals(results[i * 2 + 1], a.getCurY());
-                }
-            } else {
-                Assert.assertFalse(true);
+            if (a.getCurY() == a.getStartY()) {
+                Assert.assertEquals(results[i * 2 + 1], a.getCurY());
             }
         }
     }
@@ -77,18 +61,12 @@ public class AreaTest {
             int prevY = a.getCurY();
             a.udpate(testVal[i * 2], testVal[i * 2 + 1]);
 
-            Assert.assertEquals(initX, a.getStartX());
-            Assert.assertEquals(initY, a.getStartY());
-
-            Assert.assertEquals(prevX, a.getLastX());
-            Assert.assertEquals(prevY, a.getLastY());
-
             Assert.assertEquals(results[i * 2], a.getCurX());
             Assert.assertEquals(results[i * 2 + 1], a.getCurY());
 
         }
     }
-    
+
     @Test
     public void getRectTest() {
 
@@ -97,26 +75,18 @@ public class AreaTest {
         Assert.assertEquals(initY, r.getStartY());
         Assert.assertEquals(0, r.getCurX());
         Assert.assertEquals(0, r.getCurY());
-        Assert.assertEquals(0, r.getLastX());
-        Assert.assertEquals(0, r.getLastY());
-        
+
         a.udpate(5, 1);
         r = a.getRectangle();
         Assert.assertEquals(5, r.getStartX());
         Assert.assertEquals(1, r.getStartY());
         Assert.assertEquals(5, r.getCurX());
         Assert.assertEquals(4, r.getCurY());
-        Assert.assertEquals(5, r.getLastX());
-        Assert.assertEquals(4, r.getLastY());
-        
+
         a.udpate(20, 10);
         r = a.getRectangle();
-        Assert.assertEquals(10, r.getStartX());
-        Assert.assertEquals(5, r.getStartY());
-        Assert.assertEquals(10, r.getCurX());
-        Assert.assertEquals(5, r.getCurY());
-        Assert.assertEquals(10, r.getLastX());
-        Assert.assertEquals(5, r.getLastY());
-        
+        Assert.assertEquals(15, r.getCurX());
+        Assert.assertEquals(9, r.getCurY());
+
     }
 }

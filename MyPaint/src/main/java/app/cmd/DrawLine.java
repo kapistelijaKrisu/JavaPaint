@@ -15,7 +15,7 @@ public class DrawLine implements CMD {
 
     @Override
     public void execute(MyImage img, Area area) {
-        img.getGraphics().draw(new Line2D.Float(area.getLastX(), area.getLastY(),
+        img.getGraphics().draw(new Line2D.Float(area.getStartX(), area.getStartY(),
                  area.getCurX(), area.getCurY()));
     }
 

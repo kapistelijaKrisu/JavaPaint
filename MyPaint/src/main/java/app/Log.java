@@ -15,6 +15,7 @@ public class Log {
 
     private final ArrayDeque<BufferedImage> history;
     private final ArrayDeque<BufferedImage> redo;
+    private int logMaxSize = 300;
 
     public Log() {
         history = new ArrayDeque<>();
@@ -61,6 +62,10 @@ public class Log {
     public void archieveImage(BufferedImage img) {
         history.push(clone(img));
         redo.clear();
+        
+        if (history.size() > logMaxSize) {
+            history.pop();
+        }
     }
 
     private static BufferedImage clone(BufferedImage bi) {
@@ -70,4 +75,11 @@ public class Log {
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 
+    public void setLogMaxSize(int logMaxSize) {
+        this.logMaxSize = logMaxSize;
+    }
+    
+    public int getHistorySize() {
+        return history.size();
+    }
 }

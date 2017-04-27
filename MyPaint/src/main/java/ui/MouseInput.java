@@ -28,7 +28,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     public void mousePressed(MouseEvent e) {
         int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
         int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
-        area.init(x, y);
+        area.set(x, y);
         if (cmd.getCurrentCMD() == CommandMap.DRAWLINE || cmd.getCurrentCMD() == CommandMap.REPLACECOLOR) {
             w.drawToolTip = false;
         } else if (cmd.getCurrentCMD() != CommandMap.DRAWLINE) {
@@ -70,7 +70,7 @@ public class MouseInput implements MouseListener, MouseMotionListener {
         
         area.udpate(x, y);
         if (cmd.getCurrentCMD() == CommandMap.DRAWLINE) {
-            if (area.getCurX() != area.getLastX() || area.getCurY() != area.getLastY())
+     //       if (area.getCurX() != area.getLastX() || area.getCurY() != area.getLastY())
             cmd.execute(area);
         }
         w.repaint();

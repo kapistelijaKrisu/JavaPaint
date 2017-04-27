@@ -3,7 +3,7 @@ package tools;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ui.Coordinate;
+import app.cmd.Coordinate;
 
 
 public class CoordinateTest {

@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import tools.Area;
-import ui.Coordinate;
-import tools.OneLineException;
+
 
 /**
  *
