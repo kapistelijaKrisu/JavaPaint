@@ -2,13 +2,18 @@
 
 ### Subject
 Simple application for image manipulation.
-<br />**Difference with windows paint is that it will contain alpha channel and will run on anything that has java 1.8 or above.**
+<br />**Difference with windows paint is that it will contain alpha channel and will run on anything that has a mouse and java 1.8 or above.**
 
 ### Users
 The artist
 
 ### Actions
 Create, modify and save images as png or jpg.*(if saved as jpg-file alpha channel disappears)*
+
+### Program design
+Target image is held in MyImage object that holds long-term settings of brush, graphics, and bufferedimage. This makes it easier to manipulate or preserve settings.
+ControlUnit holds the CommandMap which has mapped each type of image manipulation object that implements CMD. By setting active command (which is capsuled from misuse) the user decides which specific kind of manipulaiton he wants done on the image. ControlUnit also holds log object that contains history and redo stacks for going back and forth of changes on the image. User may choose when to use it.
+UI simply gives an Area object to commands and they will figure out what to do with image based on that using the brush settings of MyImage as well.
 
 
 ### Class Diagram
