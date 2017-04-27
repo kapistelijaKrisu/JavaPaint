@@ -93,4 +93,18 @@ public class ControlUnitTest {
         cu.setActiveCMD(CommandMap.FILLCOLOR);
         Assert.assertEquals(CommandMap.FILLCOLOR, cu.getCurrentCMD());
     }
+    
+    @Test
+    public void logModeTest() {
+        cu.execute(new Area(0, 0));
+        Assert.assertEquals(1, cu.getLog().getHistorySize());
+        cu.execute(new Area(0, 0));
+        Assert.assertEquals(2, cu.getLog().getHistorySize());
+        cu.setLogging(false);
+        cu.execute(new Area(0, 0));
+        Assert.assertEquals(2, cu.getLog().getHistorySize());
+        cu.setLogging(true);
+        cu.execute(new Area(0, 0));
+        Assert.assertEquals(3, cu.getLog().getHistorySize());
+    }
 }

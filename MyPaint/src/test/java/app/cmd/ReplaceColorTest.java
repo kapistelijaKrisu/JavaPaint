@@ -66,7 +66,7 @@ public class ReplaceColorTest {
     public void testArguments() {
         FillRect cmd = new FillRect();
         try {
-            cmd.execute(null, a.getRectangle());
+            cmd.execute(null, a);
             Assert.assertFalse(true);
         } catch (NullPointerException e) {
 

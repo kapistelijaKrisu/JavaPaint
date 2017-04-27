@@ -158,7 +158,7 @@ public class MyImageTest {
         }
 
         Area a = new Area(33, 33);
-        img.getGraphics().draw(new Line2D.Float(a.getStartX(), a.getStartY(), a.getCurX(), a.getCurY()));
+        img.getGraphics().draw(new Line2D.Float(a.getPrevX(), a.getPrevY(), a.getCurX(), a.getCurY()));
 
         for (int i = 0; i < 32; i++) {
             for (int j = 0; j < 32; j++) {
@@ -167,7 +167,7 @@ public class MyImageTest {
         }
 
         img.setOverride(true);
-        img.getGraphics().draw(new Line2D.Float(0, a.getStartY(), a.getCurX(), a.getCurY()));
+        img.getGraphics().draw(new Line2D.Float(0, a.getPrevY(), a.getCurX(), a.getCurY()));
         for (int i = 30; i < 32; i++) {
             for (int j = 0; j < 32; j++) {
                 Assert.assertEquals(Color.yellow.getRGB(), dummy.getRGB(j, i));

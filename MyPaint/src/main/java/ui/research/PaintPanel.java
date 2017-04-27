@@ -2,6 +2,7 @@ package ui.research;
 
 import app.ControlUnit;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import tools.Area;
@@ -10,7 +11,6 @@ import ui.BackGroundCreator;
 public class PaintPanel extends JPanel {
 
     public static final int NO_TOOLTIP = 0;
-    private static final int DELAY = -1;
     public static final int LINE = 1;
     public static final int RECT = 2;
 
@@ -34,13 +34,10 @@ public class PaintPanel extends JPanel {
         g.drawImage(cu.getImg().getImg(), 0, 0, null);
 
         if (toolBarMode == LINE) {
-            g.drawLine(toolTip.getStartX(), toolTip.getStartY(), toolTip.getCurX(), toolTip.getCurY());
+            g.drawLine(toolTip.getPrevX(), toolTip.getPrevY(), toolTip.getCurX(), toolTip.getCurY());
         } else if (toolBarMode == RECT) {
-            Area r = toolTip.getRectangle();
-            g.drawRect(r.getStartX(), r.getStartY(), r.getCurX(), r.getCurY());
-        }
-        if (toolBarMode == DELAY) {
-            toolBarMode = previousMode;
+            Rectangle r = toolTip.getRectangle();
+            g.drawRect(r.x, r.y, r.width, r.height);
         }
         
     }
@@ -51,7 +48,10 @@ public class PaintPanel extends JPanel {
     
     public void pauseToolTip() {
         previousMode = toolBarMode;
-        toolBarMode = DELAY;
+        toolBarMode = NO_TOOLTIP;
+    }
+    public void resumeToolTip() {
+        previousMode = toolBarMode;
     }
     
     

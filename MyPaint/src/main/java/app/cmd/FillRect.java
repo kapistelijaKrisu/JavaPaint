@@ -4,7 +4,6 @@ package app.cmd;
 import app.MyImage;
 import java.awt.Rectangle;
 import tools.Area;
-import tools.OneLineException;
 
 /**
  * 
@@ -14,9 +13,10 @@ import tools.OneLineException;
 public class FillRect implements CMD {
 
     @Override
-    public void execute(MyImage img, Area rect) {
-        img.getGraphics().fill(new Rectangle.Float(rect.getStartX(), rect.getStartY(),
-                 rect.getCurX()+1, rect.getCurY()+1));
+    public void execute(MyImage img, Area area) {
+        Rectangle rect = area.getRectangle();
+        img.getGraphics().fill(new Rectangle.Float(rect.x, rect.y,
+                 rect.width+1, rect.height+1));
     }
     
 }

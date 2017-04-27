@@ -65,7 +65,7 @@ public class FillColorTest {
 
     @Test
     public void test2() {
-        a.set(5, 5);
+        a.setAll(5, 5);
         cu.execute(a);
         cu = new ControlUnit(3, 3);
         for (int i = 0; i < img.getHeight(); i++) {
@@ -80,7 +80,7 @@ public class FillColorTest {
 
     @Test
     public void test3() {
-        a.set(2, 0);
+        a.setAll(2, 0);
         testBits.get(2).add(0);
         testBits.get(2).add(1);
         testBits.get(2).add(2);
@@ -104,7 +104,7 @@ public class FillColorTest {
     public void testArguments() {
         FillColor cmd = new FillColor();
         try {
-            cmd.execute(null, a.getRectangle());
+            cmd.execute(null, a);
             Assert.assertFalse(true);
         } catch (NullPointerException e) {
 

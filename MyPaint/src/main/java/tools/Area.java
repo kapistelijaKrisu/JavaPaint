@@ -1,11 +1,13 @@
 package tools;
 
+import java.awt.Rectangle;
+
 /**
  *
  * <p>
  * Class used to format data that implements CMD.</p>
  * <p>
- * Contains starting pixel, current pixel as int x,y</p>
+ * Contains previous pixel and current pixel as int x,y</p>
  *
  */
 public final class Area {
@@ -13,31 +15,15 @@ public final class Area {
     private static final int MIN_VAL = 0;
     private static int maxX = MIN_VAL, maxY = MIN_VAL;
 
-    private int startX, startY;
+    private int prevX, prevY;
 
     private int curX, curY;
 
     public Area(int x, int y) {
-        set(x, y);
+        setAll(x, y);
     }
 
-    /**
-     * 
-     * <p>private constructor made for setting parameters into x,y,width,height format by finding smallest x,y and taking the absolute difference of bigger x,y as width,height.</p>
-     * <p>
-     * @param x will be startX
-     * @param y will be startY
-     * @param width will be currentX
-     * @param height y will be currentY
-     */
-    private Area(int x, int y, int width, int height) {
-        startX = Math.min(x, width);
-        startY = Math.min(y, height);
-
-        curX = fixToRange(Math.abs(x - width), true);
-        curY = fixToRange(Math.abs(y - height), false);
-
-    }
+    
 
     /**
      * 
@@ -46,13 +32,13 @@ public final class Area {
      * 
      * checks values legality and fixes them with fixToRange()
      */
-    public void set(int x, int y) {
+    public void setAll(int x, int y) {
         x = fixToRange(x, true);
         y = fixToRange(y, false);
-        startX = x;
-        startY = y;
-        curX = startX;
-        curY = startY;
+        prevX = x;
+        prevY = y;
+        curX = prevX;
+        curY = prevY;
     }
 
     /**
@@ -67,12 +53,20 @@ public final class Area {
     public void udpate(int x, int y) {
         x = fixToRange(x, true);
         y = fixToRange(y, false);
-        startX = curX;
-        startY = curY;
+        prevX = curX;
+        prevY = curY;
         curX = x;
         curY = y;
     }
     
+    /**
+     * <p>parameters are checked and fixed with fixToRange()
+     * 
+     * @param x - new curX
+     * @param y - new curY</p>
+     * <p>
+     * prevX and prevY remains unchanged.
+     */
     public void udpateCurrents(int x, int y) {
         x = fixToRange(x, true);
         y = fixToRange(y, false);
@@ -96,12 +90,12 @@ public final class Area {
         return value;
     }
 
-    public int getStartX() {
-        return startX;
+    public int getPrevX() {
+        return prevX;
     }
 
-    public int getStartY() {
-        return startY;
+    public int getPrevY() {
+        return prevY;
     }
 
     public int getCurX() {
@@ -126,10 +120,16 @@ public final class Area {
 
     /**
      * 
-     * @return return itself in x,y,width, height format. See private constructor.
+     * @return Rectangle measurments based on coordinate values.
      */
-    public Area getRectangle() {
-        return new Area(startX, startY, curX, curY);
+    public Rectangle getRectangle() {        
+        int x = Math.min(prevX, curX);
+        int y = Math.min(prevY, curY);
+
+        int width = fixToRange(Math.abs(prevX - curX), true);
+        int height = fixToRange(Math.abs(prevY - curY), false);
+        
+        return new Rectangle(x, y, width, height);
 
     }
 

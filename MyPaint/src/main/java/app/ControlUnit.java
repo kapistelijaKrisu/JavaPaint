@@ -16,13 +16,15 @@ public class ControlUnit implements Runnable {
     private final CommandMap cmds;
     private MyImage img;
     private Log log;
+    private boolean logging;
 
     public ControlUnit() {
         cmds = new CommandMap();
         log = new Log();
         img = new MyImage(256, 256);
+        logging = true;
     }
-    
+
     public ControlUnit(int width, int height) {
         if (width < 1 || height < 1) {
             throw new IllegalArgumentException();
@@ -30,11 +32,13 @@ public class ControlUnit implements Runnable {
         cmds = new CommandMap();
         log = new Log();
         img = new MyImage(width, height);
+        logging = true;
     }
 
     /**
-     * 
-     * @param image sets the working image as image and adds previous image to log history
+     *
+     * @param image sets the working image as image and adds previous image to
+     * log history
      */
     public void setImage(BufferedImage image) {
         updateHistory();
@@ -57,13 +61,14 @@ public class ControlUnit implements Runnable {
      * @param a coordinate information for CMD implementations to use</p>
      */
     public void execute(Area a) {
-        if (cmds.getCurrentKey() != CommandMap.PICKCOLOR) {
+        if (logging) {
             updateHistory();
         }
         cmds.getCurrentCMD().execute(img, a);
     }
 
-    /**<p>
+    /**
+     * <p>
      * sets active CMD on its cmds if value is legal. Does nothing if value is
      * illegal.</p>
      *
@@ -101,6 +106,7 @@ public class ControlUnit implements Runnable {
             img.setImg(next);
         }
     }
+
     public int getCurrentCMD() {
         return cmds.getCurrentKey();
     }
@@ -111,5 +117,9 @@ public class ControlUnit implements Runnable {
 
     public Log getLog() {
         return log;
+    }
+
+    public void setLogging(boolean logging) {
+        this.logging = logging;
     }
 }

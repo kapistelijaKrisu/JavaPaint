@@ -3,7 +3,6 @@ package app.cmd;
 import app.MyImage;
 import java.awt.Rectangle;
 import tools.Area;
-import tools.OneLineException;
 
 /**
  * 
@@ -14,9 +13,10 @@ import tools.OneLineException;
 public class DrawRect implements CMD {
 
     @Override
-    public void execute(MyImage img, Area rect) {
-        img.getGraphics().draw(new Rectangle.Float(rect.getStartX(), rect.getStartY(),
-                rect.getCurX(), rect.getCurY()));
+    public void execute(MyImage img, Area area) {
+        Rectangle r = area.getRectangle();
+        img.getGraphics().draw(new Rectangle.Float(r.x, r.y,
+                r.width, r.height));
     }
 
 }

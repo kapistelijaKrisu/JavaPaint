@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 21,
+      <title>File: 25,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -44,34 +44,6 @@ under the License.
             </tr>
           </thead>
           <tbody>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#app.Log.java">app/Log.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#app.cmd.DrawLine.java">app/cmd/DrawLine.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#app.cmd.FillColor.java">app/cmd/FillColor.java</a>
@@ -102,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#ui.MouseInput.java">ui/MouseInput.java</a>
+                  <a href="${project.url}/checkstyle.html#ui.research.SidePanel.java">ui/research/SidePanel.java</a>
                 </td>
                 <td>
                   0
@@ -117,48 +89,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#app.cmd.CMD.java">app/cmd/CMD.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#app.cmd.FillRect.java">app/cmd/FillRect.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#ui.Coordinate.java">ui/Coordinate.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#app.cmd.CommandMap.java">app/cmd/CommandMap.java</a>
                 </td>
                 <td>
                   0
@@ -214,7 +144,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#ui.MyWindow.java">ui/MyWindow.java</a>
+                  <a href="${project.url}/checkstyle.html#tools.OneLineException.java">tools/OneLineException.java</a>
                 </td>
                 <td>
                   0
@@ -228,7 +158,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#ui.OneLineException.java">ui/OneLineException.java</a>
+                  <a href="${project.url}/checkstyle.html#ui.research.KeyGuy.java">ui/research/KeyGuy.java</a>
                 </td>
                 <td>
                   0
@@ -242,7 +172,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#app.cmd.SetAvgColor.java">app/cmd/SetAvgColor.java</a>
+                  <a href="${project.url}/checkstyle.html#tools.Coordinate.java">tools/Coordinate.java</a>
                 </td>
                 <td>
                   0
@@ -270,21 +200,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#main.Main.java">main/Main.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#tools.FileUtils.java">tools/FileUtils.java</a>
+                  <a href="${project.url}/checkstyle.html#ui.research.MouseGuy.java">ui/research/MouseGuy.java</a>
                 </td>
                 <td>
                   0
@@ -326,7 +242,147 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#app.Log.java">app/Log.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#app.cmd.DrawLine.java">app/cmd/DrawLine.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#app.cmd.FillRect.java">app/cmd/FillRect.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#app.cmd.CommandMap.java">app/cmd/CommandMap.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#ui.MyWindow.java">ui/MyWindow.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#app.cmd.SetAvgColor.java">app/cmd/SetAvgColor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#main.Main.java">main/Main.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#tools.FileUtils.java">tools/FileUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#ui.research.NewWindow.java">ui/research/NewWindow.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#app.PaintBrush.java">app/PaintBrush.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#ui.research.PaintPanel.java">ui/research/PaintPanel.java</a>
                 </td>
                 <td>
                   0

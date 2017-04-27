@@ -7,10 +7,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 
 public class SidePanel extends JPanel {
 
@@ -43,7 +41,7 @@ public class SidePanel extends JPanel {
         add(getFillColorButton());
         add(getReplaceColorButton());
         add(getSetAvgColorButton());
-        
+
         add(getSetColorButton());
         add(getSaveButton());
         add(getLoadButton());
@@ -53,11 +51,10 @@ public class SidePanel extends JPanel {
     public JButton getDrawButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.DRAWLINE);
-            m.setAreaMode(MouseGuy.MODE_BASIC);
             m.setRefreshMode(MouseGuy.UPDATE_CONSTANT);
             p.setToolBarMode(PaintPanel.NO_TOOLTIP);
-            
-            
+            w.requestFocusInWindow();
+
         };
 
         JButton b = new JButton("DRAW");
@@ -69,9 +66,9 @@ public class SidePanel extends JPanel {
     public JButton getFillRectButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.FILLRECT);
-            m.setAreaMode(MouseGuy.MODE_RECTANGLE);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             p.setToolBarMode(PaintPanel.RECT);
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("FILL RECT");
         b.addActionListener(a);
@@ -81,9 +78,9 @@ public class SidePanel extends JPanel {
     public JButton getDrawRectButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.DRAWRECT);
-            m.setAreaMode(MouseGuy.MODE_RECTANGLE);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             p.setToolBarMode(PaintPanel.RECT);
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("DRAW RECT");
         b.addActionListener(a);
@@ -93,10 +90,9 @@ public class SidePanel extends JPanel {
     public JButton getDrawLineButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.DRAWLINE);
-            m.setAreaMode(MouseGuy.MODE_BASIC);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             p.setToolBarMode(PaintPanel.LINE);
-
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("DRAW LINE");
         b.addActionListener(a);
@@ -106,10 +102,9 @@ public class SidePanel extends JPanel {
     public JButton getFillColorButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.FILLCOLOR);
-            m.setAreaMode(MouseGuy.MODE_BASIC);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             p.setToolBarMode(PaintPanel.NO_TOOLTIP);
-
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("FILL COLOR");
         b.addActionListener(a);
@@ -119,10 +114,9 @@ public class SidePanel extends JPanel {
     public JButton getReplaceColorButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.REPLACECOLOR);
-            m.setAreaMode(MouseGuy.MODE_BASIC);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             p.setToolBarMode(PaintPanel.NO_TOOLTIP);
-
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("REPLACE COLOR");
         b.addActionListener(a);
@@ -132,10 +126,9 @@ public class SidePanel extends JPanel {
     public JButton getSetAvgColorButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.PICKCOLOR);
-            m.setAreaMode(MouseGuy.MODE_RECTANGLE);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
-            p.setToolBarMode(PaintPanel.NO_TOOLTIP);
-
+            p.setToolBarMode(PaintPanel.RECT);
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("SET AVG COLOR");
         b.addActionListener(a);
@@ -144,24 +137,29 @@ public class SidePanel extends JPanel {
 
     public JButton getSetColorButton() {
         ActionListener a = (ActionEvent e) -> {
-       //     JPopupMenu
+            //     JPopupMenu
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("SET COLOR");
         b.addActionListener(a);
+
         return b;
     }
+
     public JButton getSaveButton() {
         ActionListener a = (ActionEvent e) -> {
-       //     JPopupMenu
+            //     JPopupMenu
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("SAVE");
         b.addActionListener(a);
         return b;
     }
+
     public JButton getLoadButton() {
         ActionListener a = (ActionEvent e) -> {
-       //     JPopupMenu
-       w.requestFocusInWindow();
+            //     JPopupMenu
+            w.requestFocusInWindow();
         };
         JButton b = new JButton("LOAD");
         b.addActionListener(a);

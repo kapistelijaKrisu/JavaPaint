@@ -4,6 +4,7 @@ import app.ControlUnit;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -58,8 +59,8 @@ public class MyWindow extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         KeyInput kInput = new KeyInput(control, this);      
-        MouseInput mInput = new MouseInput(control, this);
-        toolTip = mInput.getArea();
+
+        toolTip = null;
         
         
         
@@ -71,8 +72,6 @@ public class MyWindow extends JPanel {
         frame.pack();
         frame.setLocationRelativeTo(null);
 
-        this.addMouseListener(mInput);
-        this.addMouseMotionListener(mInput);
         frame.addKeyListener(kInput);
 
         frame.setVisible(true);
@@ -90,8 +89,8 @@ public class MyWindow extends JPanel {
         g.drawImage(control.getImg().getImg(), xOffSet, yOffSet, null);
         
         if (drawToolTip) {
-            Area r = toolTip.getRectangle();
-        g.drawRect(r.getStartX(), r.getStartY(), r.getCurX(), r.getCurY());
+            Rectangle r = toolTip.getRectangle();
+        g.drawRect(r.x, r.y, r.width, r.height);
         }
         
         

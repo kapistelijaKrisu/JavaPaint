@@ -1,5 +1,6 @@
 package app.cmd;
 
+import tools.Coordinate;
 import app.MyImage;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

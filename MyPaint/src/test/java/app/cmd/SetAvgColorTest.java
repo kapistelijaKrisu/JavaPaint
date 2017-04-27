@@ -34,21 +34,21 @@ public class SetAvgColorTest {
         Color[] ct = new Color[] { c1,c2,c3,c4};
         for (int i = 0; i < ct.length; i++) {
             cu.getImg().setColor(ct[i]);
-        a.set(1, i);
+        a.setAll(1, i);
         cu.setActiveCMD(CommandMap.FILLRECT);
-        cu.execute(a.getRectangle());
+        cu.execute(a);
         
         cu.setActiveCMD(CommandMap.PICKCOLOR);
-        cu.execute(a.getRectangle());
+        cu.execute(a);
 
         Assert.assertEquals(ct[i].getRGB(), cu.getImg().getColor().getRGB());
 
             
         }
  
-        a.set(1, 1);
+        a.setAll(1, 1);
         a.udpate(1, 3);
-        cu.execute(a.getRectangle());
+        cu.execute(a);
 
         int aa = 0;
         int r = 0;
@@ -71,7 +71,7 @@ public class SetAvgColorTest {
     public void testArguments() {
         SetAvgColor avgSetter = new SetAvgColor();
         try {
-            avgSetter.execute(null, a.getRectangle());
+            avgSetter.execute(null, a);
             Assert.assertFalse(true);
         } catch (NullPointerException e) {
 

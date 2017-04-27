@@ -25,7 +25,7 @@ public class FillRectTest {
     @Test
     public void testRect() {
         a.udpate(5, 5);
-        cu.execute(a.getRectangle());
+        cu.execute(a);
 
         for (int i = 0; i < cu.getImg().getImg().getHeight(); i++) {
             for (int j = 0; j < cu.getImg().getImg().getWidth(); j++) {
@@ -43,7 +43,7 @@ public class FillRectTest {
     public void testArguments() {
         FillRect cmd = new FillRect();
         try {
-            cmd.execute(null, a.getRectangle());
+            cmd.execute(null, a);
             Assert.assertFalse(true);
         } catch (NullPointerException e) {
             

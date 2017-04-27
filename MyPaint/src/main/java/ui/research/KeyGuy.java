@@ -1,7 +1,6 @@
 package ui.research;
 
 import app.ControlUnit;
-import app.cmd.CommandMap;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,15 +24,12 @@ public class KeyGuy extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-         System.out.println("sad");
+
         switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                
                 Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), Math.min(1f, r.nextFloat() * 3));
                 cmd.getImg().setColor(c);
-                System.out.println("sad");
                 break;
-                
 
             case KeyEvent.VK_Z:
                 cmd.undo();
@@ -43,8 +39,7 @@ public class KeyGuy extends KeyAdapter {
                 cmd.redo();
                 w.repaint();
                 break;
-                
-                
+
             case KeyEvent.VK_SUBTRACT:
                 cmd.getImg().thin();
                 break;
@@ -56,5 +51,5 @@ public class KeyGuy extends KeyAdapter {
 
     @Override
     public void keyReleased(KeyEvent e) {
-     }
+    }
 }

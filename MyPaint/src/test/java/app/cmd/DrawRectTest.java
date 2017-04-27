@@ -27,7 +27,7 @@ public class DrawRectTest {
     @Test
     public void testRect() {
         a.udpate(4, 4);
-        cu.execute(a.getRectangle());
+        cu.execute(a);
         for (int i = 2; i <= 4; i++) {
             for (int j = 2; j <= 4; j++) {
                 if (i == 2 || j == 2 || i == 4 || j == 4) {
