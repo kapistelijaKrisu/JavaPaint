@@ -1,5 +1,8 @@
-package ui.research;
 
+package ui.buttonPanels;
+        
+import ui.NewWindow;
+import ui.io.MouseGuy;
 import app.ControlUnit;
 import app.cmd.CommandMap;
 import java.awt.Color;
@@ -7,21 +10,28 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import ui.NewWindow;
+import ui.PaintPanel;
 
-public class SidePanel extends JPanel {
+public class CMDui extends JPanel {
 
     ControlUnit cu;
     MouseGuy m;
+ 
     PaintPanel p;
+    SwapPanel container;
     NewWindow w;
 
-    public SidePanel(NewWindow w, ControlUnit cu, MouseGuy m, PaintPanel p, int width, int height) {
+    public CMDui(NewWindow w, ControlUnit cu, MouseGuy m,PaintPanel p, SwapPanel container, int width, int height) {
         this.cu = cu;
         this.m = m;
         this.p = p;
         this.w = w;
+        this.container = container;
+      //  addKeyListener(k);
         Dimension dim = new Dimension(width, height);
         setPreferredSize(dim);
         setBackground(Color.red);
@@ -42,7 +52,7 @@ public class SidePanel extends JPanel {
         add(getReplaceColorButton());
         add(getSetAvgColorButton());
 
-        add(getSetColorButton());
+        add(getSwapperButton());
         add(getSaveButton());
         add(getLoadButton());
 
@@ -58,6 +68,7 @@ public class SidePanel extends JPanel {
         };
 
         JButton b = new JButton("DRAW");
+      
 
         b.addActionListener(a);
         return b;
@@ -135,9 +146,9 @@ public class SidePanel extends JPanel {
         return b;
     }
 
-    public JButton getSetColorButton() {
+    public JButton getSwapperButton() {
         ActionListener a = (ActionEvent e) -> {
-            //     JPopupMenu
+            container.swap();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("SET COLOR");

@@ -1,4 +1,4 @@
-package ui.research;
+package ui.io;
 
 import app.ControlUnit;
 import java.awt.Color;
@@ -8,6 +8,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.Random;
 import javax.swing.JTextArea;
 import tools.Area;
+import ui.PaintPanel;
 
 public class MouseGuy implements MouseListener, MouseMotionListener {
 
@@ -21,16 +22,14 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     private PaintPanel p;
     private final ControlUnit cu;
 
-
     private int refreshMode = 2;
     Area a;
     Area toolTip;
     private final Random r;
-    
 
     public MouseGuy(ControlUnit cu) {
-      //  int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
-    //    int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
+        //  int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
+        //    int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
         r = new Random();
         this.cu = cu;
         a = new Area(0, 0);
@@ -39,16 +38,18 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-     //   cu.setLogging(false);
+        int x = (int) (e.getX() / p.getScale());
+        int y = (int) (e.getY() / p.getScale());
+
         p.resumeToolTip();
-        a.setAll(e.getX(), e.getY());
-        toolTip.setAll(e.getX(), e.getY());
-        if (refreshMode == UPDATE_CONSTANT) {         
+        a.setAll(x, y);
+        toolTip.setAll(x, y);
+        if (refreshMode == UPDATE_CONSTANT) {
             cu.execute(a);
         }
         if (e.getButton() == MouseEvent.BUTTON3) {
             Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), Math.min(1f, r.nextFloat() * 2));
-                cu.getImg().setColor(c);
+            cu.getImg().setColor(c);
         }
         finish(e);
     }
@@ -57,32 +58,39 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     public void mouseReleased(MouseEvent e) {
         cu.setLogging(true);
         p.pauseToolTip();
-        if (refreshMode == UPDATE_ONRELEASE) {          
-            a.udpate(e.getX(), e.getY());
+
+        int x = (int) (e.getX() / p.getScale());
+        int y = (int) (e.getY() / p.getScale());
+        if (refreshMode == UPDATE_ONRELEASE) {
+            a.udpate(x, y);
             cu.execute(a);
         }
-        
-        p.pauseToolTip();
-        
+
         finish(e);
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         textArea.setText("width:" + cu.getImg().getImg().getWidth() + " height: " + cu.getImg().getImg().getHeight() + "      x:" + e.getX() + " y:" + e.getY());
-            
-        if (refreshMode == UPDATE_CONSTANT) {   
-               cu.setLogging(false);
-            a.udpate(e.getX(), e.getY());
+        int x = (int) (e.getX() / p.getScale());
+        int y = (int) (e.getY() / p.getScale());
+        if (refreshMode == UPDATE_CONSTANT) {
+            cu.setLogging(false);
+            a.udpate(x, y);
             cu.execute(a);
         }
-        toolTip.udpateCurrents(e.getX(), e.getY());
+        toolTip.udpateCurrents(x, y);
         finish(e);
     }
-    
+
     @Override
     public void mouseMoved(MouseEvent e) {
-        textArea.setText("width:" + cu.getImg().getImg().getWidth() + " height: " + cu.getImg().getImg().getHeight() + "      x:" + e.getX() + " y:" + e.getY());        
+        textArea.setText(
+                "width:" + cu.getImg().getImg().getWidth()
+                + " height: " + cu.getImg().getImg().getHeight()
+                + "      x:"
+                + Math.min((int) (e.getX() / p.getScale()), cu.getImg().getImg().getWidth())
+                + " y:" + Math.min((int) (e.getY() / p.getScale()), cu.getImg().getImg().getHeight()));
     }
 
     @Override
@@ -104,7 +112,7 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     public void setBoard(PaintPanel p) {
         this.p = p;
     }
-    
+
     private void finish(MouseEvent e) {
         e.consume();
         p.repaint();
@@ -120,14 +128,10 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     public Area getToolTip() {
         return toolTip;
     }
-    
+
     public void setPaintArea(PaintPanel p) {
         this.p = p;
-        
-    }
-    
-    
 
-    
+    }
 
 }
