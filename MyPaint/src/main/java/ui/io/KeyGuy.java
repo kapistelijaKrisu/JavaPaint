@@ -28,7 +28,7 @@ public class KeyGuy extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("key");
+        
         switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
                 Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), Math.min(1f, r.nextFloat() * 3));
@@ -65,6 +65,8 @@ public class KeyGuy extends KeyAdapter {
                 cmd.getImg().setOverride(true);
                 break;
         }
+        w.revalidate();
+        e.consume();
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.awt.Rectangle;
  * Contains previous pixel and current pixel as int x,y</p>
  *
  */
-public final class Area {
+public final class TwoPoint {
 
     private static final int MIN_VAL = 0;
     private static int maxX = MIN_VAL, maxY = MIN_VAL;
@@ -19,7 +19,7 @@ public final class Area {
 
     private int curX, curY;
 
-    public Area(int x, int y) {
+    public TwoPoint(int x, int y) {
         setAll(x, y);
     }
 
@@ -114,8 +114,8 @@ public final class Area {
     public static void setBounds(int maxX, int maxY) {
         maxX = Math.max(MIN_VAL, maxX);
         maxY = Math.max(maxY, MIN_VAL);
-        Area.maxX = maxX;
-        Area.maxY = maxY;
+        TwoPoint.maxX = maxX;
+        TwoPoint.maxY = maxY;
     }
 
     /**

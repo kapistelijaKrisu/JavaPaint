@@ -8,12 +8,12 @@ import java.util.HashSet;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tools.Area;
+import tools.TwoPoint;
 
 public class FillColorTest {
 
     ControlUnit cu;
-    Area a;
+    TwoPoint a;
     BufferedImage img;
     HashMap<Integer, HashSet<Integer>> testBits;
     int color;
@@ -25,7 +25,7 @@ public class FillColorTest {
         cu.getImg().setOverride(true);
         cu.getImg().setColor(Color.yellow);
         cu.setActiveCMD(CommandMap.FILLCOLOR);
-        a = new Area(1, 1);
+        a = new TwoPoint(1, 1);
 
         img = cu.getImg().getImg();
         color = Color.black.getRGB();

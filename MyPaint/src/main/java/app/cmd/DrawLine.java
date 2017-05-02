@@ -1,7 +1,7 @@
 package app.cmd;
 
 import app.MyImage;
-import tools.Area;
+import tools.TwoPoint;
 import java.awt.geom.Line2D;
 
 /**
@@ -13,7 +13,7 @@ import java.awt.geom.Line2D;
 public class DrawLine implements CMD {
 
     @Override
-    public void execute(MyImage img, Area area) {
+    public void execute(MyImage img, TwoPoint area) {
         img.getGraphics().draw(new Line2D.Float(area.getPrevX(), area.getPrevY(),
                  area.getCurX(), area.getCurY()));
     }

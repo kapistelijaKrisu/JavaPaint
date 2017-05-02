@@ -5,17 +5,21 @@ import ui.io.MouseGuy;
 import app.ControlUnit;
 import app.PaintBrush;
 import app.cmd.CommandMap;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -33,6 +37,8 @@ public class BrushUi extends JPanel {
     PaintPanel p;
     SwapPanel container;
     NewWindow w;
+    
+    private JAlphaPanel alphaPanel;
 
     public BrushUi(NewWindow w, ControlUnit cu, MouseGuy m, PaintPanel p, SwapPanel container, int width, int height) {
         this.cu = cu;
@@ -43,7 +49,7 @@ public class BrushUi extends JPanel {
         Dimension dim = new Dimension(width, height);
         setPreferredSize(dim);
         setBackground(Color.blue);
-        setLayout(new GridLayout(8, 1, 1, 1));
+        setLayout(new GridLayout(7, 1, 1, 1));
         addbuttons();
 
         revalidate();
@@ -54,8 +60,11 @@ public class BrushUi extends JPanel {
         add(getSwapperButton());
         add(getSwapper2Button());
         add(new JOverridePanel(cu));
-        add(new JAlphaPanel(cu));
+        alphaPanel = new JAlphaPanel(cu);
+        add(alphaPanel);
         add(new JBrushWidthPanel(cu));
+        add(makeColorChooser());
+        add(makeColorPicker());
     }
 
     public JButton getSwapperButton() {
@@ -68,9 +77,9 @@ public class BrushUi extends JPanel {
 
         return b;
     }
-    
+
     public void refresh() {
-        
+        alphaPanel.refresh();
     }
 
     public JButton getSwapper2Button() {
@@ -81,6 +90,30 @@ public class BrushUi extends JPanel {
         JButton b = new JButton("Image Settings");
         b.addActionListener(a);
 
+        return b;
+    }
+
+    private JButton makeColorChooser() {
+        JButton b = new JButton("Choose color");
+        ActionListener a = (ActionEvent e) -> {
+            Color c = JColorChooser.showDialog(null, "Choose a Color", cu.getImg().getColor());
+            if (c != null) {
+                cu.getImg().setColor(c);
+                refresh();
+            }
+            
+        };
+        b.addActionListener(a);
+        return b;
+    }
+
+    private JButton makeColorPicker() {
+        JButton b = new JButton("Pick color from image");
+        ActionListener a = (ActionEvent e) -> {
+            cu.setActiveCMD(CommandMap.PICKCOLOR);
+            m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
+        };
+        b.addActionListener(a);
         return b;
     }
 
@@ -157,20 +190,24 @@ public class BrushUi extends JPanel {
                 cu.getImg().setColor(new Color(c, true));
                 w.requestFocus();
             });
-
+            alphaValue.setLabelFor(slider);
             add(alphaValue);
             add(slider);
 
         }
+        
+        public void refresh() {
+            slider.setValue((int)(cu.getImg().getColor().getAlpha() / 2.55));
+        }
     }
-    
+
     private class JBrushWidthPanel extends JPanel {
 
         private JLabel brushWidth;
         private JSlider slider;
 
         public JBrushWidthPanel(ControlUnit cu) {
-            brushWidth = new JLabel("Width:"+cu.getImg().getBrushWidth());
+            brushWidth = new JLabel("Width:" + cu.getImg().getBrushWidth());
 
             slider = new JSlider();
             slider.setMaximum(PaintBrush.getMAX_WIDTH());
@@ -200,8 +237,7 @@ public class BrushUi extends JPanel {
                 JSlider source = (JSlider) e.getSource();
                 int value = source.getValue();
                 brushWidth.setText("Width:" + value);
-               
-                
+
                 cu.getImg().setWidth(value);
                 w.requestFocus();
             });

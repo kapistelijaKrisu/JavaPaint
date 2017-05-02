@@ -5,7 +5,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import tools.Area;
+import tools.TwoPoint;
 
 /**
  *
@@ -36,7 +36,7 @@ public class MyImage {
         if (width < 1 || height < 1) {
             throw new IllegalArgumentException();
         }
-        Area.setBounds(width - 1, height - 1);
+        TwoPoint.setBounds(width - 1, height - 1);
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         graphics = img.createGraphics();
         setBrush(new PaintBrush(1, true));
@@ -126,7 +126,7 @@ public class MyImage {
     public void setImg(BufferedImage img) {
         this.img = img;
         refreshSettings();
-        Area.setBounds(img.getHeight() - 1, img.getWidth() - 1);
+        TwoPoint.setBounds(img.getWidth() - 1, img.getHeight() - 1);
     }
 
     public int getBrushWidth() {

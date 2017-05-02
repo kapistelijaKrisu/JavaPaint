@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tools.Area;
+import tools.TwoPoint;
 
 public class MyImageTest {
 
@@ -89,7 +89,7 @@ public class MyImageTest {
         cu.getImg().setBrush(p);
         cu.getImg().thicken();
         cu.getImg().thicken();
-        Area a = new Area(1, 1);
+        TwoPoint a = new TwoPoint(1, 1);
         cu.execute(a);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -157,7 +157,7 @@ public class MyImageTest {
             }
         }
 
-        Area a = new Area(33, 33);
+        TwoPoint a = new TwoPoint(33, 33);
         img.getGraphics().draw(new Line2D.Float(a.getPrevX(), a.getPrevY(), a.getCurX(), a.getCurY()));
 
         for (int i = 0; i < 32; i++) {

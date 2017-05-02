@@ -6,21 +6,21 @@ import java.awt.image.BufferedImage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tools.Area;
+import tools.TwoPoint;
 
 public class LogTest {
 
     @Test
     public void worksNormally() {
         ControlUnit cu;
-        Area a;
+        TwoPoint a;
         BufferedImage img;
 
         cu = new ControlUnit(5, 5);
         cu.setActiveCMD(CommandMap.DRAWLINE);
         cu.getImg().setColor(Color.black);
         img = cu.getImg().getImg();
-        a = new Area(0, 0);
+        a = new TwoPoint(0, 0);
 
         int initial = img.getRGB(0, 0);
         a.udpate(0, 4);
@@ -84,7 +84,7 @@ public class LogTest {
 
         MyImage img = cu.getImg();
         Log log = cu.getLog();
-        Area a = new Area(0, 0);
+        TwoPoint a = new TwoPoint(0, 0);
 
         cu.execute(a);
         cu.execute(a);
@@ -117,7 +117,7 @@ public class LogTest {
         MyImage img = cu.getImg();
         Log log = cu.getLog();
         log.setLogMaxSize(10);
-        Area a = new Area(0, 0);
+        TwoPoint a = new TwoPoint(0, 0);
         
         for (int i = 0; i < 15; i++) {
             Assert.assertEquals(Math.min(i, 10), log.getHistorySize());

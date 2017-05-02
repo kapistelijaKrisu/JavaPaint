@@ -2,7 +2,7 @@ package app.cmd;
 
 
 import app.MyImage;
-import tools.Area;
+import tools.TwoPoint;
 
 /**
  * 
@@ -12,7 +12,7 @@ import tools.Area;
 public interface CMD {
 
 
-    public abstract void execute(MyImage img, Area area);
+    public abstract void execute(MyImage img, TwoPoint area);
 
 
 }

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class AreaTest {
 
-    Area a;
+    TwoPoint a;
     private int initX, initY;
     private int maxX, maxY;
 
@@ -16,11 +16,11 @@ public class AreaTest {
 
         maxX = 50;
         maxY = 40;
-        Area.setBounds(maxX, maxY);
+        TwoPoint.setBounds(maxX, maxY);
 
         initX = 10;
         initY = 5;
-        a = new Area(initX, initY);
+        a = new TwoPoint(initX, initY);
     }
 
     @Test

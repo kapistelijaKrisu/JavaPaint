@@ -5,14 +5,14 @@ import java.awt.Color;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tools.Area;
+import tools.TwoPoint;
 
 public class SetAvgColorTest {
 
     FillRect cmd;
     
     ControlUnit cu;
-    Area a;
+    TwoPoint a;
 
     @Before
     public void setUp() {
@@ -21,7 +21,7 @@ public class SetAvgColorTest {
         cu.getImg().setOverride(true);
         
         cmd = new FillRect();
-        a = new Area(0, 0);
+        a = new TwoPoint(0, 0);
     }
 
     @Test

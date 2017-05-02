@@ -2,7 +2,7 @@ package app;
 
 import app.cmd.CommandMap;
 import java.awt.image.BufferedImage;
-import tools.Area;
+import tools.TwoPoint;
 import tools.OneLineException;
 
 /**
@@ -60,7 +60,7 @@ public class ControlUnit implements Runnable {
      * <p>
      * @param a coordinate information for CMD implementations to use</p>
      */
-    public void execute(Area a) {
+    public void execute(TwoPoint a) {
         if (logging) {
             updateHistory();
         }

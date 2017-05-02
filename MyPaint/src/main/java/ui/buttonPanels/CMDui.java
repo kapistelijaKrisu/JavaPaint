@@ -44,17 +44,19 @@ public class CMDui extends JPanel {
     }
 
     public void addbuttons() {
+        add(getSwapperButton());
+        add(getSwapperButton2());
+
+        
         add(getDrawButton());
         add(getDrawLineButton());
         add(getFillRectButton());
         add(getDrawRectButton());
         add(getFillColorButton());
         add(getReplaceColorButton());
-        add(getSwapperButton2());
-
-        add(getSwapperButton());
-        add(getSaveButton());
-        add(getLoadButton());
+        
+     //   add(getSaveButton());
+   //     add(getLoadButton());
 
     }
 
@@ -147,25 +149,7 @@ public class CMDui extends JPanel {
         return b;
     }
 
-    public JButton getSaveButton() {
-        ActionListener a = (ActionEvent e) -> {
-            //     JPopupMenu
-            w.requestFocusInWindow();
-        };
-        JButton b = new JButton("SAVE");
-        b.addActionListener(a);
-        return b;
-    }
-
-    public JButton getLoadButton() {
-        ActionListener a = (ActionEvent e) -> {
-            //     JPopupMenu
-            w.requestFocusInWindow();
-        };
-        JButton b = new JButton("LOAD");
-        b.addActionListener(a);
-        return b;
-    }
+    
     public JButton getSwapperButton2() {
         ActionListener a = (ActionEvent e) -> {
             container.showImgControlPanel();

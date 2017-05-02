@@ -8,7 +8,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import tools.Area;
+import tools.TwoPoint;
 
 
 /**
@@ -21,7 +21,7 @@ import tools.Area;
 public class FillColor implements CMD {
 
     @Override
-    public void execute(MyImage img, Area area) {
+    public void execute(MyImage img, TwoPoint area) {
 
         Graphics2D g = img.getGraphics();
         int paintOn = img.getImg().getRGB(area.getCurX(), area.getCurY());

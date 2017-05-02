@@ -11,13 +11,12 @@ public class BackGroundCreator {
         Color a = new Color(222, 222, 222);
         Color b = new Color(135, 135, 135);
         Color swap = a;
-
         for (int rectY = 0; rectY * rectSize < bg.getHeight(); rectY++) {
-            if (swap.equals(a)) {
-                swap = b;
-            } else {
-                swap = a;
-            }
+                if (swap.equals(a)) {
+                    swap = b;
+                } else {
+                    swap = a;
+                }
             for (int rectX = 0; rectX * rectSize < bg.getWidth(); rectX++) {
                 if (swap.equals(a)) {
                     swap = b;

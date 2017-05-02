@@ -3,7 +3,7 @@ package app.cmd;
 import app.MyImage;
 import java.awt.Color;
 import java.awt.Rectangle;
-import tools.Area;
+import tools.TwoPoint;
 
 /** 
  * 
@@ -15,7 +15,7 @@ public class SetAvgColor implements CMD {
 
 
     @Override
-    public void execute(MyImage img, Area area) {
+    public void execute(MyImage img, TwoPoint area) {
         int a = 0;
         int r = 0;
         int g = 0;

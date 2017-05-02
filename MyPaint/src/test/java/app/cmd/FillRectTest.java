@@ -5,12 +5,12 @@ import java.awt.Color;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tools.Area;
+import tools.TwoPoint;
 
 public class FillRectTest {
     
     ControlUnit cu;
-    Area a;
+    TwoPoint a;
 
     @Before
     public void setUp() {
@@ -19,7 +19,7 @@ public class FillRectTest {
         cu.getImg().setOverride(true);
         cu.getImg().setColor(Color.yellow);
         cu.setActiveCMD(CommandMap.FILLRECT);
-        a = new Area(2, 2);
+        a = new TwoPoint(2, 2);
     }
     
     @Test

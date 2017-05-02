@@ -3,7 +3,7 @@ package app.cmd;
 
 import app.MyImage;
 import java.awt.Rectangle;
-import tools.Area;
+import tools.TwoPoint;
 
 /**
  * 
@@ -13,7 +13,7 @@ import tools.Area;
 public class FillRect implements CMD {
 
     @Override
-    public void execute(MyImage img, Area area) {
+    public void execute(MyImage img, TwoPoint area) {
         Rectangle rect = area.getRectangle();
         img.getGraphics().fill(new Rectangle.Float(rect.x, rect.y,
                  rect.width+1, rect.height+1));

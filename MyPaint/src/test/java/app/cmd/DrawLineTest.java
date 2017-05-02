@@ -5,7 +5,7 @@ import java.awt.Color;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tools.Area;
+import tools.TwoPoint;
 
 public class DrawLineTest {
 
@@ -24,7 +24,7 @@ public class DrawLineTest {
         int testPixel = 5;
 
         cu.getImg().setColor(c);
-        cu.execute(new Area(testPixel, testPixel));
+        cu.execute(new TwoPoint(testPixel, testPixel));
         if (c.getRGB() != cu.getImg().getImg().getRGB(testPixel, testPixel)) {
             return false;
         }

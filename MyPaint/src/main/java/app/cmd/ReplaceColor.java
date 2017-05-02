@@ -2,7 +2,7 @@
 package app.cmd;
 
 import app.MyImage;
-import tools.Area;
+import tools.TwoPoint;
 
 /**
  * 
@@ -12,7 +12,7 @@ import tools.Area;
 public class ReplaceColor implements CMD {
 
     @Override
-    public void execute(MyImage img, Area area) {
+    public void execute(MyImage img, TwoPoint area) {
         int toReplace = img.getImg().getRGB(area.getCurX(), area.getCurY());
         int height = img.getImg().getHeight();
         int width = img.getImg().getWidth();

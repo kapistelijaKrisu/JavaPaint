@@ -14,15 +14,16 @@ public class NewWindow extends JFrame {
     KeyGuy k;
     PaintPanel pan;
     SwapPanel container;
-    NewWindow w;
-    JTextArea t;
+    InfoPanel t;
 
     public NewWindow(ControlUnit cu, int preferredWidth, int preferredHeight) {
         this.cu = cu;
         installFrame(preferredWidth, preferredHeight);
+     
     }
 
     private void installFrame(int width, int height) {
+        setTitle("LePaint v1.0");
         setComponents();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -38,14 +39,19 @@ public class NewWindow extends JFrame {
     private void setComponents() {
         m = new MouseGuy(cu);
 
-        t = getCoordInfoArea(m);
+        
+      
         pan = new PaintPanel(cu, m.getToolTip());
-        m.setPaintArea(pan);
-
+        t = new InfoPanel(cu.getImg(), pan);
+        m.setInfo(t);
+        m.setBoard(pan);
         setLayout(new BorderLayout());
-        add("Center", getPaintBoard());
-        add(t, BorderLayout.SOUTH);
-        add(new SwapPanel(this, cu, m, pan, 255, pan.getHeight()), BorderLayout.EAST);
+        
+        JScrollPane scroll = getPaintBoard();
+        getContentPane().add(scroll, BorderLayout.CENTER);
+        m.setBoard(pan);
+        getContentPane().add(t, BorderLayout.SOUTH);
+        getContentPane().add(new SwapPanel(this, cu, m, pan, 255, pan.getHeight()), BorderLayout.EAST);
 
         k = new KeyGuy(cu, pan, this);
 
@@ -61,22 +67,14 @@ public class NewWindow extends JFrame {
         pan.setBackground(Color.white);
         pan.addMouseListener(m);
         pan.addMouseMotionListener(m);
-
-        m.setBoard(pan);
-
-        Dimension dim = new Dimension(cu.getImg().getImg().getWidth(), cu.getImg().getImg().getHeight());
-        pan.setPreferredSize(dim);
-
+        scroll.addMouseListener(m);
         return scroll;
     }
 
-    public JTextArea getCoordInfoArea(MouseGuy m) {
-        JTextArea t = new JTextArea();
-        t.setText("width:" + cu.getImg().getImg().getWidth() + " height: " + cu.getImg().getImg().getHeight());
-        t.setLineWrap(true);
-        m.setA(t);
-        t.setEditable(false);
-        return t;
+    public void refresh() {
+        repaint();
+        pan.repaint();
+        t.refresh();
     }
 
 }

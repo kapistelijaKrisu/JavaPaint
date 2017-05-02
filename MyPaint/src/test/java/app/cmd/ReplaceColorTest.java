@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tools.Area;
+import tools.TwoPoint;
 
 public class ReplaceColorTest {
 
     ControlUnit cu;
-    Area a;
+    TwoPoint a;
     BufferedImage img;
 
     @Before
@@ -29,7 +29,7 @@ public class ReplaceColorTest {
             
         }
 
-        a = new Area(0, 0);
+        a = new TwoPoint(0, 0);
 
         
         img.setRGB(0, 0, Color.BLUE.getRGB());

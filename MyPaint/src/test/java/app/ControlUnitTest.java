@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tools.Area;
+import tools.TwoPoint;
 
 public class ControlUnitTest {
 
@@ -65,7 +65,7 @@ public class ControlUnitTest {
         }
 
         cu = new ControlUnit(1, 1);
-        Area a = new Area(1, 1);
+        TwoPoint a = new TwoPoint(1, 1);
         Assert.assertTrue(a.getCurX() == 0);
         Assert.assertTrue(a.getCurY() == 0);
 
@@ -73,7 +73,7 @@ public class ControlUnitTest {
         Assert.assertTrue(cu.getImg().getImg().getWidth() == 1);
 
         cu = new ControlUnit(10, 5);
-        a = new Area(20, 20);
+        a = new TwoPoint(20, 20);
         Assert.assertTrue(a.getCurX() == 9);
         Assert.assertTrue(a.getCurY() == 4);
 
@@ -96,15 +96,15 @@ public class ControlUnitTest {
     
     @Test
     public void logModeTest() {
-        cu.execute(new Area(0, 0));
+        cu.execute(new TwoPoint(0, 0));
         Assert.assertEquals(1, cu.getLog().getHistorySize());
-        cu.execute(new Area(0, 0));
+        cu.execute(new TwoPoint(0, 0));
         Assert.assertEquals(2, cu.getLog().getHistorySize());
         cu.setLogging(false);
-        cu.execute(new Area(0, 0));
+        cu.execute(new TwoPoint(0, 0));
         Assert.assertEquals(2, cu.getLog().getHistorySize());
         cu.setLogging(true);
-        cu.execute(new Area(0, 0));
+        cu.execute(new TwoPoint(0, 0));
         Assert.assertEquals(3, cu.getLog().getHistorySize());
     }
 }
