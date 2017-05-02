@@ -45,7 +45,7 @@ public class NewWindow extends JFrame {
         setLayout(new BorderLayout());
         add("Center", getPaintBoard());
         add(t, BorderLayout.SOUTH);
-        add(new SwapPanel(this, cu, m, k, pan, 255, cu.getImg().getImg().getHeight()), BorderLayout.EAST);
+        add(new SwapPanel(this, cu, m, pan, 255, pan.getHeight()), BorderLayout.EAST);
 
         k = new KeyGuy(cu, pan, this);
 

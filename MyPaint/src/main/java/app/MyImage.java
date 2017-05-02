@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import tools.Area;
-import tools.OneLineException;
 
 /**
  *
@@ -52,8 +51,8 @@ public class MyImage {
     }
 
     /**
-     * increases graphics draw stroke width by 1.<br> Will not go above of max width
-     * set in brush.
+     * increases graphics draw stroke width by 1.<br> Will not go above of max
+     * width set in brush.
      */
     public void thicken() {
         brush.setWidth(brush.getWidth() + 1);
@@ -67,8 +66,8 @@ public class MyImage {
 
     /**
      *
-     * @param override true = composite will be SRC. <br>false = composite will be
-     * DST_OVER
+     * @param override true = composite will be SRC. <br>false = composite will
+     * be DST_OVER
      */
     public void setOverride(boolean override) {
         brush.setOverride(override);
@@ -128,5 +127,9 @@ public class MyImage {
         this.img = img;
         refreshSettings();
         Area.setBounds(img.getHeight() - 1, img.getWidth() - 1);
+    }
+
+    public int getBrushWidth() {
+        return brush.getWidth();
     }
 }

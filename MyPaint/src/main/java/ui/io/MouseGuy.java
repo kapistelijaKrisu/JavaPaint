@@ -38,6 +38,7 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        
         int x = (int) (e.getX() / p.getScale());
         int y = (int) (e.getY() / p.getScale());
 

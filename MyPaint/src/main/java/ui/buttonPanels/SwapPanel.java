@@ -18,19 +18,18 @@ import ui.PaintPanel;
 
 public class SwapPanel extends JPanel {
 
-    private static final String BRUSH = "BRUSH", CMD = "CMD";
-    private String shown;
+    private static final String BRUSH = "BRUSH", CMD = "CMD", IMAGE = "IMAGE";
     ControlUnit cu;
     MouseGuy m;
     PaintPanel p;
     NewWindow w;
 
-    public SwapPanel(NewWindow w, ControlUnit cu, MouseGuy m, KeyListener k, PaintPanel p, int width, int height) {
+    public SwapPanel(NewWindow w, ControlUnit cu, MouseGuy m, PaintPanel p, int width, int height) {
         this.cu = cu;
         this.m = m;
         this.p = p;
         this.w = w;
-    //    addKeyListener(k);
+        //    addKeyListener(k);
         Dimension dim = new Dimension(width, height);
         setPreferredSize(dim);
         setBackground(Color.red);
@@ -38,24 +37,31 @@ public class SwapPanel extends JPanel {
         CardLayout cl = new CardLayout();
         setLayout(cl);
         add(new CMDui(w, cu, m, p, this, width, height), CMD);
-        add(new BrushUi( w, cu, m, p, this, width, height), BRUSH);
-        shown = CMD;
+        add(new BrushUi(w, cu, m, p, this, width, height), BRUSH);
+        add(new ImageControlUI(w, cu, m, p, this, width, height), IMAGE);
         cl.show(this, CMD);
 
         revalidate();
-        repaint();
 
     }
 
-    public void swap() {
+    public void showBrushPanel() {
         CardLayout cl = (CardLayout) getLayout();
-        if (shown.equals(BRUSH)) {
-            shown = CMD;
-            cl.show(this, CMD);
-        } else {
-            shown = BRUSH;
-            cl.show(this, BRUSH);
-        }
+        cl.show(this, BRUSH);
+
+        w.requestFocusInWindow();
+    }
+
+    public void showCMDPanel() {
+        CardLayout cl = (CardLayout) getLayout();
+        cl.show(this, CMD);
+
+        w.requestFocusInWindow();
+    }
+    public void showImgControlPanel() {
+        CardLayout cl = (CardLayout) getLayout();
+        cl.show(this, IMAGE);
+
         w.requestFocusInWindow();
     }
 

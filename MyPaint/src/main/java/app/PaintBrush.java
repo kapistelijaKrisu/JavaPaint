@@ -10,14 +10,14 @@ import tools.OneLineException;
  */
 public final class PaintBrush {
 
-    private static final int MAX_WIDTH = 30;
+    private static final int MAX_WIDTH = 20;
 
     private int width, composite;
     private Color color;
 
     /**
      * 
-     * @param width - minimum of 1 and maximum of 30 else throws IllegalArgumentException <br>
+     * @param width - minimum of 1 and maximum of 20 else throws IllegalArgumentException <br>
      * @param override  - see setOverride
      */
     public PaintBrush(int width, boolean override) {

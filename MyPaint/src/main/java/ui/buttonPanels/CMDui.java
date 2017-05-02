@@ -50,7 +50,7 @@ public class CMDui extends JPanel {
         add(getDrawRectButton());
         add(getFillColorButton());
         add(getReplaceColorButton());
-        add(getSetAvgColorButton());
+        add(getSwapperButton2());
 
         add(getSwapperButton());
         add(getSaveButton());
@@ -134,24 +134,14 @@ public class CMDui extends JPanel {
         return b;
     }
 
-    public JButton getSetAvgColorButton() {
-        ActionListener a = (ActionEvent e) -> {
-            cu.setActiveCMD(CommandMap.PICKCOLOR);
-            m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
-            p.setToolBarMode(PaintPanel.RECT);
-            w.requestFocusInWindow();
-        };
-        JButton b = new JButton("SET AVG COLOR");
-        b.addActionListener(a);
-        return b;
-    }
+    
 
     public JButton getSwapperButton() {
         ActionListener a = (ActionEvent e) -> {
-            container.swap();
+            container.showBrushPanel();
             w.requestFocusInWindow();
         };
-        JButton b = new JButton("SET COLOR");
+        JButton b = new JButton("Brush Settings");
         b.addActionListener(a);
 
         return b;
@@ -174,6 +164,16 @@ public class CMDui extends JPanel {
         };
         JButton b = new JButton("LOAD");
         b.addActionListener(a);
+        return b;
+    }
+    public JButton getSwapperButton2() {
+        ActionListener a = (ActionEvent e) -> {
+            container.showImgControlPanel();
+            w.requestFocusInWindow();
+        };
+        JButton b = new JButton("Image Settings");
+        b.addActionListener(a);
+
         return b;
     }
 }

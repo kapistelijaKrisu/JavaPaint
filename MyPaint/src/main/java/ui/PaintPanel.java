@@ -37,8 +37,13 @@ public class PaintPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        int imgWidth = cu.getImg().getImg().getWidth();
+        int imgHeight = cu.getImg().getImg().getHeight();
         Graphics2D g2 = (Graphics2D) g;
         g2.scale(scale / 1, scale / 1);
+        if (bg.getWidth() != imgWidth || bg.getHeight() != imgHeight) {
+            bg = BackGroundCreator.create(imgWidth, imgHeight, 10);
+        }
         g.drawImage(bg, 0, 0, null);
         g.drawImage(cu.getImg().getImg(), 0, 0, null);
 
