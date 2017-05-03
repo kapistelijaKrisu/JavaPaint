@@ -82,4 +82,8 @@ public class Log {
     public int getHistorySize() {
         return history.size();
     }
+
+    public int getRedoSize() {
+        return redo.size();
+    }
 }

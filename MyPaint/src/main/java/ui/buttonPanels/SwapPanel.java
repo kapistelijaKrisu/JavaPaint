@@ -1,28 +1,25 @@
 package ui.buttonPanels;
 
-import ui.NewWindow;
 import ui.io.MouseGuy;
 import app.ControlUnit;
-import app.cmd.CommandMap;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import ui.NewWindow;
 import ui.PaintPanel;
 
-public class SwapPanel extends JPanel {
+public class SwapPanel extends JPanel implements Refreshable {
 
     private static final String BRUSH = "BRUSH", CMD = "CMD", IMAGE = "IMAGE";
     ControlUnit cu;
     MouseGuy m;
     PaintPanel p;
     NewWindow w;
+
+    private CMDui cmdUi;
+    private BrushUi brushUi;
+    private ImageControlUI imgUi;
 
     public SwapPanel(NewWindow w, ControlUnit cu, MouseGuy m, PaintPanel p, int width, int height) {
         this.cu = cu;
@@ -36,9 +33,13 @@ public class SwapPanel extends JPanel {
 
         CardLayout cl = new CardLayout();
         setLayout(cl);
-        add(new CMDui(w, cu, m, p, this, width, height), CMD);
-        add(new BrushUi(w, cu, m, p, this, width, height), BRUSH);
-        add(new ImageControlUI(w, cu, m, p, this, width, height), IMAGE);
+
+        cmdUi = new CMDui(w, cu, m, width, height);
+        brushUi = new BrushUi(w, cu, m, width, height);
+        imgUi = new ImageControlUI(w, cu, m, width, height);
+        add(cmdUi, CMD);
+        add(brushUi, BRUSH);
+        add(imgUi, IMAGE);
         cl.show(this, CMD);
 
         revalidate();
@@ -58,11 +59,33 @@ public class SwapPanel extends JPanel {
 
         w.requestFocusInWindow();
     }
+
     public void showImgControlPanel() {
         CardLayout cl = (CardLayout) getLayout();
         cl.show(this, IMAGE);
 
         w.requestFocusInWindow();
     }
+
+    @Override
+    public void refresh() {
+  
+        brushUi.refresh();
+        imgUi.refresh();
+    }
+
+    public CMDui getCmdUi() {
+        return cmdUi;
+    }
+
+    public BrushUi getBrushUi() {
+        return brushUi;
+    }
+
+    public ImageControlUI getImgUi() {
+        return imgUi;
+    }
+    
+    
 
 }

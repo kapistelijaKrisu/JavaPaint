@@ -1,7 +1,6 @@
 
 package ui.buttonPanels;
         
-import ui.NewWindow;
 import ui.io.MouseGuy;
 import app.ControlUnit;
 import app.cmd.CommandMap;
@@ -10,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import ui.NewWindow;
@@ -20,18 +18,12 @@ public class CMDui extends JPanel {
 
     ControlUnit cu;
     MouseGuy m;
- 
-    PaintPanel p;
-    SwapPanel container;
     NewWindow w;
 
-    public CMDui(NewWindow w, ControlUnit cu, MouseGuy m,PaintPanel p, SwapPanel container, int width, int height) {
+    public CMDui(NewWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
         this.cu = cu;
         this.m = m;
-        this.p = p;
         this.w = w;
-        this.container = container;
-      //  addKeyListener(k);
         Dimension dim = new Dimension(width, height);
         setPreferredSize(dim);
         setBackground(Color.red);
@@ -44,43 +36,36 @@ public class CMDui extends JPanel {
     }
 
     public void addbuttons() {
-        add(getSwapperButton());
-        add(getSwapperButton2());
-
-        
+        add(getBrushSwapButton());
+        add(getImageSettingSwapButton());     
         add(getDrawButton());
         add(getDrawLineButton());
         add(getFillRectButton());
         add(getDrawRectButton());
         add(getFillColorButton());
         add(getReplaceColorButton());
-        
-     //   add(getSaveButton());
-   //     add(getLoadButton());
+
 
     }
 
-    public JButton getDrawButton() {
+    private JButton getDrawButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.DRAWLINE);
             m.setRefreshMode(MouseGuy.UPDATE_CONSTANT);
-            p.setToolBarMode(PaintPanel.NO_TOOLTIP);
+            w.getPaintPanel().setToolBarMode(PaintPanel.NO_TOOLTIP);
             w.requestFocusInWindow();
-
         };
 
         JButton b = new JButton("DRAW");
-      
-
         b.addActionListener(a);
         return b;
     }
 
-    public JButton getFillRectButton() {
+    private JButton getFillRectButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.FILLRECT);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
-            p.setToolBarMode(PaintPanel.RECT);
+            w.getPaintPanel().setToolBarMode(PaintPanel.RECT);
             w.requestFocusInWindow();
         };
         JButton b = new JButton("FILL RECT");
@@ -88,11 +73,11 @@ public class CMDui extends JPanel {
         return b;
     }
 
-    public JButton getDrawRectButton() {
+    private JButton getDrawRectButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.DRAWRECT);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
-            p.setToolBarMode(PaintPanel.RECT);
+            w.getPaintPanel().setToolBarMode(PaintPanel.RECT);
             w.requestFocusInWindow();
         };
         JButton b = new JButton("DRAW RECT");
@@ -100,11 +85,11 @@ public class CMDui extends JPanel {
         return b;
     }
 
-    public JButton getDrawLineButton() {
+    private JButton getDrawLineButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.DRAWLINE);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
-            p.setToolBarMode(PaintPanel.LINE);
+            w.getPaintPanel().setToolBarMode(PaintPanel.LINE);
             w.requestFocusInWindow();
         };
         JButton b = new JButton("DRAW LINE");
@@ -112,11 +97,11 @@ public class CMDui extends JPanel {
         return b;
     }
 
-    public JButton getFillColorButton() {
+    private JButton getFillColorButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.FILLCOLOR);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
-            p.setToolBarMode(PaintPanel.NO_TOOLTIP);
+            w.getPaintPanel().setToolBarMode(PaintPanel.NO_TOOLTIP);
             w.requestFocusInWindow();
         };
         JButton b = new JButton("FILL COLOR");
@@ -124,11 +109,11 @@ public class CMDui extends JPanel {
         return b;
     }
 
-    public JButton getReplaceColorButton() {
+    private JButton getReplaceColorButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.REPLACECOLOR);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
-            p.setToolBarMode(PaintPanel.NO_TOOLTIP);
+            w.getPaintPanel().setToolBarMode(PaintPanel.NO_TOOLTIP);
             w.requestFocusInWindow();
         };
         JButton b = new JButton("REPLACE COLOR");
@@ -138,9 +123,9 @@ public class CMDui extends JPanel {
 
     
 
-    public JButton getSwapperButton() {
+    private JButton getBrushSwapButton() {
         ActionListener a = (ActionEvent e) -> {
-            container.showBrushPanel();
+            w.getOptionPanel().showBrushPanel();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("Brush Settings");
@@ -150,9 +135,9 @@ public class CMDui extends JPanel {
     }
 
     
-    public JButton getSwapperButton2() {
+    private JButton getImageSettingSwapButton() {
         ActionListener a = (ActionEvent e) -> {
-            container.showImgControlPanel();
+            w.getOptionPanel().showImgControlPanel();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("Image Settings");

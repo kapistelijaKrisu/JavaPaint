@@ -1,13 +1,12 @@
 package ui;
 
-import app.ControlUnit;
+import app.MyImage;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
-import javax.swing.JViewport;
 import javax.swing.Scrollable;
 import tools.TwoPoint;
 import ui.tools.BackGroundCreator;
@@ -17,22 +16,22 @@ public class PaintPanel extends JPanel implements Scrollable {
     public static final int NO_TOOLTIP = 0;
     public static final int LINE = 1;
     public static final int RECT = 2;
-    private static final int xtraForUser = 100;
+    private static final int XTRA_SPACE = 50;
     private int toolBarMode;
     private int previousMode;
     
     private final float MINSCALE = 0.1f, MAXSCALE = 32.0f;
     private float scale;
 
-    private ControlUnit cu;
+    private MyImage image;
     private BufferedImage backg; 
     private TwoPoint toolTip;
 
     
 
-    public PaintPanel(ControlUnit cu, TwoPoint toolTip) {
-        this.cu = cu;
-        backg = BackGroundCreator.create(cu.getImg().getImg().getWidth(), cu.getImg().getImg().getHeight(), 10);
+    public PaintPanel(MyImage image, TwoPoint toolTip) {
+        this.image = image;
+        backg = BackGroundCreator.create(image.getImg().getWidth(), image.getImg().getHeight(), 10);
         toolBarMode = 0;
         this.toolTip = toolTip;
         this.scale = 1.0f;
@@ -42,8 +41,8 @@ public class PaintPanel extends JPanel implements Scrollable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
            Dimension imgSize = getImageSize();
-        imgSize.width = cu.getImg().getImg().getWidth();
-        imgSize.height = cu.getImg().getImg().getHeight();
+        imgSize.width = image.getImg().getWidth();
+        imgSize.height = image.getImg().getHeight();
         
         Graphics2D g2 = (Graphics2D) g;
         g2.scale(scale / 1, scale / 1);
@@ -51,7 +50,7 @@ public class PaintPanel extends JPanel implements Scrollable {
             backg = BackGroundCreator.create(imgSize.width, imgSize.height, 10);
         }
         g.drawImage(backg, 0, 0, null);
-        g.drawImage(cu.getImg().getImg(), 0, 0, null);
+        g.drawImage(image.getImg(), 0, 0, null);
 
         if (toolBarMode == LINE) {
             g.drawLine(toolTip.getPrevX(), toolTip.getPrevY(), toolTip.getCurX(), toolTip.getCurY());
@@ -63,7 +62,7 @@ public class PaintPanel extends JPanel implements Scrollable {
     }
 
     private Dimension getImageSize() {
-        return new Dimension(cu.getImg().getImg().getWidth(), cu.getImg().getImg().getHeight());
+        return new Dimension(image.getImg().getWidth(), image.getImg().getHeight());
     }
     
     public void setToolBarMode(int toolBarMode) {
@@ -100,6 +99,8 @@ public class PaintPanel extends JPanel implements Scrollable {
         Dimension d = getImageSize();
         d.width *= scale;
         d.height *= scale;
+        d.width += XTRA_SPACE;
+        d.height+= XTRA_SPACE;
         return d;
     }
 
@@ -113,7 +114,10 @@ public class PaintPanel extends JPanel implements Scrollable {
 
     @Override
     public Dimension getPreferredScrollableViewportSize() {
-       return getImageSize();
+       Dimension d = getImageSize();
+        d.width += XTRA_SPACE;
+        d.height+= XTRA_SPACE;
+        return d;
         
     }
 

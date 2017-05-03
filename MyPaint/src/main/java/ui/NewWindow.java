@@ -6,15 +6,16 @@ import ui.io.MouseGuy;
 import app.ControlUnit;
 import java.awt.*;
 import javax.swing.*;
+import ui.buttonPanels.Refreshable;
 
-public class NewWindow extends JFrame {
+public class NewWindow extends JFrame implements Refreshable{
 
     private final ControlUnit cu;
     MouseGuy m;
     KeyGuy k;
-    PaintPanel pan;
-    SwapPanel container;
-    InfoPanel t;
+    PaintPanel paintPanel;
+    SwapPanel options;
+    InfoPanel info;
 
     public NewWindow(ControlUnit cu, int preferredWidth, int preferredHeight) {
         this.cu = cu;
@@ -23,14 +24,16 @@ public class NewWindow extends JFrame {
     }
 
     private void installFrame(int width, int height) {
-        setTitle("LePaint v1.0");
+        setTitle("LePaint v1.1");
         setComponents();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         setMaximumSize(new Dimension(gd.getDisplayMode().getWidth(), gd.getDisplayMode().getHeight()));
         setMinimumSize(new Dimension(800, 400));
         setPreferredSize(new Dimension(width, height));
+        autoScale();
         revalidate();
+        refresh();
         pack();
         setVisible(true);
         requestFocus();
@@ -39,42 +42,69 @@ public class NewWindow extends JFrame {
     private void setComponents() {
         m = new MouseGuy(cu);
 
+        paintPanel = new PaintPanel(cu.getImg(), m.getToolTip());
+        info = new InfoPanel(cu.getImg(), paintPanel, m);
         
-      
-        pan = new PaintPanel(cu, m.getToolTip());
-        t = new InfoPanel(cu.getImg(), pan);
-        m.setInfo(t);
-        m.setBoard(pan);
+        m.setBoard(paintPanel);
         setLayout(new BorderLayout());
         
         JScrollPane scroll = getPaintBoard();
         getContentPane().add(scroll, BorderLayout.CENTER);
-        m.setBoard(pan);
-        getContentPane().add(t, BorderLayout.SOUTH);
-        getContentPane().add(new SwapPanel(this, cu, m, pan, 255, pan.getHeight()), BorderLayout.EAST);
+        m.setBoard(paintPanel);
+        getContentPane().add(info, BorderLayout.SOUTH);
+        options = new SwapPanel(this, cu, m, paintPanel, 255, paintPanel.getHeight());
+        getContentPane().add(options, BorderLayout.EAST);
 
-        k = new KeyGuy(cu, pan, this);
-
+        k = new KeyGuy(cu, paintPanel, this);
         addKeyListener(k);
+        
+        m.addRefreshOnClick(info);
+        m.addRefreshOnClick(options);
     }
 
     private JScrollPane getPaintBoard() {
 
-        JScrollPane scroll = new JScrollPane(pan);
+        JScrollPane scroll = new JScrollPane(paintPanel);
         scroll.setWheelScrollingEnabled(true);
         scroll.getVerticalScrollBar().setUnitIncrement(16);
 
-        pan.setBackground(Color.white);
-        pan.addMouseListener(m);
-        pan.addMouseMotionListener(m);
+        paintPanel.setBackground(Color.white);
+        paintPanel.addMouseListener(m);
+        paintPanel.addMouseMotionListener(m);
         scroll.addMouseListener(m);
         return scroll;
     }
 
+    @Override
     public void refresh() {
+        paintPanel.revalidate();
         repaint();
-        pan.repaint();
-        t.refresh();
+        paintPanel.repaint();
+        info.refresh();
+        options.refresh();
     }
+
+    public InfoPanel getInfo() {
+        return info;
+    }
+
+    public SwapPanel getOptionsPanel() {
+        return options;
+    }
+
+    public void autoScale() {
+        paintPanel.setScale(Math.max(1, getPreferredSize().width / cu.getImg().getImg().getWidth() - 1));
+    }
+
+    public SwapPanel getOptionPanel() {
+        return options;
+    }
+
+    public PaintPanel getPaintPanel() {
+        return paintPanel;
+    }
+    
+    
+    
 
 }

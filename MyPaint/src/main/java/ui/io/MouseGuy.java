@@ -5,13 +5,13 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JTextArea;
 import tools.TwoPoint;
-import ui.InfoPanel;
 import ui.PaintPanel;
+import ui.buttonPanels.Refreshable;
 
-public class MouseGuy implements MouseListener, MouseMotionListener {
+public class MouseGuy implements MouseListener, MouseMotionListener, Refreshable {
 
     public static final int UPDATE_CONSTANT = 2;
     public static final int UPDATE_ONRELEASE = 3;
@@ -20,38 +20,41 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     private final ControlUnit cu;
 
     private int refreshMode = 2;
-    TwoPoint a;
-    private InfoPanel info;
+    TwoPoint usageArea;  
     TwoPoint toolTip;
+    
     private final Random r;
+    private ArrayList<Refreshable> refreshOnClick;
 
     public MouseGuy(ControlUnit cu) {
         //  int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
         //    int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
         r = new Random();
         this.cu = cu;
-        a = new TwoPoint(0, 0);
+        usageArea = new TwoPoint(0, 0);
         toolTip = new TwoPoint(0, 0);
-        
+        refreshOnClick = new ArrayList<>();
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+
         int x = (int) (e.getX() / p.getScale());
         int y = (int) (e.getY() / p.getScale());
 
         p.resumeToolTip();
-        a.setAll(x, y);
+        usageArea.setAll(x, y);
         toolTip.setAll(x, y);
         if (refreshMode == UPDATE_CONSTANT) {
-            cu.execute(a);
+            cu.execute(usageArea);
         }
         if (e.getButton() == MouseEvent.BUTTON3) {
-            Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), Math.min(1f, r.nextFloat() * 2));
+            Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), r.nextFloat());
             cu.getImg().setColor(c);
+
         }
-        finish(e);
+        e.consume();
     }
 
     @Override
@@ -62,36 +65,33 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
         int x = (int) (e.getX() / p.getScale());
         int y = (int) (e.getY() / p.getScale());
         if (refreshMode == UPDATE_ONRELEASE) {
-            a.udpate(x, y);
-            cu.execute(a);
-        }
-        info.getColorInfo().setText("           Alpha:" + (int) (cu.getImg().getColor().getAlpha() / 2.55) + "    Current color: ");        
-        finish(e);
+            usageArea.udpate(x, y);
+            cu.execute(usageArea);
+            refresh();
+        }    
+        e.consume();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        info.getMouseText().setText("width:" + cu.getImg().getImg().getWidth() + " height: " + cu.getImg().getImg().getHeight() + "           mouse x:" + e.getX() + " y:" + e.getY());
         int x = (int) (e.getX() / p.getScale());
         int y = (int) (e.getY() / p.getScale());
         if (refreshMode == UPDATE_CONSTANT) {
             cu.setLogging(false);
-            a.udpate(x, y);
-            cu.execute(a);
+            usageArea.udpate(x, y);
+            cu.execute(usageArea);
+            refresh();
         }
-        toolTip.udpateCurrents(x, y);
-        finish(e);
+        toolTip.udpateCurrents(x, y);      
+        e.consume();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        info.getMouseText().setText(
-                "width:" + cu.getImg().getImg().getWidth()
-                + " height: " + cu.getImg().getImg().getHeight()
-                + "           mouse x:"
-                + Math.min((int) (e.getX() / p.getScale()), cu.getImg().getImg().getWidth())
-                + " y:" + Math.min((int) (e.getY() / p.getScale()), cu.getImg().getImg().getHeight()));
-        
+        int x = (int) (e.getX() / p.getScale());
+        int y = (int) (e.getY() / p.getScale());
+        toolTip.udpateCurrents(x, y);
+        refresh();
     }
 
     @Override
@@ -105,14 +105,9 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
+
     public void setBoard(PaintPanel p) {
         this.p = p;
-    }
-
-    private void finish(MouseEvent e) {
-        e.consume();
-        p.revalidate();
-        p.repaint();
     }
 
     public void setRefreshMode(int refreshMode) {
@@ -125,10 +120,15 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     public TwoPoint getToolTip() {
         return toolTip;
     }
-    public void setInfo(InfoPanel info) {
-        this.info = info;
+
+    public void addRefreshOnClick(Refreshable r) {
+        refreshOnClick.add(r);
     }
     
-    
-
+    @Override
+    public void refresh() {
+        refreshOnClick.forEach((refreshable) -> {
+            refreshable.refresh();
+        });
+    }
 }

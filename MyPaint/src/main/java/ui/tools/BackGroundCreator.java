@@ -5,24 +5,20 @@ import java.awt.image.BufferedImage;
 
 public class BackGroundCreator {
 
-    public static BufferedImage create(int width, int height, int rectSize) {
+    private static final Color A = new Color(222, 222, 222);
+    private static final Color B = new Color(135, 135, 135);
+    private static Color swap = new Color(222, 222, 222);
 
+    public static BufferedImage create(int width, int height, int rectSize) {
         BufferedImage bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Color a = new Color(222, 222, 222);
-        Color b = new Color(135, 135, 135);
-        Color swap = a;
+
         for (int rectY = 0; rectY * rectSize < bg.getHeight(); rectY++) {
-                if (swap.equals(a)) {
-                    swap = b;
-                } else {
-                    swap = a;
-                }
+            swap();
+            if (width % rectSize == 0) {
+                swap();
+            }
             for (int rectX = 0; rectX * rectSize < bg.getWidth(); rectX++) {
-                if (swap.equals(a)) {
-                    swap = b;
-                } else {
-                    swap = a;
-                }
+                swap();
 
                 for (int pixelY = 0; pixelY < rectSize; pixelY++) {
                     for (int pixelX = 0; pixelX < rectSize; pixelX++) {
@@ -35,5 +31,13 @@ public class BackGroundCreator {
             }
         }
         return bg;
+    }
+
+    private static void swap() {
+        if (swap.equals(A)) {
+            swap = B;
+        } else {
+            swap = A;
+        }
     }
 }

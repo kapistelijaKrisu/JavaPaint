@@ -1,21 +1,15 @@
 package ui.buttonPanels;
 
-import ui.NewWindow;
 import ui.io.MouseGuy;
 import app.ControlUnit;
 import app.PaintBrush;
 import app.cmd.CommandMap;
-
-import java.awt.BorderLayout;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -23,68 +17,66 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.plaf.metal.MetalSliderUI;
 import ui.NewWindow;
 import ui.PaintPanel;
 
-public class BrushUi extends JPanel {
+public class BrushUi extends JPanel implements Refreshable {
 
-    ControlUnit cu;
-    MouseGuy m;
-    PaintPanel p;
-    SwapPanel container;
-    NewWindow w;
-    
+    private final ControlUnit cu;
+    private final MouseGuy m;
+    private final NewWindow w;
+
     private JAlphaPanel alphaPanel;
+    private JBrushWidthPanel brushWidthPanel;
+    private JOverridePanel overridePanel;
 
-    public BrushUi(NewWindow w, ControlUnit cu, MouseGuy m, PaintPanel p, SwapPanel container, int width, int height) {
+    public BrushUi(NewWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
         this.cu = cu;
         this.m = m;
-        this.p = p;
         this.w = w;
-        this.container = container;
-        Dimension dim = new Dimension(width, height);
-        setPreferredSize(dim);
+
+        setPreferredSize(new Dimension(width, height));
         setBackground(Color.blue);
         setLayout(new GridLayout(7, 1, 1, 1));
         addbuttons();
-
-        revalidate();
-
     }
 
-    public void addbuttons() {
-        add(getSwapperButton());
-        add(getSwapper2Button());
-        add(new JOverridePanel(cu));
+    private void addbuttons() {
+        add(getDrawSwap());
+        add(getImageSwap());
+        overridePanel = new JOverridePanel(cu);
+        add(overridePanel);
         alphaPanel = new JAlphaPanel(cu);
         add(alphaPanel);
-        add(new JBrushWidthPanel(cu));
+        brushWidthPanel = new JBrushWidthPanel(cu);
+        add(brushWidthPanel);
         add(makeColorChooser());
         add(makeColorPicker());
     }
+    
+    @Override
+    public void refresh() {
+        alphaPanel.refresh();
+        brushWidthPanel.refresh();
+        overridePanel.refresh();
+    }
 
-    public JButton getSwapperButton() {
+    private JButton getDrawSwap() {
         ActionListener a = (ActionEvent e) -> {
-            container.showCMDPanel();
+            w.getOptionPanel().showCMDPanel();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("Draw Settings");
         b.addActionListener(a);
 
         return b;
-    }
+    } 
 
-    public void refresh() {
-        alphaPanel.refresh();
-    }
-
-    public JButton getSwapper2Button() {
+    private JButton getImageSwap() {
         ActionListener a = (ActionEvent e) -> {
-            container.showImgControlPanel();
+            w.getOptionPanel().showImgControlPanel();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("Image Settings");
@@ -99,9 +91,10 @@ public class BrushUi extends JPanel {
             Color c = JColorChooser.showDialog(null, "Choose a Color", cu.getImg().getColor());
             if (c != null) {
                 cu.getImg().setColor(c);
-                refresh();
+                w.refresh();
+                w.requestFocusInWindow();
             }
-            
+
         };
         b.addActionListener(a);
         return b;
@@ -112,12 +105,14 @@ public class BrushUi extends JPanel {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.PICKCOLOR);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
+            w.getPaintPanel().setToolBarMode(PaintPanel.RECT);
+            w.requestFocusInWindow();
         };
         b.addActionListener(a);
         return b;
     }
 
-    private class JOverridePanel extends JPanel {
+    private class JOverridePanel extends JPanel implements Refreshable {
 
         private JCheckBox hard;
         private JCheckBox soft;
@@ -125,14 +120,16 @@ public class BrushUi extends JPanel {
         public JOverridePanel(ControlUnit cu) {
             ActionListener a = (ActionEvent e) -> {
                 cu.getImg().setOverride(true);
+                w.requestFocusInWindow();
             };
             hard = new JCheckBox("Paint on top");
             hard.addActionListener(a);
             hard.setSelected(true);
             ActionListener b = (ActionEvent e) -> {
                 cu.getImg().setOverride(false);
+                w.requestFocusInWindow();
             };
-            soft = new JCheckBox("Fill pixels");
+            soft = new JCheckBox("Fill what's left");
             soft.addActionListener(b);
 
             setLayout(new GridLayout(2, 2));
@@ -143,68 +140,79 @@ public class BrushUi extends JPanel {
             add(soft);
             add(hard);
         }
+
+        @Override
+        public void refresh() {
+            if (cu.getImg().getBrushComposite() == AlphaComposite.SRC) {
+                soft.setSelected(false);
+                hard.setSelected(true);
+            } else {
+                hard.setSelected(false);
+                soft.setSelected(true);
+            }
+        }
     }
 
-    private class JAlphaPanel extends JPanel {
+    private class JAlphaPanel extends JPanel implements Refreshable {
 
-        private JLabel alphaValue;
-        private JSlider slider;
+        private final JLabel alphaValue;
+        private final JSlider slidez;
 
         public JAlphaPanel(ControlUnit cu) {
-            alphaValue = new JLabel("Alpha:" + (int) (cu.getImg().getColor().getAlpha() / 2.55) + "%");
+            alphaValue = new JLabel("Alpha:" + (int) (cu.getImg().getColor().getAlpha()) + "  (0-255)");
+            slidez = new JSlider();
+            slidez.setMaximum(255);
+            slidez.setMinimum(0);
+            slidez.setMajorTickSpacing(51);
+            slidez.setMinorTickSpacing(5);
+            slidez.setPaintTicks(true);
+            slidez.setPaintLabels(true);
+            slidez.setValue((int) (cu.getImg().getColor().getAlpha()));
 
-            slider = new JSlider();
-            slider.setValue((int) (cu.getImg().getColor().getAlpha() / 2.55));
-            slider.setMajorTickSpacing(25);
-            slider.setMinorTickSpacing(5);
-            slider.setPaintTicks(true);
-            slider.setPaintLabels(true);
+            slidez.setPaintLabels(true);
 
-            slider.setUI(new MetalSliderUI() {
+            slidez.setUI(new MetalSliderUI() {
+                @Override
                 protected void scrollDueToClickInTrack(int direction) {
-                    // this is the default behaviour, let's comment that out
-                    //scrollByBlock(direction);
 
-                    int value = slider.getValue();
-
-                    if (slider.getOrientation() == JSlider.HORIZONTAL) {
-                        value = this.valueForXPosition(slider.getMousePosition().x);
-                    } else if (slider.getOrientation() == JSlider.VERTICAL) {
-                        value = this.valueForYPosition(slider.getMousePosition().y);
-                    }
-                    slider.setValue(value);
+                    int value = slidez.getValue();
+                    value = this.valueForXPosition(slidez.getMousePosition().x);
+                    slidez.setValue(value);
                 }
             });
 
-            slider.addChangeListener((ChangeEvent e) -> {
+            slidez.addChangeListener((ChangeEvent e) -> {
+
                 JSlider source = (JSlider) e.getSource();
                 int value = source.getValue();
-                alphaValue.setText("Alpha:" + value + "%");
-                value *= 2.55;
-                int c = cu.getImg().getColor().getRGB();
-                c = c << 8;
-                c = c >> 8;
-                value = value << 24;
 
-                c = c | value;
-                cu.getImg().setColor(new Color(c, true));
+                Color c = cu.getImg().getColor();
+                alphaValue.setText("Alpha:" + value);
+
+                cu.getImg().setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), value));
+                w.refresh();
                 w.requestFocus();
+
             });
-            alphaValue.setLabelFor(slider);
+            alphaValue.setLabelFor(slidez);
             add(alphaValue);
-            add(slider);
+            add(slidez);
 
         }
-        
+
+        @Override
         public void refresh() {
-            slider.setValue((int)(cu.getImg().getColor().getAlpha() / 2.55));
+
+            int value = cu.getImg().getColor().getAlpha();
+            slidez.setValue(value);
+            alphaValue.setText("Alpha:" + value + "  (0-255)");
         }
     }
 
-    private class JBrushWidthPanel extends JPanel {
+    private class JBrushWidthPanel extends JPanel implements Refreshable {
 
-        private JLabel brushWidth;
-        private JSlider slider;
+        private final JLabel brushWidth;
+        private final JSlider slider;
 
         public JBrushWidthPanel(ControlUnit cu) {
             brushWidth = new JLabel("Width:" + cu.getImg().getBrushWidth());
@@ -219,16 +227,9 @@ public class BrushUi extends JPanel {
 
             slider.setUI(new MetalSliderUI() {
                 protected void scrollDueToClickInTrack(int direction) {
-                    // this is the default behaviour, let's comment that out
-                    //scrollByBlock(direction);
 
                     int value = slider.getValue();
-
-                    if (slider.getOrientation() == JSlider.HORIZONTAL) {
-                        value = this.valueForXPosition(slider.getMousePosition().x);
-                    } else if (slider.getOrientation() == JSlider.VERTICAL) {
-                        value = this.valueForYPosition(slider.getMousePosition().y);
-                    }
+                    value = this.valueForXPosition(slider.getMousePosition().x);
                     slider.setValue(value);
                 }
             });
@@ -239,12 +240,21 @@ public class BrushUi extends JPanel {
                 brushWidth.setText("Width:" + value);
 
                 cu.getImg().setWidth(value);
+                w.refresh();
                 w.requestFocus();
             });
 
             add(brushWidth);
+            brushWidth.setLabelFor(slider);
             add(slider);
 
+        }
+
+        @Override
+        public void refresh() {
+            int value = cu.getImg().getBrushWidth();
+            slider.setValue(value);
+            brushWidth.setText("Width:" + value);
         }
     }
 }

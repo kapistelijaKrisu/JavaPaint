@@ -132,4 +132,8 @@ public class MyImage {
     public int getBrushWidth() {
         return brush.getWidth();
     }
+    
+    public int getBrushComposite() {
+        return brush.getComposite();
+    }
 }

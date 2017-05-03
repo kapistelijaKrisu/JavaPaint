@@ -1,52 +1,41 @@
 package ui;
 
 import app.MyImage;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import javax.swing.JLabel;
-;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JSlider;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
-import javax.swing.plaf.basic.BasicSliderUI;
-import javax.swing.plaf.metal.MetalSliderUI;
+import ui.buttonPanels.Refreshable;
 import ui.io.MouseGuy;
 
-
-
-public class InfoPanel extends JPanel {
+public final class InfoPanel extends JPanel implements Refreshable {
 
     private final JLabel mouseText;
-    private JLabel colorInfo;
-    private JPanel colorPanel;
+    private final JLabel colorInfo;
+    private final JPanel colorPanel;
     private JLabel scaleInfo;
-    private JSlider slider;
-    private PaintPanel pan;
-    private MyImage img;
+    private final JSlider slider;
+    private final PaintPanel pan;
+    private final MyImage img;
+    private final MouseGuy mouse;
 
-    public InfoPanel(MyImage img, PaintPanel pan) {
+    public InfoPanel(MyImage img, PaintPanel pan, MouseGuy mouse) {
         this.pan = pan;
         this.img = img;
+        this.mouse = mouse;
 
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setAlignment(FlowLayout.LEADING);
         setLayout(flowLayout);
 
         mouseText = new JLabel();
-        // mouseText.getDocument().putProperty("filterNewlines", Boolean.TRUE);
         mouseText.setText("width:" + img.getImg().getWidth() + " height: " + img.getImg().getHeight());
-
         add(mouseText);
 
         colorInfo = new JLabel();
-        colorInfo.setText("           Alpha:" + (int) (img.getColor().getAlpha() / 2.55) + "    Current color: ");
+        colorInfo.setText("           Alpha:" + img.getColor().getAlpha() + "    Current color: ");
         add(colorInfo);
 
         colorPanel = new JPanel() {
@@ -57,7 +46,6 @@ public class InfoPanel extends JPanel {
                 g.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-
         add(colorPanel);
 
         slider = new JSlider(1, 16);
@@ -67,7 +55,6 @@ public class InfoPanel extends JPanel {
         slider.setValue((int) pan.getScale());
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
-
         slider.addChangeListener((ChangeEvent e) -> {
             JSlider source = (JSlider) e.getSource();
             int value = source.getValue();
@@ -80,25 +67,19 @@ public class InfoPanel extends JPanel {
         scaleInfo.setLabelFor(slider);
 
         add(scaleInfo);
-
         add(slider);
     }
 
+    @Override
     public void refresh() {
         slider.setValue((int) pan.getScale());
-        mouseText.setText("width:" + img.getImg().getWidth() + " height: " + img.getImg().getHeight());
+        mouseText.setText(
+                "width:" + img.getImg().getWidth()
+                + " height: " + img.getImg().getHeight()
+                + "           mouse x:"
+                + Math.min(mouse.getToolTip().getCurX(), img.getImg().getWidth())
+                + " y:" + Math.min(mouse.getToolTip().getCurY(), img.getImg().getHeight()));
+        colorInfo.setText("           Alpha:" + img.getColor().getAlpha() + "    Current color: ");
+        colorPanel.repaint();
     }
-
-    public JLabel getMouseText() {
-        return mouseText;
-    }
-
-    public JLabel getColorInfo() {
-        return colorInfo;
-    }
-
-    public JPanel getColorPanel() {
-        return colorPanel;
-    }
-
 }

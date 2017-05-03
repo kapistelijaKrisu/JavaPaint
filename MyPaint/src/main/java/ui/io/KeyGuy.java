@@ -28,44 +28,47 @@ public class KeyGuy extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
         switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), Math.min(1f, r.nextFloat() * 3));
+                Color c = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat(), Math.min(1f, r.nextFloat()));
                 cmd.getImg().setColor(c);
                 break;
 
             case KeyEvent.VK_Z:
                 cmd.undo();
-                w.repaint();
+                w.refresh();
                 break;
             case KeyEvent.VK_V:
                 cmd.redo();
-                w.repaint();
+                w.refresh();
                 break;
 
             case KeyEvent.VK_F4:
                 cmd.getImg().thin();
+                w.refresh();
                 break;
             case KeyEvent.VK_F5:
                 cmd.getImg().thicken();
+                w.refresh();
                 break;
             case KeyEvent.VK_F1:
-                p.setScale(p.getScale() * 0.75f);
-                w.repaint();
+                p.setScale(p.getScale() - 1);
+                w.refresh();
                 break;
             case KeyEvent.VK_F2:
-                p.setScale(p.getScale() * 1.5f);
-                w.repaint();
+                p.setScale(p.getScale() + 1);
+                w.refresh();
                 break;
             case KeyEvent.VK_7:
                 cmd.getImg().setOverride(false);
+                w.refresh();
                 break;
             case KeyEvent.VK_8:
                 cmd.getImg().setOverride(true);
+                w.refresh();
                 break;
         }
-        w.revalidate();
+        
         e.consume();
     }
 

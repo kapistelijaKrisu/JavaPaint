@@ -1,52 +1,38 @@
 package ui.buttonPanels;
 
-import ui.NewWindow;
 import ui.io.MouseGuy;
 import app.ControlUnit;
-import app.cmd.CommandMap;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.Action;
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileView;
+import tools.FileUtils;
 import ui.NewWindow;
-import ui.PaintPanel;
 
-public class ImageControlUI extends JPanel {
+public class ImageControlUI extends JPanel implements Refreshable {
 
-    ControlUnit cu;
-    MouseGuy m;
-    PaintPanel p;
-    SwapPanel container;
-    NewWindow w;
-    JSizePanel sp;
+    private final ControlUnit cu;
+    private final MouseGuy m;
+    private final NewWindow w;
+    private JSizePanel sizePanel;
+    private JButton undo, redo;
 
-    public ImageControlUI(NewWindow w, ControlUnit cu, MouseGuy m, PaintPanel p, SwapPanel container, int width, int height) {
+    public ImageControlUI(NewWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
         this.cu = cu;
         this.m = m;
-        this.p = p;
         this.w = w;
-        this.container = container;
-        Dimension dim = new Dimension(width, height);
-        setPreferredSize(dim);
+        setPreferredSize(new Dimension(width, height));
         setBackground(Color.green);
-        setLayout(new GridLayout(10, 1, 1, 1));
+        setLayout(new GridLayout(8, 1, 1, 1));
         addbuttons();
 
         revalidate();
@@ -54,41 +40,70 @@ public class ImageControlUI extends JPanel {
     }
 
     public void addbuttons() {
-        add(getSwapperButton());
-        add(getSwapper2Button());
+        add(getToDrawButton());
+        add(getToBrushButton());
         BufferedImage img = cu.getImg().getImg();
 
-        sp = new JSizePanel(0, 0, img.getWidth(), img.getHeight());
-        add(sp);
-        add(setSizePanel(sp));
+        sizePanel = new JSizePanel(0, 0, img.getWidth(), img.getHeight());
+        add(sizePanel);
+        add(getSizeButton(sizePanel));
         add(getLoadButton());
         add(getSaveButton());
+        undo = getUndoButton();
+        add(undo);
 
+        redo = getRedoButton();
+        add(redo);
+        refresh();
     }
 
-    public void refresh() {
-        sp.refresh(0, 0, cu.getImg().getImg().getWidth(), cu.getImg().getImg().getHeight());
-        w.refresh();
-        p.revalidate();
-        w.repaint();
+    private JButton getUndoButton() {
+        ActionListener a = (ActionEvent e) -> {
+            cu.undo();
+            w.refresh();
+            w.requestFocusInWindow();
+        };
+        JButton b = new JButton("Undo");
+        b.addActionListener(a);
+        return b;
     }
 
-    public JButton getSaveButton() {
+    private JButton getRedoButton() {
+        ActionListener a = (ActionEvent e) -> {
+            cu.redo();
+            w.refresh();
+            w.requestFocusInWindow();
+        };
+        JButton b = new JButton("Redo");
+        b.addActionListener(a);
+        return b;
+    }
+
+    private JButton getSaveButton() {
         ActionListener a = (ActionEvent e) -> {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
             fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
-  fileChooser.setFileFilter(new FileNameExtensionFilter("Images", "png", "jpg", "jpeg", "bmp", "gif", "tif", "tiff"));
-      
-int userSelection = fileChooser.showSaveDialog(w);
- 
-if (userSelection == JFileChooser.APPROVE_OPTION) {
-    File fileToSave = fileChooser.getSelectedFile();
-  //  fileChooser.get
-    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
-    System.out.println("cur " + fileChooser.getFileFilter());
-}
-          
+
+            fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+            FileNameExtensionFilter png = new FileNameExtensionFilter("*png", "png");
+            FileNameExtensionFilter jpg = new FileNameExtensionFilter("*jpg", "jpg");
+            fileChooser.setFileFilter(png);
+            fileChooser.setFileFilter(jpg);
+
+            int userSelection = fileChooser.showSaveDialog(w);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                FileUtils.setFileLocation(fileToSave.getAbsolutePath());
+                if (fileChooser.getFileFilter().equals(png)) {
+                    FileUtils.setFormat("png");
+
+                } else if (fileChooser.getFileFilter().equals(jpg)) {
+                    FileUtils.setFormat("jpg");
+                }
+                FileUtils.saveFile(cu.getImg().getImg());
+            }
+
             w.requestFocusInWindow();
             //  }
         };
@@ -97,22 +112,21 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
         return b;
     }
 
-    public JButton getLoadButton() {
+    private JButton getLoadButton() {
         ActionListener a = (ActionEvent e) -> {
             JFileChooser fc = new JFileChooser();
             fc.setDialogType(JFileChooser.OPEN_DIALOG);
-            
 
             fc.setFileFilter(new FileNameExtensionFilter("Images", "png", "jpg", "jpeg", "bmp", "gif", "tif", "tiff"));
             //      if (e.getSource() == openButton) {
             int returnVal = fc.showOpenDialog(w);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                //This is where a real application would open the file.
                 try {
-                    cu.setImage(ImageIO.read(file));
-                    refresh();
+                    Color old = cu.getImg().getColor();                   
+                    cu.setImage(FileUtils.loadImageAsARGB(fc.getSelectedFile()));                 
+                    cu.getImg().setColor(old);             
+                    w.refresh();
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -126,19 +140,10 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
         return b;
     }
 
-    public JButton getThickenBrushButton() {
-        ActionListener a = (ActionEvent e) -> {
 
-            w.requestFocusInWindow();
-        };
-        JButton b = new JButton("asd");
-        b.addActionListener(a);
-        return b;
-    }
-
-    public JButton getSwapperButton() {
+    private JButton getToDrawButton() {
         ActionListener a = (ActionEvent e) -> {
-            container.showCMDPanel();
+            w.getOptionPanel().showCMDPanel();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("Draw Settings");
@@ -147,9 +152,9 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
         return b;
     }
 
-    public JButton getSwapper2Button() {
+    public JButton getToBrushButton() {
         ActionListener a = (ActionEvent e) -> {
-            container.showBrushPanel();
+            w.getOptionPanel().showBrushPanel();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("Brush Settings");
@@ -158,7 +163,7 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
         return b;
     }
 
-    public JButton setSizePanel(JSizePanel sizePanel) {
+    private JButton getSizeButton(JSizePanel sizePanel) {
         ActionListener a = (ActionEvent e) -> {
             try {
                 int x = Integer.parseInt(sizePanel.startX.getText());
@@ -177,8 +182,8 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
                 resized.setData(img.getRaster());
                 cu.setImage(resized);
 
-                p.revalidate();
-                p.repaint();
+                w.refresh();
+                w.requestFocusInWindow();
 
             } catch (IllegalArgumentException ex) {
                 sizePanel.startX.setText("" + 0);
@@ -189,13 +194,26 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
             }
 
         };
-        JButton b = new JButton("APPLY");
+        JButton b = new JButton("CLIP/RESIZE");
 
         b.addActionListener(a);
         return b;
     }
 
-   
+    @Override
+    public void refresh() {
+        if (cu.getLog().getHistorySize() == 0) {
+            undo.setEnabled(false);
+        } else {
+            undo.setEnabled(true);
+        }
+
+        if (cu.getLog().getRedoSize() == 0) {
+            redo.setEnabled(false);
+        } else {
+            redo.setEnabled(true);
+        }
+    }
 
     private class JSizePanel extends JPanel {
 
@@ -212,28 +230,28 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
             width = new JTextField("" + w);
             height = new JTextField("" + h);
 
-            JLabel xl = new JLabel("startX:");
-            xl.setLabelFor(startX);
-            JLabel xll = new JLabel("startY:");
-            xll.setLabelFor(startY);
+            JLabel xLabel = new JLabel("startX:");
+            xLabel.setLabelFor(startX);
+            JLabel yLabel = new JLabel("startY:");
+            yLabel.setLabelFor(startY);
 
-            JLabel xlll = new JLabel("width:");
-            xlll.setLabelFor(startX);
-            JLabel xllll = new JLabel("height:");
-            xllll.setLabelFor(startY);
+            JLabel wLabel = new JLabel("width:");
+            wLabel.setLabelFor(startX);
+            JLabel hLabel = new JLabel("height:");
+            hLabel.setLabelFor(startY);
 
-            add(xl);
+            add(xLabel);
             add(startX);
-            add(xll);
+            add(yLabel);
             add(startY);
 
-            add(xlll);
+            add(wLabel);
             add(width);
-            add(xllll);
+            add(hLabel);
             add(height);
         }
 
-        public void refresh(int x, int y, int w, int h) {
+        public void set(int x, int y, int w, int h) {
             startX.setText("" + x);
             startY.setText("" + y);
             width.setText("" + w);
