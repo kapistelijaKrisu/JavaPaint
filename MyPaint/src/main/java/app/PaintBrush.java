@@ -2,11 +2,13 @@ package app;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import tools.OneLineException;
+
 /**
- * 
- * <p>A container of information for MyImage.</p>
- * <p>Holds width, composite, color values and assures their values are valid</p> 
+ *
+ * <p>
+ * A container of information for MyImage.</p>
+ * <p>
+ * Holds width, composite, color values and assures their values are valid</p>
  */
 public final class PaintBrush {
 
@@ -16,9 +18,10 @@ public final class PaintBrush {
     private Color color;
 
     /**
-     * 
-     * @param width - minimum of 1 and maximum of 20 else throws IllegalArgumentException <br>
-     * @param override  - see setOverride
+     *
+     * @param width - minimum of 1 and maximum of 20 else throws
+     * IllegalArgumentException <br>
+     * @param override - see setOverride
      */
     public PaintBrush(int width, boolean override) {
         if (!setWidth(width)) {
@@ -30,17 +33,18 @@ public final class PaintBrush {
     }
 
     /**
-     * 
+     *
      * @param color if null exception is thrown else a normal setter
      */
-    
     public void setColor(Color color) {
-        OneLineException.throwIfIsNull(color);
+        if (color == null) {
+            throw new NullPointerException();
+        }
         this.color = color;
     }
 
     /**
-     * 
+     *
      * @param width - value to be evaluated<br>
      * @return true if width is legal
      */
@@ -53,8 +57,9 @@ public final class PaintBrush {
     }
 
     /**
-     * 
-     * @param override if true = src. false = dst_over see more at alphacomposite
+     *
+     * @param override if true = src. false = dst_over see more at
+     * alphacomposite
      */
     public void setOverride(boolean override) {
         if (override) {

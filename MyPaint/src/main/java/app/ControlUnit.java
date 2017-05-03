@@ -3,7 +3,6 @@ package app;
 import app.cmd.CommandMap;
 import java.awt.image.BufferedImage;
 import tools.TwoPoint;
-import tools.OneLineException;
 
 /**
  *

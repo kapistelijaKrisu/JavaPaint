@@ -55,6 +55,7 @@ public class PaintPanel extends JPanel implements Scrollable {
         if (toolBarMode == LINE) {
             g.drawLine(toolTip.getPrevX(), toolTip.getPrevY(), toolTip.getCurX(), toolTip.getCurY());
         } else if (toolBarMode == RECT) {
+            System.out.println("?");
             Rectangle r = toolTip.getRectangle();
             g.drawRect(r.x, r.y, r.width, r.height);
         }
@@ -68,8 +69,8 @@ public class PaintPanel extends JPanel implements Scrollable {
     public void setToolBarMode(int toolBarMode) {
 
         this.toolBarMode = toolBarMode;
+        previousMode = toolBarMode;
         pauseToolTip();
-
     }
 
     public void pauseToolTip() {

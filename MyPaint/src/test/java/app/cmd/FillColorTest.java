@@ -99,6 +99,29 @@ public class FillColorTest {
 
         }
     }
+    
+    @Test
+    public void test4() {
+        a.setAll(2, 2);
+        testBits.get(2).add(1);
+        testBits.get(2).add(2);
+        testBits.get(2).add(0);
+    
+
+        cu.execute(a);
+        for (int i = 0; i < img.getHeight(); i++) {
+            for (int j = 0; j < img.getWidth(); j++) {
+                if (testBits.containsKey(i) && testBits.get(i).contains(j)) {
+
+                    Assert.assertEquals(Color.yellow.getRGB(), img.getRGB(i, j));
+                } else {
+                 //   Assert.assertFalse(img.getRGB(i, j) == cu.getImg().getColor().getRGB());
+                }
+
+            }
+
+        }
+    }
 
     @Test
     public void testArguments() {

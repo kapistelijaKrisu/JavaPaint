@@ -1,5 +1,6 @@
 package ui.buttonPanels;
 
+import ui.tools.Refreshable;
 import ui.io.MouseGuy;
 import app.ControlUnit;
 import app.PaintBrush;

@@ -1,5 +1,5 @@
 
-package ui.buttonPanels;
+package ui.tools;
 
 public interface Refreshable {
 

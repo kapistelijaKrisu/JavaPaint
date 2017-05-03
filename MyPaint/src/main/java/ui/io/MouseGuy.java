@@ -5,17 +5,18 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 import java.util.Random;
 import tools.TwoPoint;
+import ui.NewWindow;
 import ui.PaintPanel;
-import ui.buttonPanels.Refreshable;
+import ui.tools.Refreshable;
 
-public class MouseGuy implements MouseListener, MouseMotionListener, Refreshable {
+public class MouseGuy implements MouseListener, MouseMotionListener {
 
     public static final int UPDATE_CONSTANT = 2;
     public static final int UPDATE_ONRELEASE = 3;
 
+    private NewWindow w;
     private PaintPanel p;
     private final ControlUnit cu;
 
@@ -24,16 +25,15 @@ public class MouseGuy implements MouseListener, MouseMotionListener, Refreshable
     TwoPoint toolTip;
     
     private final Random r;
-    private ArrayList<Refreshable> refreshOnClick;
 
-    public MouseGuy(ControlUnit cu) {
+    public MouseGuy(ControlUnit cu, NewWindow w) {
         //  int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
         //    int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
         r = new Random();
         this.cu = cu;
+        this.w = w;
         usageArea = new TwoPoint(0, 0);
         toolTip = new TwoPoint(0, 0);
-        refreshOnClick = new ArrayList<>();
 
     }
 
@@ -67,7 +67,7 @@ public class MouseGuy implements MouseListener, MouseMotionListener, Refreshable
         if (refreshMode == UPDATE_ONRELEASE) {
             usageArea.udpate(x, y);
             cu.execute(usageArea);
-            refresh();
+            w.refresh();
         }    
         e.consume();
     }
@@ -80,9 +80,10 @@ public class MouseGuy implements MouseListener, MouseMotionListener, Refreshable
             cu.setLogging(false);
             usageArea.udpate(x, y);
             cu.execute(usageArea);
-            refresh();
+            w.refresh();
         }
-        toolTip.udpateCurrents(x, y);      
+        toolTip.udpateCurrents(x, y);   
+        w.getPaintPanel().repaint();
         e.consume();
     }
 
@@ -91,7 +92,7 @@ public class MouseGuy implements MouseListener, MouseMotionListener, Refreshable
         int x = (int) (e.getX() / p.getScale());
         int y = (int) (e.getY() / p.getScale());
         toolTip.udpateCurrents(x, y);
-        refresh();
+        w.refresh();
     }
 
     @Override
@@ -119,16 +120,5 @@ public class MouseGuy implements MouseListener, MouseMotionListener, Refreshable
 
     public TwoPoint getToolTip() {
         return toolTip;
-    }
-
-    public void addRefreshOnClick(Refreshable r) {
-        refreshOnClick.add(r);
-    }
-    
-    @Override
-    public void refresh() {
-        refreshOnClick.forEach((refreshable) -> {
-            refreshable.refresh();
-        });
     }
 }

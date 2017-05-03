@@ -4,13 +4,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.util.ArrayDeque;
-import tools.OneLineException;
 
 /**
- * 
+ *
  * Holds the history and redo steps in 2stacks and manages them
  */
-
 public class Log {
 
     private final ArrayDeque<BufferedImage> history;
@@ -23,13 +21,15 @@ public class Log {
     }
 
     /**
-     * 
-     * @param current puts the current image to redo stack.
-     * throws exception if null.
+     *
+     * @param current puts the current image to redo stack. throws exception if
+     * null.
      * @return return popped image from history stack.
      */
     public BufferedImage popPrevious(BufferedImage current) {
-        OneLineException.throwIfIsNull(current);
+        if (current == null) {
+            throw new NullPointerException();
+        }
         if (!history.isEmpty()) {
             BufferedImage prev = history.pop();
             redo.addFirst(current);
@@ -39,13 +39,15 @@ public class Log {
     }
 
     /**
-     * 
-     * @param current puts the current image to history stack.
-     * throws exception if null.
+     *
+     * @param current puts the current image to history stack. throws exception
+     * if null.
      * @return returns popped image from redo stack.
      */
     public BufferedImage popNext(BufferedImage current) {
-        OneLineException.throwIfIsNull(current);
+        if (current == null) {
+            throw new NullPointerException();
+        }
         if (!redo.isEmpty()) {
             BufferedImage next = redo.pop();
             history.addFirst(current);
@@ -56,13 +58,13 @@ public class Log {
     }
 
     /**
-     * 
+     *
      * @param img image is added to history stack.
      */
     public void archieveImage(BufferedImage img) {
         history.push(clone(img));
         redo.clear();
-        
+
         if (history.size() > logMaxSize) {
             history.pop();
         }
@@ -78,7 +80,7 @@ public class Log {
     public void setLogMaxSize(int logMaxSize) {
         this.logMaxSize = logMaxSize;
     }
-    
+
     public int getHistorySize() {
         return history.size();
     }

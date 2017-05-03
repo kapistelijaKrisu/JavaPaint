@@ -1,12 +1,11 @@
 package ui;
 
-import ui.buttonPanels.SwapPanel;
+import ui.tools.Refreshable;
 import ui.io.KeyGuy;
 import ui.io.MouseGuy;
 import app.ControlUnit;
 import java.awt.*;
 import javax.swing.*;
-import ui.buttonPanels.Refreshable;
 
 public class NewWindow extends JFrame implements Refreshable{
 
@@ -40,7 +39,7 @@ public class NewWindow extends JFrame implements Refreshable{
     }
 
     private void setComponents() {
-        m = new MouseGuy(cu);
+        m = new MouseGuy(cu, this);
 
         paintPanel = new PaintPanel(cu.getImg(), m.getToolTip());
         info = new InfoPanel(cu.getImg(), paintPanel, m);
@@ -57,9 +56,6 @@ public class NewWindow extends JFrame implements Refreshable{
 
         k = new KeyGuy(cu, paintPanel, this);
         addKeyListener(k);
-        
-        m.addRefreshOnClick(info);
-        m.addRefreshOnClick(options);
     }
 
     private JScrollPane getPaintBoard() {

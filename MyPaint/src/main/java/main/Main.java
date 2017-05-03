@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         ControlUnit app = new ControlUnit();
         NewWindow window = new NewWindow(app, 1200, 900);
-        EventQueue.invokeLater(app);
+    //    EventQueue.invokeLater(app);
 
     }
 }

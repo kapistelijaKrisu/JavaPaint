@@ -1,5 +1,6 @@
 package ui;
 
+import ui.tools.Refreshable;
 import app.MyImage;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -7,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
-import ui.buttonPanels.Refreshable;
 import ui.io.MouseGuy;
 
 public final class InfoPanel extends JPanel implements Refreshable {

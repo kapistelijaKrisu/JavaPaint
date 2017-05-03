@@ -1,13 +1,13 @@
-package ui.buttonPanels;
+package ui;
 
+import ui.tools.Refreshable;
 import ui.io.MouseGuy;
 import app.ControlUnit;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import ui.NewWindow;
-import ui.PaintPanel;
+import ui.buttonPanels.*;
 
 public class SwapPanel extends JPanel implements Refreshable {
 
