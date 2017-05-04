@@ -1,9 +1,9 @@
 ### Instructions
 Lower panel will tell you additional info for simple usage and contains a scale bar so use may zoom in easily upto 16x.<br>
 SidePanel is divided into three categories. <br>
-Draw Settings will let you pick what kind of manipulation you can do on image by clicking and draggin mouse. <br>
-Brush Settings will let you pick width and color of the painting brush.
-Image Settings will let you choose if you want to undo, redo, open, save or clip image. Clipping will also work to resize image.<br>
+1. Draw Settings will let you pick what kind of manipulation you can do on image by clicking and draggin mouse. <br>
+2. Brush Settings will let you pick width and color of the painting brush.
+3. Image Settings will let you choose if you want to undo, redo, open, save or clip image. Clipping will also work to resize image.<br>
 
 
 Mouse shortcuts not listed but exist: <br>
