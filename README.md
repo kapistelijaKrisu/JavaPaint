@@ -1,5 +1,5 @@
 # JavaPaint
-Familiar paint from with transparency and possible other picture modification tools.
+Easy to use image manipulation program with alpha channel.
 
 ## Documentation
 
