@@ -10,11 +10,11 @@ Mouse shortcuts not listed but exist: <br>
 right click - sets a random color in addition. <br><br>
 Key shortcuts not listed in buttons <br>
 Enter - pick random color <br>
-Z - undo, V - redo. <br>
-"+" thicken brush, "-" thin brush<br> 
+Z - undo<br>
+V - redo. <br>
 f4 - thin brush by 1 <br>
 f5 - thicken brush by 1 <br>
-f1 - decrease scale by 1x <br>
-f2 - increase scale by 1x <br>
+f1 - decrease view scale by 1x <br>
+f2 - increase view scale by 1x <br>
 7 - set brush mode to fill what's left<br>
 8 - paint on top<br>
