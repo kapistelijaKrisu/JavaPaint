@@ -2,6 +2,7 @@
 Familiar paint from with transparency and possible other picture modification tools.
 
 ##Documentation
+
 [User Guide](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/user-guide.md)
 
 [Subject Description](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/aiheenKuvausJaRakenne.md)
