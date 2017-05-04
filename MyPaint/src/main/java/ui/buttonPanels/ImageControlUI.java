@@ -17,17 +17,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import tools.FileUtils;
-import ui.NewWindow;
+import ui.TheWindow;
 
 public class ImageControlUI extends JPanel implements Refreshable {
 
     private final ControlUnit cu;
     private final MouseGuy m;
-    private final NewWindow w;
+    private final TheWindow w;
     private JSizePanel sizePanel;
     private JButton undo, redo;
 
-    public ImageControlUI(NewWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
+    public ImageControlUI(TheWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
         this.cu = cu;
         this.m = m;
         this.w = w;

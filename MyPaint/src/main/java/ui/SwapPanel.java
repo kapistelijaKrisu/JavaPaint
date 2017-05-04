@@ -15,13 +15,13 @@ public class SwapPanel extends JPanel implements Refreshable {
     ControlUnit cu;
     MouseGuy m;
     PaintPanel p;
-    NewWindow w;
+    TheWindow w;
 
     private CMDui cmdUi;
     private BrushUi brushUi;
     private ImageControlUI imgUi;
 
-    public SwapPanel(NewWindow w, ControlUnit cu, MouseGuy m, PaintPanel p, int width, int height) {
+    public SwapPanel(TheWindow w, ControlUnit cu, MouseGuy m, PaintPanel p, int width, int height) {
         this.cu = cu;
         this.m = m;
         this.p = p;

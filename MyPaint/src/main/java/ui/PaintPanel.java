@@ -16,6 +16,7 @@ public class PaintPanel extends JPanel implements Scrollable {
     public static final int NO_TOOLTIP = 0;
     public static final int LINE = 1;
     public static final int RECT = 2;
+    public static final int ELLIPSE = 3;
     private static final int XTRA_SPACE = 50;
     private int toolBarMode;
     private int previousMode;
@@ -55,9 +56,11 @@ public class PaintPanel extends JPanel implements Scrollable {
         if (toolBarMode == LINE) {
             g.drawLine(toolTip.getPrevX(), toolTip.getPrevY(), toolTip.getCurX(), toolTip.getCurY());
         } else if (toolBarMode == RECT) {
-            System.out.println("?");
             Rectangle r = toolTip.getRectangle();
             g.drawRect(r.x, r.y, r.width, r.height);
+        } else if (toolBarMode == ELLIPSE) {
+            Rectangle r = toolTip.getRectangle();
+            g.drawOval(r.x, r.y, r.width, r.height);
         }
 
     }

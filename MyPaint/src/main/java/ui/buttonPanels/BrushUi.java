@@ -20,20 +20,20 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.plaf.metal.MetalSliderUI;
-import ui.NewWindow;
+import ui.TheWindow;
 import ui.PaintPanel;
 
 public class BrushUi extends JPanel implements Refreshable {
 
     private final ControlUnit cu;
     private final MouseGuy m;
-    private final NewWindow w;
+    private final TheWindow w;
 
     private JAlphaPanel alphaPanel;
     private JBrushWidthPanel brushWidthPanel;
     private JOverridePanel overridePanel;
 
-    public BrushUi(NewWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
+    public BrushUi(TheWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
         this.cu = cu;
         this.m = m;
         this.w = w;
@@ -107,6 +107,8 @@ public class BrushUi extends JPanel implements Refreshable {
             cu.setActiveCMD(CommandMap.PICKCOLOR);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             w.getPaintPanel().setToolBarMode(PaintPanel.RECT);
+            w.getInfo().getCmdInfo().setText("Pick Color From Image");
+            w.refresh();
             w.requestFocusInWindow();
         };
         b.addActionListener(a);
@@ -240,7 +242,7 @@ public class BrushUi extends JPanel implements Refreshable {
                 int value = source.getValue();
                 brushWidth.setText("Width:" + value);
 
-                cu.getImg().setWidth(value);
+                cu.getImg().setBrushWidth(value);
                 w.refresh();
                 w.requestFocus();
             });

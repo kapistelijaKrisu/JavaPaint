@@ -10,13 +10,16 @@ import tools.TwoPoint;
  * The core of the application which by itself does nothing and only works upon
  * user calling it to manipulate MyImage.</p>
  */
-public class ControlUnit implements Runnable {
+public class ControlUnit {
 
     private final CommandMap cmds;
-    private MyImage img;
+    private final MyImage img;
     private Log log;
     private boolean logging;
 
+    /**
+     * Initializes its own variables. MyImages default size is 256x256.
+     */
     public ControlUnit() {
         cmds = new CommandMap();
         log = new Log();
@@ -24,52 +27,52 @@ public class ControlUnit implements Runnable {
         logging = true;
     }
 
-    public ControlUnit(int width, int height) {
-        if (width < 1 || height < 1) {
+    /**
+     * Initializes its own variables. Checks for image values not to be below 1.
+     * If rule is broken throws IllegalArgumentsException.
+     * @param imageWidth width of initial image.
+     * @param imageHeight height of initial image.
+     */
+    public ControlUnit(int imageWidth, int imageHeight) {
+        if (imageWidth < 1 || imageHeight < 1) {
             throw new IllegalArgumentException();
         }
         cmds = new CommandMap();
         log = new Log();
-        img = new MyImage(width, height);
+        img = new MyImage(imageWidth, imageHeight);
         logging = true;
     }
 
     /**
      *
-     * @param image sets the working image as image and adds previous image to
-     * log history
+     * @param image Sets this on myImage and adds previous image to log history
+     * if logging is set true.
      */
     public void setImage(BufferedImage image) {
-        updateHistory();
+        if (logging) {
+            updateHistory();
+        }
         img.setImg(image);
     }
 
     /**
-     * does nothing <br>
-     * all the commands are given externally.
-     */
-    @Override
-    public void run() {
-    }
-
-    /**
      * <p>
-     * adds to log current image of MyImage first. Then calls currently set CMD
-     * execute().</p>
+     * Adds to log current image of MyImage first if logging is true. Then calls
+     * currently set CMD to execute.</p>
      * <p>
-     * @param a coordinate information for CMD implementations to use</p>
+     * @param info coordinate information for CMD implementations to use</p>
      */
-    public void execute(TwoPoint a) {
+    public void execute(TwoPoint info) {
         if (logging) {
             updateHistory();
         }
-        cmds.getCurrentCMD().execute(img, a);
+        cmds.getCurrentCMD().execute(img, info);
     }
 
     /**
      * <p>
-     * sets active CMD on its cmds if value is legal. Does nothing if value is
-     * illegal.</p>
+     * Sets active CMD found by key from its commandMap as its active CMD. Does
+     * nothing if commmandMap does not contain the key.</p>
      *
      * @param key see CommandMap key values
      */
@@ -78,15 +81,15 @@ public class ControlUnit implements Runnable {
     }
 
     /**
-     * adds current MyImage image onto log.
+     * Adds current image onto log.
      */
     private void updateHistory() {
         log.archieveImage(img.getImg());
     }
 
     /**
-     * gets previous step if there is one from log. Sets said previous step as
-     * MyImage image
+     * Gets previous image from log and sets it as active image if there is one
+     * and saves current image onto log.
      */
     public void undo() {
         BufferedImage prev = log.popPrevious(img.getImg());
@@ -96,8 +99,9 @@ public class ControlUnit implements Runnable {
     }
 
     /**
-     * gets redo step if there is one from log. Sets said redo step as MyImage
-     * image
+     * Gets redo image from log and sets it as active image if there is one and
+     * saves current image onto log.
+     *
      */
     public void redo() {
         BufferedImage next = log.popNext(img.getImg());

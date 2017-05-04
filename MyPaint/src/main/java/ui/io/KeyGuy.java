@@ -5,17 +5,17 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
-import ui.NewWindow;
+import ui.TheWindow;
 import ui.PaintPanel;
 
 public class KeyGuy extends KeyAdapter {
 
     private final ControlUnit cmd;
-    private final NewWindow w;
+    private final TheWindow w;
     private final PaintPanel p;
     private final Random r = new Random();
 
-    public KeyGuy(ControlUnit cmd, PaintPanel p, NewWindow w) {
+    public KeyGuy(ControlUnit cmd, PaintPanel p, TheWindow w) {
         this.cmd = cmd;
         this.w = w;
         this.p = p;

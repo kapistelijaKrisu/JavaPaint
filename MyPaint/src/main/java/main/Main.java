@@ -1,15 +1,14 @@
 package main;
 
 import app.ControlUnit;
-import java.awt.EventQueue;
-import ui.NewWindow;
+import ui.TheWindow;
 
 public class Main {
 
     public static void main(String[] args) {
         ControlUnit app = new ControlUnit();
-        NewWindow window = new NewWindow(app, 1200, 900);
-    //    EventQueue.invokeLater(app);
+        TheWindow window = new TheWindow(app, 1200, 900);
+        window.setVisible(true);
 
     }
 }

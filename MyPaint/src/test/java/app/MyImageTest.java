@@ -1,5 +1,6 @@
 package app;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -24,7 +25,7 @@ public class MyImageTest {
     }
 
     @Test
-    public void constructorWorks() {
+    public void constructorTest() {
         Assert.assertTrue(img.getImg().getWidth() == width);
         Assert.assertTrue(img.getImg().getHeight() == height);
 
@@ -56,7 +57,7 @@ public class MyImageTest {
     }
 
     @Test
-    public void paintSettings() {
+    public void paintSettingsTest() {
         Assert.assertTrue(Color.black == img.getColor());
 
         PaintBrush p = new PaintBrush(3, false);
@@ -117,7 +118,7 @@ public class MyImageTest {
         Assert.assertEquals(Color.red.getRGB(), cu.getImg().getImg().getRGB(1, 1));
         Assert.assertNotEquals(Color.red.getRGB(), cu.getImg().getImg().getRGB(2, 1));
 
-        cu.getImg().setWidth(10);
+        cu.getImg().setBrushWidth(10);
         cu.getImg().setColor(Color.BLUE);
         cu.execute(a);
         for (int i = 0; i < 5; i++) {
@@ -176,6 +177,22 @@ public class MyImageTest {
 
         }
 
+    }
+    
+    @Test
+    public void getBrushWidthTest() {
+        Assert.assertEquals(1, img.getBrushWidth());
+        img.setBrushWidth(3);
+        Assert.assertEquals(3, img.getBrushWidth());
+    }
+    
+    @Test
+    public void getCompositeTest() {
+
+        
+        Assert.assertEquals(AlphaComposite.SRC, img.getBrushComposite());
+        img.setOverride(false);
+        Assert.assertEquals(AlphaComposite.DST_OVER, img.getBrushComposite());
     }
 
 }

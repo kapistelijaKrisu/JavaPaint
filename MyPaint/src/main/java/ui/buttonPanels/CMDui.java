@@ -11,16 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import ui.NewWindow;
+import ui.TheWindow;
 import ui.PaintPanel;
 
 public class CMDui extends JPanel {
 
     ControlUnit cu;
     MouseGuy m;
-    NewWindow w;
+    TheWindow w;
 
-    public CMDui(NewWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
+    public CMDui(TheWindow w, ControlUnit cu, MouseGuy m, int width, int height) {
         this.cu = cu;
         this.m = m;
         this.w = w;
@@ -42,8 +42,12 @@ public class CMDui extends JPanel {
         add(getDrawLineButton());
         add(getFillRectButton());
         add(getDrawRectButton());
+        add(getFillOvalButton());
+        add(getDrawOvalButton());
         add(getFillColorButton());
         add(getReplaceColorButton());
+        
+        
 
 
     }
@@ -53,6 +57,8 @@ public class CMDui extends JPanel {
             cu.setActiveCMD(CommandMap.DRAWLINE);
             m.setRefreshMode(MouseGuy.UPDATE_CONSTANT);
             w.getPaintPanel().setToolBarMode(PaintPanel.NO_TOOLTIP);
+            w.getInfo().getCmdInfo().setText("Brush");
+            w.refresh();
             w.requestFocusInWindow();
         };
 
@@ -66,9 +72,39 @@ public class CMDui extends JPanel {
             cu.setActiveCMD(CommandMap.FILLRECT);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             w.getPaintPanel().setToolBarMode(PaintPanel.RECT);
+            w.getInfo().getCmdInfo().setText("Fill Rect");
+            w.refresh();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("FILL RECT");
+        b.addActionListener(a);
+        return b;
+    }
+    
+    private JButton getDrawOvalButton() {
+        ActionListener a = (ActionEvent e) -> {
+            cu.setActiveCMD(CommandMap.DRAWELLIPSE);
+            m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
+            w.getPaintPanel().setToolBarMode(PaintPanel.ELLIPSE);
+            w.getInfo().getCmdInfo().setText("Draw Ellipse");
+            w.refresh();
+            w.requestFocusInWindow();
+        };
+        JButton b = new JButton("DRAW ELLIPSE");
+        b.addActionListener(a);
+        return b;
+    }
+    
+    private JButton getFillOvalButton() {
+        ActionListener a = (ActionEvent e) -> {
+            cu.setActiveCMD(CommandMap.FILLELLIPSE);
+            m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
+            w.getPaintPanel().setToolBarMode(PaintPanel.ELLIPSE);
+            w.getInfo().getCmdInfo().setText("Fill Ellipse");
+            w.refresh();
+            w.requestFocusInWindow();
+        };
+        JButton b = new JButton("FILL ELLIPSE");
         b.addActionListener(a);
         return b;
     }
@@ -78,6 +114,8 @@ public class CMDui extends JPanel {
             cu.setActiveCMD(CommandMap.DRAWRECT);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             w.getPaintPanel().setToolBarMode(PaintPanel.RECT);
+            w.getInfo().getCmdInfo().setText("Draw Rect");
+            w.refresh();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("DRAW RECT");
@@ -90,6 +128,8 @@ public class CMDui extends JPanel {
             cu.setActiveCMD(CommandMap.DRAWLINE);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             w.getPaintPanel().setToolBarMode(PaintPanel.LINE);
+            w.getInfo().getCmdInfo().setText("Draw Line");
+            w.refresh();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("DRAW LINE");
@@ -102,6 +142,8 @@ public class CMDui extends JPanel {
             cu.setActiveCMD(CommandMap.FILLCOLOR);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             w.getPaintPanel().setToolBarMode(PaintPanel.NO_TOOLTIP);
+            w.getInfo().getCmdInfo().setText("Fill breadth search");
+            w.refresh();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("FILL COLOR");
@@ -114,6 +156,8 @@ public class CMDui extends JPanel {
             cu.setActiveCMD(CommandMap.REPLACECOLOR);
             m.setRefreshMode(MouseGuy.UPDATE_ONRELEASE);
             w.getPaintPanel().setToolBarMode(PaintPanel.NO_TOOLTIP);
+            w.getInfo().getCmdInfo().setText("Replace all of Cclor");
+            w.refresh();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("REPLACE COLOR");
@@ -138,6 +182,7 @@ public class CMDui extends JPanel {
     private JButton getImageSettingSwapButton() {
         ActionListener a = (ActionEvent e) -> {
             w.getOptionPanel().showImgControlPanel();
+            w.refresh();
             w.requestFocusInWindow();
         };
         JButton b = new JButton("Image Settings");

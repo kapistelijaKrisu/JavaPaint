@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Random;
 import tools.TwoPoint;
-import ui.NewWindow;
+import ui.TheWindow;
 import ui.PaintPanel;
 import ui.tools.Refreshable;
 
@@ -16,7 +16,7 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     public static final int UPDATE_CONSTANT = 2;
     public static final int UPDATE_ONRELEASE = 3;
 
-    private NewWindow w;
+    private TheWindow w;
     private PaintPanel p;
     private final ControlUnit cu;
 
@@ -26,7 +26,7 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
     
     private final Random r;
 
-    public MouseGuy(ControlUnit cu, NewWindow w) {
+    public MouseGuy(ControlUnit cu, TheWindow w) {
         //  int x = (int) ((e.getX() - w.getxOffSet()) / w.getScale());
         //    int y = (int) ((e.getY() - w.getyOffSet()) / w.getScale());
         r = new Random();
@@ -65,7 +65,7 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
         int x = (int) (e.getX() / p.getScale());
         int y = (int) (e.getY() / p.getScale());
         if (refreshMode == UPDATE_ONRELEASE) {
-            usageArea.udpate(x, y);
+            usageArea.jump(x, y);
             cu.execute(usageArea);
             w.refresh();
         }    
@@ -78,7 +78,7 @@ public class MouseGuy implements MouseListener, MouseMotionListener {
         int y = (int) (e.getY() / p.getScale());
         if (refreshMode == UPDATE_CONSTANT) {
             cu.setLogging(false);
-            usageArea.udpate(x, y);
+            usageArea.jump(x, y);
             cu.execute(usageArea);
             w.refresh();
         }

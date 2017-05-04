@@ -1,11 +1,8 @@
 package tools;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -24,7 +21,7 @@ public final class FileUtils {
 
     /**
      * illegal to make an instance of this class. Will throw an exeption if you
-     * try.
+     * do.
      */
     private FileUtils() {
         throw new UnsupportedOperationException(("don't instantiate this class!"));
@@ -32,7 +29,7 @@ public final class FileUtils {
 
     /**
      *
-     * @param fileName sets name for filename and checks for fileName not to be
+     * @param fileName Sets name for filename and checks for fileName not to be
      * empty or null
      */
     public static void setFileLocation(String fileName) {
@@ -43,18 +40,19 @@ public final class FileUtils {
     }
 
     /**
-     * 
-     * @param file file pointing to image
-     * @return BufferedImage as BufferedImage.TYPE_INT_ARGB regardless of file extension. <br>
+     *
+     * @param file Pointer to image
+     * @return BufferedImage as BufferedImage.TYPE_INT_ARGB regardless of file
+     * original extension. <br>
      * returns null if fails.
      */
     public static BufferedImage loadImageAsARGB(File file) {
 
         BufferedImage ranodmFormatted = null;
-       
+
         try {
             ranodmFormatted = ImageIO.read(file);
-        } catch (IOException ex) {
+        } catch (IOException | IllegalArgumentException ex) {
             return null;
         }
 
@@ -76,22 +74,14 @@ public final class FileUtils {
         try {
             ImageIO.write(img, format, outputfile);
 
-        } catch (IOException ex) {
+        } catch (IOException | IllegalArgumentException ex) {
             //nothing should happen if exception occurs
         }
     }
 
-    /*
-    public static void loadFile(String path, ControlUnit app) {
-
-    }*/
-    public static String getFileName() {
-        return fileName;
-    }
-
     /**
      *
-     * @param format sets format to png or jpg. If format is something else does
+     * @param format Sets format to png or jpg. If format is something else does
      * nothing
      */
     public static void setFormat(String format) {
@@ -105,6 +95,10 @@ public final class FileUtils {
 
     public static String getFormat() {
         return format;
+    }
+
+    public static String getFileName() {
+        return fileName;
     }
 
 }

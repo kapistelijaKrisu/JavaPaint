@@ -1,7 +1,9 @@
 package ui;
 
+import app.ControlUnit;
 import ui.tools.Refreshable;
 import app.MyImage;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import javax.swing.JLabel;
@@ -16,33 +18,34 @@ public final class InfoPanel extends JPanel implements Refreshable {
     private final JLabel colorInfo;
     private final JPanel colorPanel;
     private JLabel scaleInfo;
+    private JLabel cmdInfo;
     private final JSlider slider;
     private final PaintPanel pan;
-    private final MyImage img;
     private final MouseGuy mouse;
+    private final ControlUnit cu;
 
-    public InfoPanel(MyImage img, PaintPanel pan, MouseGuy mouse) {
+    public InfoPanel(ControlUnit cu, PaintPanel pan, MouseGuy mouse) {
         this.pan = pan;
-        this.img = img;
+        this.cu = cu;
         this.mouse = mouse;
-
+        setPreferredSize(new Dimension(pan.getWidth(), 60));
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setAlignment(FlowLayout.LEADING);
         setLayout(flowLayout);
 
         mouseText = new JLabel();
-        mouseText.setText("width:" + img.getImg().getWidth() + " height: " + img.getImg().getHeight());
+        mouseText.setText("width:" + cu.getImg().getImg().getWidth() + " height: " + cu.getImg().getImg().getHeight());
         add(mouseText);
 
         colorInfo = new JLabel();
-        colorInfo.setText("           Alpha:" + img.getColor().getAlpha() + "    Current color: ");
+        colorInfo.setText("           Alpha:" + cu.getImg().getColor().getAlpha() + "    Current color: ");
         add(colorInfo);
 
         colorPanel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.setColor(img.getColor());
+                g.setColor(cu.getImg().getColor());
                 g.fillRect(0, 0, getWidth(), getHeight());
             }
         };
@@ -68,18 +71,26 @@ public final class InfoPanel extends JPanel implements Refreshable {
 
         add(scaleInfo);
         add(slider);
+        
+        cmdInfo = new JLabel("Brush");
+        add (new JLabel("Current CMD: "));
+        add(cmdInfo);
     }
 
     @Override
     public void refresh() {
         slider.setValue((int) pan.getScale());
         mouseText.setText(
-                "width:" + img.getImg().getWidth()
-                + " height: " + img.getImg().getHeight()
+                "width:" + cu.getImg().getImg().getWidth()
+                + " height: " + cu.getImg().getImg().getHeight()
                 + "           mouse x:"
-                + Math.min(mouse.getToolTip().getCurX(), img.getImg().getWidth())
-                + " y:" + Math.min(mouse.getToolTip().getCurY(), img.getImg().getHeight()));
-        colorInfo.setText("           Alpha:" + img.getColor().getAlpha() + "    Current color: ");
+                + Math.min(mouse.getToolTip().getCurX(), cu.getImg().getImg().getWidth())
+                + " y:" + Math.min(mouse.getToolTip().getCurY(), cu.getImg().getImg().getHeight()));
+        colorInfo.setText("           Alpha:" + cu.getImg().getColor().getAlpha() + "    Current color: ");
         colorPanel.repaint();
+    }
+
+    public JLabel getCmdInfo() {
+        return cmdInfo;
     }
 }

@@ -49,7 +49,7 @@ public class PaintBrushTest {
     }
     
     @Test
-    public void setColorWorks() {
+    public void testSetColorWorks() {
         try {
             brush.setColor(null);
             Assert.assertTrue(false);
@@ -59,7 +59,7 @@ public class PaintBrushTest {
     }
 
     @Test
-    public void setOverrideWorks() {
+    public void testSetOverrideWorks() {
         brush.setOverride(true);
         Assert.assertTrue(brush.getComposite() == AlphaComposite.SRC);
 
@@ -75,7 +75,7 @@ public class PaintBrushTest {
 
    
     @Test
-    public void setWidthWorks() {
+    public void testSetWidthWorks() {
         brush.setWidth(1);
         Assert.assertEquals(1, brush.getWidth());
 
@@ -91,5 +91,7 @@ public class PaintBrushTest {
         brush.setWidth(-10);
         Assert.assertEquals(PaintBrush.getMAX_WIDTH(), brush.getWidth());
     }
+    
+    
 
 }

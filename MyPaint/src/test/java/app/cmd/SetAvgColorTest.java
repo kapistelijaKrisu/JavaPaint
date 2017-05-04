@@ -17,7 +17,7 @@ public class SetAvgColorTest {
     @Before
     public void setUp() {
         cu = new ControlUnit(2, 4);
-        cu.getImg().setWidth(1);
+        cu.getImg().setBrushWidth(1);
         cu.getImg().setOverride(true);
         
         cmd = new FillRect();
@@ -47,7 +47,7 @@ public class SetAvgColorTest {
         }
  
         a.setAll(1, 1);
-        a.udpate(1, 3);
+        a.jump(1, 3);
         cu.execute(a);
 
         int aa = 0;

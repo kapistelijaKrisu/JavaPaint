@@ -23,7 +23,7 @@ public class LogTest {
         a = new TwoPoint(0, 0);
 
         int initial = img.getRGB(0, 0);
-        a.udpate(0, 4);
+        a.jump(0, 4);
         cu.execute(a);
         cu.undo();
         img = cu.getImg().getImg();
@@ -109,7 +109,7 @@ public class LogTest {
     }
     
     @Test
-    public void sizeTest() {
+    public void historySizeTest() {
         ControlUnit cu = new ControlUnit(5, 5);
         cu.setActiveCMD(CommandMap.DRAWLINE);
         cu.getImg().setColor(Color.black);
@@ -122,6 +122,27 @@ public class LogTest {
         for (int i = 0; i < 15; i++) {
             Assert.assertEquals(Math.min(i, 10), log.getHistorySize());
             cu.execute(a);
+        }
+    }
+    
+    @Test
+    public void redoSizeTest() {
+        ControlUnit cu = new ControlUnit(5, 5);
+        cu.setActiveCMD(CommandMap.DRAWLINE);
+        cu.getImg().setColor(Color.black);
+
+        MyImage img = cu.getImg();
+        Log log = cu.getLog();
+        log.setLogMaxSize(10);
+        TwoPoint a = new TwoPoint(0, 0);
+        
+        for (int i = 0; i < 10; i++) {
+            cu.execute(a);
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            cu.undo();
+            Assert.assertEquals(i+1, cu.getLog().getRedoSize());
         }
     }
 }

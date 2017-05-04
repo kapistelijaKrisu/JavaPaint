@@ -25,6 +25,12 @@ public class FileUtilsTest {
             Files.delete(f.toPath());
         } catch (IOException ex) {
         }
+
+        File f2 = new File("asd.jpg");
+        try {
+            Files.delete(f2.toPath());
+        } catch (IOException ex) {
+        }
     }
 
     @Test
@@ -70,7 +76,7 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void savesRight() {
+    public void savesRightTest() {
 
         FileUtils.setFileLocation("asd");
         FileUtils.setFormat("asd");
@@ -88,7 +94,7 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void testConstructorIsPrivate() throws Exception {
+    public void constructorIsPrivateTest() throws Exception {
         Constructor constructor = FileUtils.class.getDeclaredConstructor();
         assertTrue(Modifier.isPrivate(constructor.getModifiers()));
         constructor.setAccessible(true);
@@ -99,5 +105,37 @@ public class FileUtilsTest {
         } catch (UnsupportedOperationException | InvocationTargetException e) {
             assertTrue(true);
         }
+    }
+
+    @Test
+    public void openRightTest() {
+        FileUtils.setFileLocation("asd");
+        FileUtils.setFormat("jpg");
+        FileUtils.saveFile(new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB));
+        output = new File(FileUtils.getFileName() + "." + FileUtils.getFormat());
+        BufferedImage img = FileUtils.loadImageAsARGB(output);
+
+        Assert.assertEquals(BufferedImage.TYPE_INT_ARGB, img.getType());
+        output.delete();
+
+        FileUtils.setFileLocation("aaa");
+        FileUtils.setFormat("png");
+        FileUtils.saveFile(new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB));
+        output = new File(FileUtils.getFileName() + "." + FileUtils.getFormat());
+        img = FileUtils.loadImageAsARGB(output);
+
+        Assert.assertEquals(BufferedImage.TYPE_INT_ARGB, img.getType());
+        output.delete();
+
+    }
+
+    @Test
+    public void nullParamsDoNohing() {
+        output = null;
+        BufferedImage img = FileUtils.loadImageAsARGB(output);
+        Assert.assertEquals(null, img);
+
+        FileUtils.saveFile(img);
+        Assert.assertTrue(true);
     }
 }

@@ -16,5 +16,6 @@ Date | Hours | Description
 25.04.2017 | 2.0h | started ui
 26.04.2017 | 3.0h | google searching on how to use swing
 27.04.2017 | 3.0h | clean up & documenting
-... | ... | ...
-
+02.05.2017 | 8.0h | ui expansion
+03.05.2017 | 7.0h | ui expansion and refactoring
+04.05.2017 | 7.0h | ellipse commands added. ui, test, documentation cleanup. 

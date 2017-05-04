@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 
 /**
  *
- * Holds the history and redo steps in 2stacks and manages them
+ * Holds the history and redo steps in two stacks and manages them.
  */
 public class Log {
 
@@ -22,7 +22,7 @@ public class Log {
 
     /**
      *
-     * @param current puts the current image to redo stack. throws exception if
+     * @param current puts the current image to redo stack. Throws exception if
      * null.
      * @return return popped image from history stack.
      */
@@ -40,7 +40,7 @@ public class Log {
 
     /**
      *
-     * @param current puts the current image to history stack. throws exception
+     * @param current puts the current image to history stack. Throws exception
      * if null.
      * @return returns popped image from redo stack.
      */
@@ -59,7 +59,7 @@ public class Log {
 
     /**
      *
-     * @param img image is added to history stack.
+     * @param img clone of this image is added to history stack.
      */
     public void archieveImage(BufferedImage img) {
         history.push(clone(img));

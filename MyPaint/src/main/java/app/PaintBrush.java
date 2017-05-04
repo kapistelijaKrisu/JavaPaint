@@ -6,22 +6,24 @@ import java.awt.Color;
 /**
  *
  * <p>
- * A container of information for MyImage.</p>
+ * A container of graphical setting information.</p>
  * <p>
  * Holds width, composite, color values and assures their values are valid</p>
  */
 public final class PaintBrush {
 
-    private static final int MAX_WIDTH = 20;
+    private static final int MAXWIDTH = 20;
 
-    private int width, composite;
+    private int width;
+    private int composite;
     private Color color;
 
     /**
      *
      * @param width - minimum of 1 and maximum of 20 else throws
      * IllegalArgumentException <br>
-     * @param override - see setOverride
+     * @param override if true = src. false = dst_over see more at
+     * alphacomposite
      */
     public PaintBrush(int width, boolean override) {
         if (!setWidth(width)) {
@@ -34,7 +36,7 @@ public final class PaintBrush {
 
     /**
      *
-     * @param color if null exception is thrown else a normal setter
+     * @param color if null exception is thrown otherwise a normal setter
      */
     public void setColor(Color color) {
         if (color == null) {
@@ -45,11 +47,11 @@ public final class PaintBrush {
 
     /**
      *
-     * @param width - value to be evaluated<br>
+     * @param width - value to be checked between 1 and 20. If it is legal sets width else does nothing.<br>
      * @return true if width is legal
      */
     public boolean setWidth(int width) {
-        if (width > 0 && width <= MAX_WIDTH) {
+        if (width > 0 && width <= MAXWIDTH) {
             this.width = width;
             return true;
         }
@@ -58,8 +60,8 @@ public final class PaintBrush {
 
     /**
      *
-     * @param override if true = src. false = dst_over see more at
-     * alphacomposite
+     * @param override if true = sets composite to AlphaComposite.SRC. false = sets composite to AlphaComposite.DST_OVER. 
+     * 
      */
     public void setOverride(boolean override) {
         if (override) {
@@ -70,7 +72,7 @@ public final class PaintBrush {
     }
 
     public static int getMAX_WIDTH() {
-        return MAX_WIDTH;
+        return MAXWIDTH;
     }
 
     public int getWidth() {

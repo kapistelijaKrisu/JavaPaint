@@ -15,7 +15,7 @@ public class DrawLineTest {
     @Before
     public void setUp() {
         cu = new ControlUnit(10, 10);
-        cu.getImg().setWidth(1);
+        cu.getImg().setBrushWidth(1);
         cu.setActiveCMD(CommandMap.DRAWLINE);
     }
 

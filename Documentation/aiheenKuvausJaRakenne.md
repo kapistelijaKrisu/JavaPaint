@@ -8,20 +8,14 @@ Simple application for image manipulation.
 The artist
 
 ### Actions
-Create, modify and save images as png or jpg.*(if saved as jpg-file alpha channel disappears)*
+Modify any images and save them as png or jpg.*(if saved as jpg-file alpha channel disappears and this might bring rather interesting results)*
 
-### Instructions
-Look at buttons and choose what do you want to do with the image. Use mouse buttons by dragging or pressing around to draw.<br>
-Mouse shortcuts not listed but exist: <br>
-right click - sets a random color. <br><br>
-Key shortcuts not listed in buttons <br>
-Z - undo, X - redo. <br>
-"+" thicken brush, "-" thin brush<br>
 
 ### Program design
-Target image is held in MyImage object that holds long-term settings of brush, graphics, and bufferedimage. This makes it easier to manipulate or preserve settings.<br>
+Target image is held in MyImage object that holds long-term settings of brush, graphics, and bufferedimage. This makes it easier to manipulate and preserve settings.<br>
 ControlUnit holds the CommandMap which has mapped each type of image manipulation object that implements CMD. By setting active command (which is capsuled from misuse) the user decides which specific kind of manipulaiton he wants done on the image. ControlUnit also holds log object that contains history and redo stacks for going back and forth of changes on the image. User may choose when to use it.<br>
-UI simply gives an Area object to commands and they will figure out what to do with image based on that using the brush settings of MyImage as well.
+UI simply gives a TwoPoint information object to ControlUnit and it will pick current command and give it the information and image to work on. 
+
 
 
 ### Class Diagram

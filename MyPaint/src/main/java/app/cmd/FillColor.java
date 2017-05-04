@@ -10,27 +10,30 @@ import java.util.Collection;
 import java.util.HashSet;
 import tools.TwoPoint;
 
-
 /**
  *
- * <p>
- * An implementation of CMD which replaces a color of MyImage using breadth
- * search.</p>
+ * An implementation of CMD which replaces a color using breadth search on call.
  *
  */
 public class FillColor implements CMD {
 
+    /**
+     *
+     * Fills an area using breadth search starting from current values of point to img.
+     * @param img Target to be drawn on.
+     * @param point information on where to draw.
+     */
     @Override
-    public void execute(MyImage img, TwoPoint area) {
+    public void execute(MyImage img, TwoPoint point) {
 
         Graphics2D g = img.getGraphics();
-        int paintOn = img.getImg().getRGB(area.getCurX(), area.getCurY());
+        int paintOn = img.getImg().getRGB(point.getCurX(), point.getCurY());
         int paintColor = g.getColor().getRGB();
 
         HashSet<Coordinate> visited = new HashSet<>();
         ArrayDeque<Coordinate> que = new ArrayDeque<>();
-        que.add(new Coordinate(area.getCurX(), area.getCurY()));
-        visited.add(new Coordinate(area.getCurX(), area.getCurY()));
+        que.add(new Coordinate(point.getCurX(), point.getCurY()));
+        visited.add(new Coordinate(point.getCurX(), point.getCurY()));
 
         while (!que.isEmpty()) {
 

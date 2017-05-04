@@ -10,8 +10,9 @@ import tools.TwoPoint;
 /**
  *
  * <p>
- * Basically a BufferedImage with consistent graphics setting. PaintBrush object
- * contains graphical settings</p>
+ * Basically a BufferedImage Container with consistant graphics setting kept in
+ * PaintBrush object. Use its own getgraphics method to be working on same
+ * graphics over time.</p>
  */
 public class MyImage {
 
@@ -21,11 +22,12 @@ public class MyImage {
 
     /**
      * <p>
-     * creates BufferedImage and creates graphics object of it <br>
-     * Sets Area.class limits accordingly.<br>
-     * creates PaintBrush object which default settings are width = 1, override
-     * = SRC, Color = black </p>
-     * sets settings from brush to graphics
+     * Creates BufferedImage and sets its type to BufferedImage.TYPE_INT_ARGB
+     * and creates graphics object of it to be used constantly.<br>
+     * Sets static TwoPoint maximum limits accordingly to image size.<br>
+     * Creates PaintBrush object which default settings are width = 1, override
+     * = SRC, Color = Color.black </p>
+     * Sets settings from brush to graphics.
      * <p>
      * @param width - width of image <br>
      * @param height - height of image<br>
@@ -76,9 +78,9 @@ public class MyImage {
 
     /**
      *
-     * @param width - will not break limits from brush
+     * @param width - setter that will not break limits from brush.
      */
-    public void setWidth(int width) {
+    public void setBrushWidth(int width) {
         brush.setWidth(width);
         graphics.setStroke(new BasicStroke(brush.getWidth()));
     }
@@ -98,7 +100,7 @@ public class MyImage {
     /**
      *
      * @param brush sets brush to be current setting container and will also
-     * install said settings to graphics.
+     * install said settings from it to itself.
      */
     public void setBrush(PaintBrush brush) {
         this.brush = brush;
@@ -108,7 +110,7 @@ public class MyImage {
     }
 
     /**
-     * sets all settings from brush onto graphics
+     * Sets all settings from brush onto itself.
      */
     private void refreshSettings() {
         graphics = img.createGraphics();
@@ -119,8 +121,8 @@ public class MyImage {
 
     /**
      *
-     * @param img sets image to this. Updates Area.class max values. calls
-     * refreshSettings().
+     * @param img sets own image to this. Updates Area.class max values. Calls
+     * refreshSettings() to set graphical settings from brush onto new img.
      * <br> throws exception if null
      */
     public void setImg(BufferedImage img) {
@@ -132,7 +134,7 @@ public class MyImage {
     public int getBrushWidth() {
         return brush.getWidth();
     }
-    
+
     public int getBrushComposite() {
         return brush.getComposite();
     }

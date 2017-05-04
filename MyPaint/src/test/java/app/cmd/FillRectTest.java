@@ -15,7 +15,7 @@ public class FillRectTest {
     @Before
     public void setUp() {
         cu = new ControlUnit(10, 10);
-        cu.getImg().setWidth(1);
+        cu.getImg().setBrushWidth(1);
         cu.getImg().setOverride(true);
         cu.getImg().setColor(Color.yellow);
         cu.setActiveCMD(CommandMap.FILLRECT);
@@ -24,7 +24,7 @@ public class FillRectTest {
     
     @Test
     public void testRect() {
-        a.udpate(5, 5);
+        a.jump(5, 5);
         cu.execute(a);
 
         for (int i = 0; i < cu.getImg().getImg().getHeight(); i++) {

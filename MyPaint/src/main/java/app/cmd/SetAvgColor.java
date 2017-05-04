@@ -5,15 +5,22 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import tools.TwoPoint;
 
-/** 
- * 
- * <p>An implementation of CMD which picks the average color of an area and sets the value to MyImage.</p>
- * 
+/**
+ *
+ * An implementation of CMD which calculates the average color and sets it onto
+ * target.
+ *
  */
-
 public class SetAvgColor implements CMD {
 
-
+    /**
+     *
+     * Calculates average color based on area's getRectangle() and sets it onto
+     * img.
+     *
+     * @param img Target.
+     * @param area Information on where to calculate new color.
+     */
     @Override
     public void execute(MyImage img, TwoPoint area) {
         int a = 0;
@@ -38,7 +45,7 @@ public class SetAvgColor implements CMD {
         r /= divider;
         g /= divider;
         b /= divider;
-        
+
         img.setColor(new Color(r, g, b, a));
 
     }
