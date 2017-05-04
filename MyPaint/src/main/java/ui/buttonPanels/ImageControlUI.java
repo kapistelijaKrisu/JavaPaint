@@ -124,9 +124,9 @@ public class ImageControlUI extends JPanel implements Refreshable {
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 try {
-                    Color old = cu.getImg().getColor();                   
-                    cu.setImage(FileUtils.loadImageAsARGB(fc.getSelectedFile()));                 
-                    cu.getImg().setColor(old);             
+                    Color old = cu.getImg().getColor();
+                    cu.setImage(FileUtils.loadImageAsARGB(fc.getSelectedFile()));
+                    cu.getImg().setColor(old);
                     w.refresh();
 
                 } catch (Exception ex) {
@@ -140,7 +140,6 @@ public class ImageControlUI extends JPanel implements Refreshable {
         b.addActionListener(a);
         return b;
     }
-
 
     private JButton getToDrawButton() {
         ActionListener a = (ActionEvent e) -> {

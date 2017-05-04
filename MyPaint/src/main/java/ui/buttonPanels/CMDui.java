@@ -1,6 +1,5 @@
-
 package ui.buttonPanels;
-        
+
 import ui.io.MouseGuy;
 import app.ControlUnit;
 import app.cmd.CommandMap;
@@ -37,7 +36,7 @@ public class CMDui extends JPanel {
 
     public void addbuttons() {
         add(getBrushSwapButton());
-        add(getImageSettingSwapButton());     
+        add(getImageSettingSwapButton());
         add(getDrawButton());
         add(getDrawLineButton());
         add(getFillRectButton());
@@ -46,9 +45,6 @@ public class CMDui extends JPanel {
         add(getDrawOvalButton());
         add(getFillColorButton());
         add(getReplaceColorButton());
-        
-        
-
 
     }
 
@@ -80,7 +76,7 @@ public class CMDui extends JPanel {
         b.addActionListener(a);
         return b;
     }
-    
+
     private JButton getDrawOvalButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.DRAWELLIPSE);
@@ -94,7 +90,7 @@ public class CMDui extends JPanel {
         b.addActionListener(a);
         return b;
     }
-    
+
     private JButton getFillOvalButton() {
         ActionListener a = (ActionEvent e) -> {
             cu.setActiveCMD(CommandMap.FILLELLIPSE);
@@ -165,8 +161,6 @@ public class CMDui extends JPanel {
         return b;
     }
 
-    
-
     private JButton getBrushSwapButton() {
         ActionListener a = (ActionEvent e) -> {
             w.getOptionPanel().showBrushPanel();
@@ -178,7 +172,6 @@ public class CMDui extends JPanel {
         return b;
     }
 
-    
     private JButton getImageSettingSwapButton() {
         ActionListener a = (ActionEvent e) -> {
             w.getOptionPanel().showImgControlPanel();

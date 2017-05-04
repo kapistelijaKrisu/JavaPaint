@@ -6,9 +6,8 @@ import tools.TwoPoint;
 
 /**
  *
- * <p>
  * The core of the application which by itself does nothing and only works upon
- * user calling it to manipulate MyImage.</p>
+ * user calling it to manipulate MyImage.
  */
 public class ControlUnit {
 
@@ -30,6 +29,7 @@ public class ControlUnit {
     /**
      * Initializes its own variables. Checks for image values not to be below 1.
      * If rule is broken throws IllegalArgumentsException.
+     *
      * @param imageWidth width of initial image.
      * @param imageHeight height of initial image.
      */
@@ -56,11 +56,11 @@ public class ControlUnit {
     }
 
     /**
-     * <p>
+     *
      * Adds to log current image of MyImage first if logging is true. Then calls
-     * currently set CMD to execute.</p>
-     * <p>
-     * @param info coordinate information for CMD implementations to use</p>
+     * currently set CMD to execute.
+     *
+     * @param info coordinate information for CMD implementations to use
      */
     public void execute(TwoPoint info) {
         if (logging) {
@@ -70,9 +70,9 @@ public class ControlUnit {
     }
 
     /**
-     * <p>
+     *
      * Sets active CMD found by key from its commandMap as its active CMD. Does
-     * nothing if commmandMap does not contain the key.</p>
+     * nothing if commmandMap does not contain the key.
      *
      * @param key see CommandMap key values
      */

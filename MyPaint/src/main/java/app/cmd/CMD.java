@@ -5,9 +5,8 @@ import tools.TwoPoint;
 
 /**
  *
- * <p>
  * Interface which is designed for manipulating MyImage objects using
- * information from TwoPoint.</p>
+ * information from TwoPoint.
  *
  */
 public interface CMD {

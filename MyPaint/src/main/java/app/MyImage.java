@@ -9,10 +9,9 @@ import tools.TwoPoint;
 
 /**
  *
- * <p>
  * Basically a BufferedImage Container with consistant graphics setting kept in
  * PaintBrush object. Use its own getgraphics method to be working on same
- * graphics over time.</p>
+ * graphics over time.
  */
 public class MyImage {
 
@@ -21,18 +20,17 @@ public class MyImage {
     private PaintBrush brush;
 
     /**
-     * <p>
+     *
      * Creates BufferedImage and sets its type to BufferedImage.TYPE_INT_ARGB
      * and creates graphics object of it to be used constantly.<br>
      * Sets static TwoPoint maximum limits accordingly to image size.<br>
      * Creates PaintBrush object which default settings are width = 1, override
-     * = SRC, Color = Color.black </p>
-     * Sets settings from brush to graphics.
-     * <p>
+     * = SRC, Color = Color.black. Sets settings from brush to graphics.
+     *
      * @param width - width of image <br>
      * @param height - height of image<br>
      *
-     * throws exception if below 1</p>
+     * throws exception either of params if below 1.
      */
     public MyImage(int width, int height) {
         if (width < 1 || height < 1) {
@@ -78,27 +76,6 @@ public class MyImage {
 
     /**
      *
-     * @param width - setter that will not break limits from brush.
-     */
-    public void setBrushWidth(int width) {
-        brush.setWidth(width);
-        graphics.setStroke(new BasicStroke(brush.getWidth()));
-    }
-
-    public BufferedImage getImg() {
-        return img;
-    }
-
-    public Graphics2D getGraphics() {
-        return graphics;
-    }
-
-    public Color getColor() {
-        return brush.getColor();
-    }
-
-    /**
-     *
      * @param brush sets brush to be current setting container and will also
      * install said settings from it to itself.
      */
@@ -129,6 +106,27 @@ public class MyImage {
         this.img = img;
         refreshSettings();
         TwoPoint.setBounds(img.getWidth() - 1, img.getHeight() - 1);
+    }
+
+    /**
+     *
+     * @param width - setter that will not break limits from brush.
+     */
+    public void setBrushWidth(int width) {
+        brush.setWidth(width);
+        graphics.setStroke(new BasicStroke(brush.getWidth()));
+    }
+
+    public BufferedImage getImg() {
+        return img;
+    }
+
+    public Graphics2D getGraphics() {
+        return graphics;
+    }
+
+    public Color getColor() {
+        return brush.getColor();
     }
 
     public int getBrushWidth() {

@@ -56,7 +56,7 @@ public class BrushUi extends JPanel implements Refreshable {
         add(makeColorChooser());
         add(makeColorPicker());
     }
-    
+
     @Override
     public void refresh() {
         alphaPanel.refresh();
@@ -73,7 +73,7 @@ public class BrushUi extends JPanel implements Refreshable {
         b.addActionListener(a);
 
         return b;
-    } 
+    }
 
     private JButton getImageSwap() {
         ActionListener a = (ActionEvent e) -> {

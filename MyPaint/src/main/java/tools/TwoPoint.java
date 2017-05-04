@@ -27,11 +27,11 @@ public final class TwoPoint {
     }
 
     /**
+     * checks legality of values and fixes them.
      *
      * @param x - sets all x's
      * @param y sets all y's
      *
-     * checks legality of values and fixes them with fixToRange()
      */
     public void setAll(int x, int y) {
         x = fixToRange(x, true);
@@ -43,14 +43,13 @@ public final class TwoPoint {
     }
 
     /**
-     * <p>
+     * previousX will be previous currentX <br>
+     * previousY will be previous currentX <br>
      * parameters are checked and fixed with fixToRange()
      *
      * @param x - new curX
-     * @param y - new curY</p>
-     * <p>
-     * previousX will be previous currentX <br>
-     * previousY will be previous currentX </p>
+     * @param y - new curY
+     *
      */
     public void jump(int x, int y) {
         x = fixToRange(x, true);
@@ -62,13 +61,14 @@ public final class TwoPoint {
     }
 
     /**
-     * <p>
-     * parameters are checked and fixed with fixToRange()
+     *
+     * parameters are checked and fixed if needed.<br>
+     * previousX and previousY remains unchanged.
      *
      * @param x - new curX
-     * @param y - new curY</p>
-     * <p>
-     * previousX and previousY remains unchanged.
+     * @param y - new curY
+     *
+     *
      */
     public void udpateCurrents(int x, int y) {
         x = fixToRange(x, true);
@@ -81,7 +81,7 @@ public final class TwoPoint {
      *
      * @param value value to be fixed.
      * @param x - true = value is fixed according to x-axis, else value is fixed
-     * according to y-axis
+     * according to y-axis.
      * @return returns legal value of value. No changes will be made if value is
      * legal.
      */
@@ -113,7 +113,7 @@ public final class TwoPoint {
 
     /**
      *
-     * @param maxX maximum value that x's can have <br>
+     * @param maxX maximum value that x's can have
      * @param maxY maximum value that y's can have
      */
     public static void setBounds(int maxX, int maxY) {

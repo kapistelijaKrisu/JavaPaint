@@ -30,7 +30,7 @@ public final class FileUtils {
     /**
      *
      * @param fileName Sets name for filename and checks for fileName not to be
-     * empty or null
+     * empty or null. Does nothing if filename is invalid.
      */
     public static void setFileLocation(String fileName) {
         if (fileName == null || fileName.isEmpty()) {

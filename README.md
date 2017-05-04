@@ -9,7 +9,7 @@ Easy to use image manipulation program with alpha channel.
 
 [Hour Accounting](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/hour-accounting.md)
 
-[Pit-Report](https://htmlpreview.github.io/?https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/pit/201705041725/index.html)
+[Pit-Report](https://htmlpreview.github.io/?https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/pit/201705042011/index.html)
 
 [Test-Report](https://github.com/kapistelijaKrisu/JavaPaint/blob/master/Documentation/test-document-report.md)
 

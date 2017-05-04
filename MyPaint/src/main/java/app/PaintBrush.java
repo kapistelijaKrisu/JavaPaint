@@ -5,10 +5,9 @@ import java.awt.Color;
 
 /**
  *
- * <p>
- * A container of graphical setting information.</p>
- * <p>
- * Holds width, composite, color values and assures their values are valid</p>
+ *
+ * A container of graphical setting information.<br>
+ * Holds width, composite, color values and assures their values are valid
  */
 public final class PaintBrush {
 
@@ -21,7 +20,7 @@ public final class PaintBrush {
     /**
      *
      * @param width - minimum of 1 and maximum of 20 else throws
-     * IllegalArgumentException <br>
+     * IllegalArgumentException
      * @param override if true = src. false = dst_over see more at
      * alphacomposite
      */
@@ -47,7 +46,8 @@ public final class PaintBrush {
 
     /**
      *
-     * @param width - value to be checked between 1 and 20. If it is legal sets width else does nothing.<br>
+     * @param width - value to be checked between 1 and 20. If it is legal sets
+     * width else does nothing.
      * @return true if width is legal
      */
     public boolean setWidth(int width) {
@@ -60,8 +60,9 @@ public final class PaintBrush {
 
     /**
      *
-     * @param override if true = sets composite to AlphaComposite.SRC. false = sets composite to AlphaComposite.DST_OVER. 
-     * 
+     * @param override if true = sets composite to AlphaComposite.SRC. false =
+     * sets composite to AlphaComposite.DST_OVER.
+     *
      */
     public void setOverride(boolean override) {
         if (override) {
